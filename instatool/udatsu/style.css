@@ -224,7 +224,7 @@ body {
     transition: all 0.3s;
 }
 
-/* Image Styles */
+/* Image Styles - only apply when explicitly set */
 .slide-bg-image.img-contain {
     object-fit: contain;
 }
@@ -232,10 +232,12 @@ body {
 .slide-bg-image.img-corner {
     width: 50%;
     height: auto;
+    max-height: 50%;
     top: auto;
     left: auto;
     bottom: 0;
     right: 0;
+    object-fit: contain;
     mask-image: linear-gradient(to top left, black 50%, transparent 100%);
     -webkit-mask-image: linear-gradient(to top left, black 50%, transparent 100%);
     opacity: 0.8;
