@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice School Carousel Builder</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Libraries -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            /* Voice School Theme Color - Cyan/Blue */
+            --brand-neon: #00E5FF;
+            --brand-dark: #333;
+            --font-tsukushi: "Tsukushi B Round Gothic", "筑紫B丸ゴシック", "Zen Maru Gothic", sans-serif;
+            --panel-width: 480px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-family: "Zen Kaku Gothic New", sans-serif;
+            color: #333;
+            overflow: hidden;
+        }
+
+        .app-layout {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* --- Editor Panel --- */
+        .editor-panel {
+            width: var(--panel-width);
+            background: #fff;
+            color: #333;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .editor-header {
+            padding: 15px 20px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .editor-header h1 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        /* Slide Tabs */
+        .slide-tabs {
+            display: flex;
+            background: #eee;
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .slide-tab {
+            flex: 1;
+            padding: 10px 0;
+            text-align: center;
+            background: #ddd;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #666;
+            border-radius: 4px;
+        }
+
+        .slide-tab.active {
+            background: #333;
+            color: var(--brand-neon);
+        }
+
+        .editor-content {
+            padding: 20px;
+            padding-bottom: 120px;
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+            background: #fdfdfd;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .control-group h3 {
+            margin-top: 0;
+            font-size: 0.9rem;
+            color: #555;
+            border-bottom: 2px solid var(--brand-neon);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .input-row {
+            margin-bottom: 15px;
+        }
+
+        .input-row label {
+            display: block;
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .input-row input[type="text"],
+        .input-row textarea,
+        .input-row select {
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ccc;
+            color: #333;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .input-row textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .slider-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #eee;
+        }
+
+        .slider-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slider-item span {
+            font-size: 0.7rem;
+            color: #666;
+            margin-bottom: 2px;
+        }
+
+        .slider-item input[type="range"] {
+            width: 100%;
+            accent-color: var(--brand-neon);
+            height: 4px;
+            background: #eee;
+        }
+
+        /* --- Preview Panel --- */
+        .preview-panel {
+            flex: 1;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-image: radial-gradient(#ccc 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .ad-container {
+            width: 1080px;
+            height: 1350px;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            transform-origin: center center;
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        /* FRAMES */
+        .frame-simple::after {
+            content: '';
+            position: absolute;
+            inset: 40px;
+            border: 2px solid #ddd;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .frame-bold::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 30px solid var(--brand-neon);
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.1;
+        }
+
+        .frame-corner::after {
+            content: '';
+            position: absolute;
+            inset: 40px;
+            border: 4px solid var(--brand-neon);
+            pointer-events: none;
+            z-index: 50;
+            clip-path: polygon(0 0, 100px 0, 100px 4px, 4px 4px, 4px 100px, 0 100px,
+                    0 100%, 0 calc(100% - 100px), 4px calc(100% - 100px), 4px calc(100% - 4px), 100px calc(100% - 4px), 100px 100%, 0 100%,
+                    100% 100%, calc(100% - 100px) 100%, calc(100% - 100px) calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) calc(100% - 100px), 100% calc(100% - 100px),
+                    100% 0, 100% 100px, calc(100% - 4px) 100px, calc(100% - 4px) 4px, calc(100% - 100px) 4px, calc(100% - 100px) 0);
+        }
+
+        /* LAYERS */
+        .layer-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .layer-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.1;
+        }
+
+        .layer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: #fff;
+            opacity: 0.8;
+        }
+
+        .layer-decoration {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .deco-item {
+            position: absolute;
+            font-size: 5rem;
+            color: var(--brand-neon);
+            opacity: 0.5;
+            transform: translate(-50%, -50%);
+        }
+
+        .layer-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 80px;
+        }
+
+        .el-wrapper {
+            width: 100%;
+            position: relative;
+            transition: all 0.1s;
+        }
+
+        /* TEXT STYLES */
+        .text-tag {
+            color: #333;
+            letter-spacing: 0.2em;
+            font-weight: 600;
+            font-family: var(--font-tsukushi), sans-serif;
+            border-bottom: 3px solid var(--brand-neon);
+            padding: 5px 10px;
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .text-catch {
+            color: #333;
+            font-weight: 900;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            font-family: var(--font-tsukushi), sans-serif;
+        }
+
+        .text-catch strong {
+            background: linear-gradient(transparent 60%, var(--brand-neon) 60%);
+            font-weight: inherit;
+        }
+
+        .text-sub {
+            color: #555;
+            font-weight: 500;
+            line-height: 2.2;
+            white-space: pre-wrap;
+            font-family: var(--font-tsukushi), sans-serif;
+        }
+
+        .bonus-box {
+            border: 2px solid var(--brand-neon);
+            background: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: var(--font-tsukushi), sans-serif;
+            box-shadow: 8px 8px 0 rgba(0, 229, 255, 0.2);
+        }
+
+        .cta-box {
+            color: #fff;
+            background: var(--brand-neon);
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-family: var(--font-tsukushi), sans-serif;
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.4);
+            display: inline-block;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* FOOTER */
+        .footer-box {
+            position: absolute;
+            left: 60px;
+            right: 60px;
+            /* bottom value controlled via JS */
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-tsukushi), sans-serif;
+            z-index: 20;
+        }
+
+        .action-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 440px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        .btn-download {
+            background: var(--brand-neon);
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <!-- EDITOR -->
+        <div class="editor-panel">
+            <div class="editor-header">
+                <h1>Voice School Carousel</h1>
+                <p style="font-size: 0.8rem; color: #888;">For Voice Lesson Promotion</p>
+                <div style="margin-top: 10px;">
+                    <a href="../../instatool/udatsu/index.html" class="btn btn-secondary"
+                        style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:5px; background:#ddd; color:#333; padding:8px 15px; border-radius:4px; font-weight:bold; font-size:0.8rem;">
+                        <i class="fas fa-arrow-left"></i> Main Menu
+                    </a>
+                </div>
+            </div>
+
+            <div class="slide-tabs">
+                <div class="slide-tab active" onclick="switchSlide(0)">1</div>
+                <div class="slide-tab" onclick="switchSlide(1)">2</div>
+                <div class="slide-tab" onclick="switchSlide(2)">3</div>
+                <div class="slide-tab" onclick="switchSlide(3)">4</div>
+                <div class="slide-tab" onclick="switchSlide(4)">5</div>
+                <div class="slide-tab" onclick="switchSlide(5)">6</div>
+            </div>
+
+            <div class="editor-content">
+
+                <div class="control-group">
+                    <h3>Design & Frame</h3>
+                    <div class="input-row">
+                        <button onclick="setGlobalBg('../../instatool/udatsu/img/white_desk.jpg')">Desk</button>
+                        <!-- Frame Toggle -->
+                        <div style="margin-top:10px; display:flex; gap:5px;">
+                            <button onclick="setFrame('none')">No Frame</button>
+                            <button onclick="setFrame('simple')">Simple</button>
+                            <button onclick="setFrame('corner')">Corner</button>
+                        </div>
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Overlay</span><input type="range" id="bg-overlay" min="0" max="1"
+                                step="0.1" oninput="updateCurrentSlideState()"></div>
+                        <div class="slider-item"><span>Scale</span><input type="range" id="bg-scale" min="1" max="2"
+                                step="0.1" oninput="updateCurrentSlideState()"></div>
+                    </div>
+                </div>
+
+                <!-- Content Inputs -->
+                <div class="control-group">
+                    <h3>Slide Content</h3>
+
+                    <div class="input-row">
+                        <label>Tag</label>
+                        <input type="text" id="tag-text" oninput="updateCurrentSlideState()">
+                        <div class="slider-grid">
+                            <div class="slider-item"><span>Size</span><input type="range" id="tag-size" min="0.5"
+                                    max="3" step="0.1" oninput="updateCurrentSlideState()"></div>
+                            <div class="slider-item"><span>Margin-Top</span><input type="range" id="tag-margin" min="0"
+                                    max="300" step="5" oninput="updateCurrentSlideState()"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label>Main Catch</label>
+                        <textarea id="catch-text" oninput="updateCurrentSlideState()"></textarea>
+                        <div class="slider-grid">
+                            <div class="slider-item"><span>Size</span><input type="range" id="catch-size" min="2"
+                                    max="10" step="0.1" oninput="updateCurrentSlideState()"></div>
+                            <div class="slider-item"><span>Margin-Top</span><input type="range" id="catch-margin"
+                                    min="0" max="200" step="5" oninput="updateCurrentSlideState()"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label>Sub Text</label>
+                        <textarea id="sub-text" style="height:120px;" oninput="updateCurrentSlideState()"></textarea>
+                        <div class="slider-grid">
+                            <div class="slider-item"><span>Size</span><input type="range" id="sub-size" min="1" max="5"
+                                    step="0.1" oninput="updateCurrentSlideState()"></div>
+                            <div class="slider-item"><span>Margin-Top</span><input type="range" id="sub-margin" min="0"
+                                    max="200" step="5" oninput="updateCurrentSlideState()"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label>Bonus (Optional)</label>
+                        <input type="text" id="bonus-text" oninput="updateCurrentSlideState()">
+                        <div class="slider-grid">
+                            <div class="slider-item"><span>Size</span><input type="range" id="bonus-size" min="1"
+                                    max="5" step="0.1" oninput="updateCurrentSlideState()"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label>CTA (Optional)</label>
+                        <input type="text" id="cta-text" oninput="updateCurrentSlideState()">
+                        <div class="slider-grid">
+                            <div class="slider-item"><span>Size</span><input type="range" id="cta-size" min="1" max="5"
+                                    step="0.1" oninput="updateCurrentSlideState()"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decoration -->
+                <div class="control-group">
+                    <h3>Decoration (Icon)</h3>
+                    <div class="input-row">
+                        <select id="deco-icon" onchange="updateCurrentSlideState()">
+                            <option value="">None</option>
+                            <option value="fas fa-lightbulb">Lightbulb</option>
+                            <option value="fas fa-exclamation">Exclamation (!)</option>
+                            <option value="fas fa-check">Checkmark</option>
+                            <option value="fas fa-comment fa-flip-horizontal">Speech Bubble</option>
+                            <option value="fas fa-arrow-down">Arrow Down</option>
+                            <option value="fas fa-microphone">Microphone</option>
+                        </select>
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Size</span><input type="range" id="deco-size" min="2" max="30"
+                                step="1" oninput="updateCurrentSlideState()"></div>
+                        <div class="slider-item"><span>Pos X</span><input type="range" id="deco-x" min="0" max="100"
+                                step="1" oninput="updateCurrentSlideState()"></div>
+                        <div class="slider-item"><span>Pos Y</span><input type="range" id="deco-y" min="0" max="100"
+                                step="1" oninput="updateCurrentSlideState()"></div>
+                        <div class="slider-item"><span>Opacity</span><input type="range" id="deco-opacity" min="0.1"
+                                max="1" step="0.1" oninput="updateCurrentSlideState()"></div>
+                    </div>
+                </div>
+
+                <!-- Footer Control -->
+                <div class="control-group">
+                    <h3>Footer</h3>
+                    <div class="input-row"><input type="text" id="footer-text" value="@nyctstudio"
+                            oninput="updateGlobalFooter()"></div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Bottom Offset (px)</span><input type="range" id="footer-bottom"
+                                min="0" max="200" step="5" value="60" oninput="updateGlobalFooter()"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="action-bar">
+                <div class="btn btn-download" onclick="downloadImage()">Download Slide</div>
+            </div>
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="preview-panel">
+            <div id="ad-canvas" class="ad-container">
+                <!-- Layers -->
+                <div class="layer-bg"><img id="render-bg" src=""></div>
+                <div id="render-overlay" class="layer-overlay"></div>
+
+                <!-- Decoration -->
+                <div class="layer-decoration">
+                    <i id="render-deco" class="deco-item"></i>
+                </div>
+
+                <!-- Content -->
+                <div class="layer-content">
+                    <div id="wrap-tag" class="el-wrapper"><span id="render-tag" class="text-tag">TAG</span></div>
+                    <div id="wrap-catch" class="el-wrapper">
+                        <div id="render-catch" class="text-catch">CATCH</div>
+                    </div>
+                    <div id="wrap-sub" class="el-wrapper">
+                        <div id="render-sub" class="text-sub">SUB</div>
+                    </div>
+                    <div id="wrap-bonus" class="el-wrapper">
+                        <div id="render-bonus" class="bonus-box">BONUS</div>
+                    </div>
+                    <div id="wrap-cta" class="el-wrapper">
+                        <div id="render-cta" class="cta-box">CTA</div>
+                    </div>
+
+                    <div id="wrap-footer" class="footer-box">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <!-- Updated Logo to Voice School / Generic -->
+                            <span style="font-weight: bold; font-size: 2.0rem; letter-spacing: 0.05em; color:#333;">NYCT
+                                Studio</span>
+                        </div>
+                        <div id="render-footer-text" style="font-size: 1.6rem; opacity: 0.8; color:#333;">@id</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Initial Data (Voice School Theme) ---
+        const defaultSlides = [
+            {
+                tag: "VOICE LESSON", tagS: 1.0, catch: "あなたがモテないのは、\nその「声」のせいかも\nしれません。", sub: "",
+                bonus: "", bonusS: 1.8, cta: "", ctaS: 1.8,
+                bg: "../../instatool/udatsu/img/white_desk.jpg", overlay: 0.9, scale: 1.1,
+                tagM: 120, catchS: 7.0, catchM: 80, subS: 2.2, subM: 40,
+                frame: "simple", deco: "fas fa-comment fa-flip-horizontal", decoS: 15, decoX: 50, decoY: 20, decoO: 0.2
+            },
+            {
+                tag: "REALITY", tagS: 1.0, catch: "人は「話し方」で\n印象の9割を決める。", sub: "言ってることは正しいのに、\nなぜか話が通じない。\n\nそれは、あなたの声のトーンや\n話し方が原因かもしれません。",
+                bonus: "", bonusS: 1.8, cta: "", ctaS: 1.8,
+                bg: "../../instatool/udatsu/img/white_desk.jpg", overlay: 0.92, scale: 1.1,
+                tagM: 100, catchS: 6.0, catchM: 60, subS: 2.2, subM: 60,
+                frame: "simple", deco: "fas fa-exclamation", decoS: 20, decoX: 80, decoY: 80, decoO: 0.1
+            },
+            {
+                tag: "BLIND SPOT", tagS: 1.0, catch: "自分の話し方は\n自分では分からない。", sub: "自分の声、録音して聞いたことはありますか？\n\n「なんか嫌な感じ」と思っている自分の声こそ、\n他人が聞いているあなたの『本当の声』です。",
+                bonus: "", bonusS: 1.8, cta: "", ctaS: 1.8,
+                bg: "../../instatool/udatsu/img/white_desk.jpg", overlay: 0.92, scale: 1.1,
+                tagM: 100, catchS: 6.0, catchM: 60, subS: 2.2, subM: 60,
+                frame: "simple", deco: "fas fa-microphone", decoS: 20, decoX: 20, decoY: 30, decoO: 0.1
+            },
+            {
+                tag: "PROFESSIONAL", tagS: 1.0, catch: "声のプロは\n毎日「確認」する。", sub: "自分を客観視できるかどうか。\n\nそれが、\n「好かれる人」と「嫌われる人」の\n決定的な差です。",
+                bonus: "", bonusS: 1.8, cta: "", ctaS: 1.8,
+                bg: "../../instatool/udatsu/img/white_desk.jpg", overlay: 0.92, scale: 1.1,
+                tagM: 100, catchS: 6.0, catchM: 60, subS: 2.2, subM: 60,
+                frame: "simple", deco: "fas fa-check", decoS: 20, decoX: 50, decoY: 90, decoO: 0.1
+            },
+            {
+                tag: "TRAINING", tagS: 1.0, catch: "声は、技術で\nコントロールできる。", sub: "持って生まれたものではありません。\n\n出し方、強さ、間（ま）。\n正しいトレーニングで、\nあなたの印象は劇的に変わります。",
+                bonus: "", bonusS: 1.8, cta: "", ctaS: 1.8,
+                bg: "../../instatool/udatsu/img/white_desk.jpg", overlay: 0.92, scale: 1.1,
+                tagM: 100, catchS: 6.0, catchM: 60, subS: 2.2, subM: 60,
+                frame: "simple", deco: "fas fa-lightbulb", decoS: 15, decoX: 80, decoY: 20, decoO: 0.1
+            },
+            {
+                tag: "TRY NOW", tagS: 1.0, catch: "「嫌われる話し方」\n卒業しませんか？", sub: "あなたの声のどこが「損」をしているのか、\nプロが診断します。\nまずは30分、試してみてください。",
+                bonus: "初回体験レッスン 30分無料", bonusS: 2.5, cta: "詳しくはプロフィールへ", ctaS: 2.2,
+                bg: "../../instatool/udatsu/img/white_desk.jpg", overlay: 0.85, scale: 1.1,
+                tagM: 60, catchS: 6.0, catchM: 40, subS: 2.0, subM: 40,
+                frame: "corner", deco: "fas fa-arrow-down", decoS: 10, decoX: 50, decoY: 70, decoO: 0.4
+            }
+        ];
+
+        let slides = JSON.parse(JSON.stringify(defaultSlides)); // Deep copy
+        let currentIndex = 0;
+
+        function init() {
+            renderInputValues(0);
+            updatePreview();
+            autoZoom();
+            window.addEventListener('resize', autoZoom);
+        }
+
+        function switchSlide(index) {
+            currentIndex = index;
+            document.querySelectorAll('.slide-tab').forEach((el, i) => {
+                if (i === index) el.classList.add('active');
+                else el.classList.remove('active');
+            });
+            renderInputValues(index);
+            updatePreview();
+        }
+
+        function renderInputValues(index) {
+            const data = slides[index];
+            const setVal = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.value = val;
+            };
+
+            setVal('tag-text', data.tag);
+            setVal('tag-size', data.tagS || 1.0);
+
+            setVal('catch-text', data.catch);
+            setVal('sub-text', data.sub);
+
+            setVal('bonus-text', data.bonus);
+            setVal('bonus-size', data.bonusS || 1.8);
+
+            setVal('cta-text', data.cta);
+            setVal('cta-size', data.ctaS || 1.8);
+
+            setVal('tag-margin', data.tagM || 100);
+            setVal('catch-size', data.catchS || 6.0);
+            setVal('catch-margin', data.catchM || 60);
+            setVal('sub-size', data.subS || 2.2);
+            setVal('sub-margin', data.subM || 60);
+            setVal('bg-overlay', data.overlay);
+            setVal('bg-scale', data.scale);
+
+            setVal('deco-icon', data.deco || "");
+            setVal('deco-size', data.decoS || 10);
+            setVal('deco-x', data.decoX || 50);
+            setVal('deco-y', data.decoY || 50);
+            setVal('deco-opacity', data.decoO || 0.1);
+        }
+
+        function updateCurrentSlideState() {
+            const data = slides[currentIndex];
+
+            data.tag = document.getElementById('tag-text').value;
+            data.tagS = document.getElementById('tag-size').value;
+
+            data.catch = document.getElementById('catch-text').value;
+            data.sub = document.getElementById('sub-text').value;
+
+            data.bonus = document.getElementById('bonus-text').value;
+            data.bonusS = document.getElementById('bonus-size').value;
+
+            data.cta = document.getElementById('cta-text').value;
+            data.ctaS = document.getElementById('cta-size').value;
+
+            data.tagM = document.getElementById('tag-margin').value;
+            data.catchS = document.getElementById('catch-size').value;
+            data.catchM = document.getElementById('catch-margin').value;
+            data.subS = document.getElementById('sub-size').value;
+            data.subM = document.getElementById('sub-margin').value;
+
+            data.overlay = document.getElementById('bg-overlay').value;
+            data.scale = document.getElementById('bg-scale').value;
+
+            data.deco = document.getElementById('deco-icon').value;
+            data.decoS = document.getElementById('deco-size').value;
+            data.decoX = document.getElementById('deco-x').value;
+            data.decoY = document.getElementById('deco-y').value;
+            data.decoO = document.getElementById('deco-opacity').value;
+
+            updatePreview();
+        }
+
+        function setGlobalBg(url) {
+            slides.forEach(s => s.bg = url);
+            updatePreview();
+        }
+
+        function setFrame(type) {
+            slides[currentIndex].frame = type;
+            updatePreview();
+        }
+
+        function updateGlobalFooter() {
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const data = slides[currentIndex];
+            const container = document.getElementById('ad-canvas');
+
+            // Frame
+            container.className = 'ad-container';
+            if (data.frame === 'simple') container.classList.add('frame-simple');
+            if (data.frame === 'bold') container.classList.add('frame-bold');
+            if (data.frame === 'corner') container.classList.add('frame-corner');
+
+            // BG
+            document.getElementById('render-bg').src = data.bg;
+            document.getElementById('render-bg').style.transform = `scale(${data.scale})`;
+            document.getElementById('render-overlay').style.backgroundColor = `rgba(255,255,255,${data.overlay})`;
+
+            // Decoration
+            const decoEl = document.getElementById('render-deco');
+            if (data.deco) {
+                decoEl.className = `deco-item ${data.deco}`;
+                decoEl.style.fontSize = `${data.decoS}rem`;
+                decoEl.style.left = `${data.decoX}%`;
+                decoEl.style.top = `${data.decoY}%`;
+                decoEl.style.opacity = `${data.decoO}`;
+                decoEl.style.display = 'block';
+            } else {
+                decoEl.style.display = 'none';
+            }
+
+            // Tag
+            const tagEl = document.getElementById('render-tag');
+            const tagWrap = document.getElementById('wrap-tag');
+            tagEl.innerText = data.tag;
+            tagWrap.style.marginTop = `${data.tagM}px`;
+            tagEl.style.fontSize = `${data.tagS || 1.0}rem`;
+            tagWrap.style.display = data.tag ? 'block' : 'none';
+
+            // Catch
+            const catchEl = document.getElementById('render-catch');
+            const catchWrap = document.getElementById('wrap-catch');
+            catchEl.innerHTML = data.catch.replace(/\n/g, '<br>');
+            catchEl.style.fontSize = `${data.catchS}rem`;
+            catchWrap.style.marginTop = `${data.catchM}px`;
+
+            // Sub
+            const subEl = document.getElementById('render-sub');
+            const subWrap = document.getElementById('wrap-sub');
+            subEl.innerText = data.sub;
+            subEl.style.fontSize = `${data.subS}rem`;
+            subWrap.style.marginTop = `${data.subM}px`;
+            subWrap.style.display = data.sub ? 'block' : 'none';
+
+            // Bonus
+            const bonusEl = document.getElementById('render-bonus');
+            const bonusWrap = document.getElementById('wrap-bonus');
+            bonusEl.innerText = data.bonus;
+            bonusEl.style.fontSize = `${data.bonusS || 1.8}rem`;
+            bonusWrap.style.marginTop = '60px';
+            bonusWrap.style.display = data.bonus ? 'block' : 'none';
+
+            // CTA
+            const ctaEl = document.getElementById('render-cta');
+            const ctaWrap = document.getElementById('wrap-cta');
+            ctaEl.innerText = data.cta;
+            ctaEl.style.fontSize = `${data.ctaS || 1.8}rem`;
+            ctaWrap.style.marginTop = '40px';
+            ctaWrap.style.display = data.cta ? 'block' : 'none';
+
+            // Footer (Fixed Adjusted)
+            const footerWrap = document.getElementById('wrap-footer');
+            const footerBottom = document.getElementById('footer-bottom').value;
+            footerWrap.style.bottom = `${footerBottom}px`;
+            document.getElementById('render-footer-text').innerText = document.getElementById('footer-text').value;
+        }
+
+        function autoZoom() {
+            const container = document.getElementById('ad-canvas');
+            const aW = window.innerWidth - 480;
+            const aH = window.innerHeight;
+            const s = Math.min(aW / 1200, aH / 1450) * 0.9;
+            if (s > 0) container.style.transform = `scale(${Math.max(s, 0.2)})`;
+        }
+
+        async function downloadImage() {
+            const canvas = document.getElementById('ad-canvas');
+            const originalTransform = canvas.style.transform;
+            canvas.style.transform = 'scale(1)';
+
+            try {
+                const result = await html2canvas(canvas, {
+                    scale: 1, useCORS: true, width: 1080, height: 1350,
+                    backgroundColor: '#fff', scrollY: -window.scrollY
+                });
+                const link = document.createElement('a');
+                link.download = `voice_school_slide_${currentIndex + 1}.png`;
+                link.href = result.toDataURL('image/png');
+                link.click();
+            } catch (e) {
+                console.error(e);
+                alert('Export Error');
+            } finally {
+                canvas.style.transform = originalTransform;
+            }
+        }
+
+        init();
+
+    </script>
+</body>
+
+</html>
