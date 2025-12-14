@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Udatsu Professional Ad Generator v2</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Libraries -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --brand-neon: #FCC800;
+            --brand-teal: #00A4D8;
+            --brand-black: #111;
+            --font-main: "Zen Kaku Gothic New", sans-serif;
+            --font-mincho: "Zen Old Mincho", serif;
+            --font-tsukushi: "Tsukushi B Round Gothic", "筑紫B丸ゴシック", "Zen Maru Gothic", sans-serif;
+            --panel-width: 450px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-family: var(--font-main);
+            color: #333;
+            overflow: hidden;
+            /* App-like feel */
+        }
+
+        .app-layout {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* --- Editor Panel (Left) --- */
+        .editor-panel {
+            width: var(--panel-width);
+            background: #1a1a1a;
+            color: #ddd;
+            overflow-y: auto;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .editor-header {
+            padding: 20px;
+            background: #111;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .editor-header h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .editor-header p {
+            margin: 5px 0 0;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .editor-content {
+            padding: 20px;
+            padding-bottom: 100px;
+            /* Space for footer/scroll */
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .control-group h3 {
+            margin-top: 0;
+            font-size: 0.95rem;
+            color: var(--brand-neon);
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-row {
+            margin-bottom: 15px;
+        }
+
+        .input-row label {
+            display: block;
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-bottom: 4px;
+        }
+
+        .input-row input[type="text"],
+        .input-row textarea,
+        .input-row select {
+            width: 100%;
+            background: #111;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .input-row textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* Sliders Grid */
+        .slider-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #444;
+        }
+
+        .slider-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slider-item span {
+            font-size: 0.7rem;
+            color: #888;
+            margin-bottom: 2px;
+        }
+
+        .slider-item input[type="range"] {
+            width: 100%;
+            accent-color: var(--brand-teal);
+            height: 4px;
+        }
+
+        /* --- Preview Panel (Right) --- */
+        .preview-panel {
+            flex: 1;
+            background: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-image: radial-gradient(#999 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* --- Ad Canvas (The Slide) --- */
+        .ad-container {
+            width: 1080px;
+            height: 1350px;
+            background: #000;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            /* Default Layout: Center Column */
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            transform-origin: center center;
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        /* Layers */
+        .layer-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .layer-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .layer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: #000;
+            opacity: 0.5;
+            /* Dynamic */
+        }
+
+        .layer-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 80px;
+            /* Safe area */
+        }
+
+        /* Element Wrappers (For layout flow) */
+        .el-wrapper {
+            width: 100%;
+            position: relative;
+            /* Allows translate */
+            /* Flex layout handles vertical stacking */
+            transition: all 0.1s;
+        }
+
+        /* Text Styles Defaults */
+        .text-tag {
+            color: var(--brand-neon);
+            letter-spacing: 0.3em;
+            font-weight: 600;
+            font-family: var(--font-tsukushi), sans-serif;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .text-catch {
+            color: #fff;
+            font-weight: 900;
+            line-height: 1.2;
+            white-space: pre-wrap;
+            font-family: var(--font-tsukushi), sans-serif;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.9);
+        }
+
+        .text-sub {
+            color: #eee;
+            font-weight: 500;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            font-family: var(--font-tsukushi), sans-serif;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.9);
+        }
+
+        .bonus-box {
+            border: 2px solid var(--brand-teal);
+            background: rgba(0, 164, 216, 0.2);
+            /* Darker/Stronger */
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            font-family: var(--font-tsukushi), sans-serif;
+        }
+
+        .cta-box {
+            color: var(--brand-teal);
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            font-family: var(--font-tsukushi), sans-serif;
+        }
+
+        .footer-box {
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-tsukushi), sans-serif;
+        }
+
+        /* Pattern: Frame */
+        .pattern-frame::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Export Button */
+        .download-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 410px;
+            /* Inside panel width roughly */
+            background: var(--brand-neon);
+            color: #000;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: transform 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <!-- EDITOR -->
+        <div class="editor-panel">
+            <div class="editor-header">
+                <h1>Udatsu Ad Generator v2.0</h1>
+                <p>Granular Control System</p>
+            </div>
+
+            <div class="editor-content">
+
+                <!-- 0. Design Presets -->
+                <div class="control-group">
+                    <h3>0. Design Pattern</h3>
+                    <div class="input-row">
+                        <button
+                            style="width:30%; padding:10px; background:#333; color:#fff; border:1px solid #555; cursor:pointer;"
+                            onclick="applyPreset('standard')">Standard</button>
+                        <button
+                            style="width:30%; padding:10px; background:#333; color:#fff; border:1px solid #555; cursor:pointer;"
+                            onclick="applyPreset('frame')">Frame</button>
+                        <button
+                            style="width:30%; padding:10px; background:#333; color:#fff; border:1px solid #555; cursor:pointer;"
+                            onclick="applyPreset('cinematic')">Cinematic</button>
+                    </div>
+                </div>
+
+                <!-- 1. Background -->
+                <div class="control-group">
+                    <h3>1. Background</h3>
+                    <div class="input-row">
+                        <label>Image URL (or select below)</label>
+                        <input type="text" id="bg-url" value="../../../imagestock/okimagemodel/udatsu_casual_v2.png"
+                            oninput="updateAll()">
+                        <div style="display:flex; gap:5px; margin-top:5px; flex-wrap:wrap;">
+                            <button onclick="setBg('udatsu_casual_v2.png')">Casual</button>
+                            <button onclick="setBg('udatsu_model_closeup_v4.jpg')">Closeup</button>
+                            <button onclick="setBg('udatsu_commute_v3.png')">Commute</button>
+                            <button onclick="setBg('img/concrete_bg.png')">Concrete</button>
+                        </div>
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Overlay Opacity</span><input type="range" id="bg-overlay" min="0"
+                                max="1" step="0.1" value="0.4" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Scale</span><input type="range" id="bg-scale" min="1" max="2"
+                                step="0.1" value="1" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Pos X</span><input type="range" id="bg-x" min="-50" max="50"
+                                step="1" value="0" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Pos Y</span><input type="range" id="bg-y" min="-50" max="50"
+                                step="1" value="0" oninput="updateAll()"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Tagline -->
+                <div class="control-group">
+                    <h3>2. Tagline (上部タグ)</h3>
+                    <div class="input-row">
+                        <input type="text" id="tag-text" value="VOICE ARCHIVE" oninput="updateAll()">
+                    </div>
+                    <div class="input-row">
+                        <select id="tag-font" onchange="updateAll()">
+                            <option value="tsukushi" selected>Tsukushi B (丸ゴシック)</option>
+                            <option value="mincho">Zen Old Mincho (明朝)</option>
+                            <option value="noto">Noto Sans (ゴシック)</option>
+                        </select>
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Size (rem)</span><input type="range" id="tag-size" min="0.5"
+                                max="5" step="0.1" value="1.4" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Spacing (Top)</span><input type="range" id="tag-margin" min="0"
+                                max="200" step="5" value="60" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Offset Y</span><input type="range" id="tag-y" min="-100"
+                                max="100" step="5" value="0" oninput="updateAll()"></div>
+                    </div>
+                </div>
+
+                <!-- 3. Catch Copy -->
+                <div class="control-group">
+                    <h3>3. Catch Copy (メイン)</h3>
+                    <div class="input-row">
+                        <textarea id="catch-text" oninput="updateAll()">あなたの声が、&#13;&#10;自動で記事になる。</textarea>
+                    </div>
+                    <div class="input-row">
+                        <select id="catch-font" onchange="updateAll()">
+                            <option value="tsukushi" selected>Tsukushi B (丸ゴシック)</option>
+                            <option value="mincho">Zen Old Mincho (明朝)</option>
+                            <option value="noto">Noto Sans (ゴシック)</option>
+                        </select>
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Size (rem)</span><input type="range" id="catch-size" min="2"
+                                max="10" step="0.1" value="7.0" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Spacing (Top)</span><input type="range" id="catch-margin" min="0"
+                                max="200" step="5" value="40" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Offset Y</span><input type="range" id="catch-y" min="-100"
+                                max="100" step="5" value="0" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Color</span><select id="catch-color" onchange="updateAll()">
+                                <option value="neon">Neon</option>
+                                <option value="white">White</option>
+                                <option value="teal">Teal</option>
+                            </select></div>
+                    </div>
+                </div>
+
+                <!-- 4. Sub Copy -->
+                <div class="control-group">
+                    <h3>4. Sub Copy (詳細)</h3>
+                    <div class="input-row">
+                        <textarea id="sub-text"
+                            oninput="updateAll()">録音を送るだけ。AIが執筆・毎日更新。&#13;&#10;書く手間ゼロで、あなたの「思想」が検索上位へ。</textarea>
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Size (rem)</span><input type="range" id="sub-size" min="1"
+                                max="5" step="0.1" value="2.5" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Spacing (Top)</span><input type="range" id="sub-margin" min="0"
+                                max="200" step="5" value="50" oninput="updateAll()"></div>
+                    </div>
+                </div>
+
+                <!-- 5. Bonus -->
+                <div class="control-group">
+                    <h3>5. Bonus (特典)</h3>
+                    <div class="input-row">
+                        <input type="text" id="bonus-text" value="今なら音声から5記事無料作成プレゼント！" oninput="updateAll()">
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Size (rem)</span><input type="range" id="bonus-size" min="1"
+                                max="4" step="0.1" value="1.8" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Spacing (Top)</span><input type="range" id="bonus-margin" min="0"
+                                max="200" step="5" value="80" oninput="updateAll()"></div>
+                    </div>
+                </div>
+
+                <!-- 6. CTA -->
+                <div class="control-group">
+                    <h3>6. CTA</h3>
+                    <div class="input-row">
+                        <input type="text" id="cta-text" value="まずは無料Zoom説明会へ →" oninput="updateAll()">
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Size (rem)</span><input type="range" id="cta-size" min="1"
+                                max="4" step="0.1" value="2.0" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Spacing (Top)</span><input type="range" id="cta-margin" min="0"
+                                max="200" step="5" value="40" oninput="updateAll()"></div>
+                    </div>
+                </div>
+
+                <!-- 7. Footer -->
+                <div class="control-group">
+                    <h3>7. Footer</h3>
+                    <div class="input-row">
+                        <label>Account ID</label>
+                        <input type="text" id="footer-text" value="@udatsuageteko" oninput="updateAll()">
+                    </div>
+                    <div class="slider-grid">
+                        <div class="slider-item"><span>Margin Top (Push Down)</span><input type="range"
+                                id="footer-margin" min="0" max="500" step="10" value="100" oninput="updateAll()"></div>
+                        <div class="slider-item"><span>Padding Top</span><input type="range" id="footer-pad" min="0"
+                                max="100" step="5" value="40" oninput="updateAll()"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="download-btn" onclick="downloadImage()">
+                <i class="fas fa-download"></i> Download PNG
+            </div>
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="preview-panel">
+            <div id="ad-canvas" class="ad-container">
+
+                <!-- Layer 0: BG -->
+                <div class="layer-bg">
+                    <img id="render-bg" src="">
+                </div>
+
+                <!-- Layer 1: Overlay -->
+                <div id="render-overlay" class="layer-overlay"></div>
+
+                <!-- Layer 2: Content (Flex Column) -->
+                <div class="layer-content" id="render-content">
+
+                    <!-- Tag -->
+                    <div id="wrap-tag" class="el-wrapper">
+                        <div id="render-tag" class="text-tag">TAG</div>
+                    </div>
+
+                    <!-- Catch -->
+                    <div id="wrap-catch" class="el-wrapper">
+                        <div id="render-catch" class="text-catch">CATCH</div>
+                    </div>
+
+                    <!-- Sub -->
+                    <div id="wrap-sub" class="el-wrapper">
+                        <div id="render-sub" class="text-sub">SUB</div>
+                    </div>
+
+                    <!-- Bonus -->
+                    <div id="wrap-bonus" class="el-wrapper">
+                        <div id="render-bonus" class="bonus-box">BONUS</div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div id="wrap-cta" class="el-wrapper">
+                        <div id="render-cta" class="cta-box">CTA</div>
+                    </div>
+
+                    <!-- Footer (Separate flex logic inside) -->
+                    <div id="wrap-footer" class="el-wrapper footer-box">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <img src="img/udatsu_logo.png" style="height: 50px;">
+                            <span
+                                style="font-weight: bold; font-size: 1.8rem; letter-spacing: 0.05em; color:white;">Udatsu</span>
+                        </div>
+                        <div id="render-footer-text" style="font-size: 1.5rem; opacity: 0.8; color:white;">@id</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Config & State ---
+        const fonts = {
+            mincho: '"Zen Old Mincho", serif',
+            tsukushi: 'var(--font-tsukushi)',
+            noto: '"Noto Sans JP", sans-serif'
+        };
+
+        function init() {
+            updateAll();
+            autoZoom();
+            window.addEventListener('resize', autoZoom);
+        }
+
+        function updateAll() {
+            // --- 1. Background ---
+            const bgUrl = document.getElementById('bg-url').value;
+            const bgOverlay = document.getElementById('bg-overlay').value;
+            const bgScale = document.getElementById('bg-scale').value;
+            const bgX = document.getElementById('bg-x').value;
+            const bgY = document.getElementById('bg-y').value;
+
+            document.getElementById('render-bg').src = bgUrl;
+            document.getElementById('render-bg').style.transform = `translate(${bgX}%, ${bgY}%) scale(${bgScale})`;
+            document.getElementById('render-overlay').style.backgroundColor = `rgba(0,0,0,${bgOverlay})`;
+
+            // --- 2. Tagline ---
+            updateElement('tag', {
+                text: true, font: true, size: true, margin: true, offset: true
+            });
+
+            // --- 3. Catch ---
+            updateElement('catch', {
+                text: true, font: true, size: true, margin: true, offset: true, color: true
+            });
+
+            // --- 4. Sub ---
+            updateElement('sub', {
+                text: true, size: true, margin: true
+            });
+
+            // --- 5. Bonus ---
+            updateElement('bonus', { text: true, size: true, margin: true });
+
+            // --- 6. CTA ---
+            updateElement('cta', { text: true, size: true, margin: true });
+
+            // --- 7. Footer ---
+            document.getElementById('render-footer-text').innerText = document.getElementById('footer-text').value;
+            const footerMargin = document.getElementById('footer-margin').value;
+            const footerPad = document.getElementById('footer-pad').value;
+            const footerWrap = document.getElementById('wrap-footer');
+            footerWrap.style.marginTop = `${footerMargin}px`;
+            footerWrap.style.paddingTop = `${footerPad}px`;
+        }
+
+        function applyPreset(name) {
+            const container = document.getElementById('ad-canvas');
+            container.className = 'ad-container'; // Reset
+
+            if (name === 'standard') {
+                // Gradient Bottom style (Default-ish)
+                document.getElementById('bg-overlay').value = 0.4;
+                document.getElementById('catch-margin').value = 40;
+                document.getElementById('catch-size').value = 7.0;
+            } else if (name === 'frame') {
+                container.classList.add('pattern-frame');
+                document.getElementById('tag-margin').value = 80; // Push down for frame
+                document.getElementById('bg-overlay').value = 0.5;
+            } else if (name === 'cinematic') {
+                // Darker, centered
+                document.getElementById('bg-overlay').value = 0.7;
+                document.getElementById('catch-size').value = 8.0;
+                document.getElementById('sub-margin').value = 60;
+                document.getElementById('catch-color').value = 'neon';
+            }
+            updateAll();
+        }
+
+        // Generic Helper
+        function updateElement(key, opts) {
+            const wrap = document.getElementById(`wrap-${key}`);
+            const el = document.getElementById(`render-${key}`);
+
+            // Text
+            if (opts.text) {
+                el.innerText = document.getElementById(`${key}-text`).value;
+            }
+
+            // Font
+            if (opts.font) {
+                const fVal = document.getElementById(`${key}-font`).value;
+                el.style.fontFamily = fonts[fVal];
+            }
+
+            // Size
+            if (opts.size) {
+                const sVal = document.getElementById(`${key}-size`).value;
+                el.style.fontSize = `${sVal}rem`;
+            }
+
+            // Margin Top
+            if (opts.margin) {
+                const mVal = document.getElementById(`${key}-margin`).value;
+                wrap.style.marginTop = `${mVal}px`;
+            }
+
+            // Offset (Translate)
+            if (opts.offset) {
+                const yVal = document.getElementById(`${key}-y`).value;
+                // X offset logic if exist... simplified to Y for stack items usually
+                // but let's assume we might add X later. For now just Y is enough for stack.
+                // Oh wait, I added tag-y etc.
+                wrap.style.transform = `translateY(${yVal}px)`;
+            }
+
+            // Color (Catch specific)
+            if (opts.color) {
+                const cVal = document.getElementById(`${key}-color`).value;
+                if (cVal === 'neon') el.style.color = 'var(--brand-neon)';
+                if (cVal === 'white') el.style.color = '#fff';
+                if (cVal === 'teal') el.style.color = 'var(--brand-teal)';
+            }
+        }
+
+        function styleElement(key, opts) {
+            // Just for styles without text update (like Price which is parsed)
+            const wrap = document.getElementById(`wrap-${key}`);
+            const el = document.getElementById(`render-${key}`);
+            if (opts.size) el.style.fontSize = `${document.getElementById(`${key}-size`).value}rem`;
+            if (opts.margin) wrap.style.marginTop = `${document.getElementById(`${key}-margin`).value}px`;
+        }
+
+        function parsePrice(text) {
+            let html = text;
+            if (text.includes('→')) {
+                const [oldP, newP] = text.split('→');
+                html = `<span class="price-strike">${oldP.trim()}</span> <span class="price-highlight">${newP.trim()}</span>`;
+            } else {
+                html = `<span class="price-highlight">${text}</span>`;
+            }
+            html = html.replace(/\[(.*?)\]/g, '<span class="price-badge">$1</span>');
+            return html;
+        }
+
+        // --- Helpers ---
+        function setBg(name) {
+            document.getElementById('bg-url').value = `../../../imagestock/okimagemodel/${name}`;
+            updateAll();
+        }
+
+        // --- Scaling ---
+        function autoZoom() {
+            const container = document.getElementById('ad-canvas');
+            // Fit 1080x1350 into preview-panel
+            // panel width is window - 450
+            const availW = window.innerWidth - 450;
+            const availH = window.innerHeight;
+
+            const scale = Math.min(availW / 1200, availH / 1450) * 0.9; // Margin
+            if (scale > 0) {
+                container.style.transform = `scale(${Math.max(scale, 0.2)})`;
+            }
+        }
+
+        async function downloadImage() {
+            const canvas = document.getElementById('ad-canvas');
+            const originalTransform = canvas.style.transform;
+
+            // Reset scale for capture
+            canvas.style.transform = 'scale(1)';
+            canvas.style.alignItems = 'flex-start'; // Temp fix often needed for flex capture?
+            // Actually for 1080x1350 capture, just scale 1 is enough usually if container is sized.
+
+            try {
+                const result = await html2canvas(canvas, {
+                    scale: 1,
+                    useCORS: true,
+                    width: 1080,
+                    height: 1350,
+                    backgroundColor: '#000',
+                    scrollY: -window.scrollY
+                });
+                const link = document.createElement('a');
+                link.download = 'udatsu_ad_pro_v2.png';
+                link.href = result.toDataURL('image/png');
+                link.click();
+            } catch (e) {
+                console.error(e);
+                alert('Export Error');
+            } finally {
+                canvas.style.transform = originalTransform;
+                canvas.style.alignItems = 'center';
+            }
+        }
+
+        // Start
+        init();
+
+    </script>
+</body>
+
+</html>

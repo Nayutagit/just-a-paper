@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Just a Paper - Post Generator</title>
+    <title>Voice Lesson Ad - Udatsu Style</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -87,13 +87,9 @@
         <!-- Editor Panel -->
         <div class="editor-panel">
             <div class="editor-header">
-                <h1>Udatsu Post Gen</h1>
+                <h1>Voice Lesson Ad Gen</h1>
                 <p style="font-size: 0.8rem; color: #888;">Create up to 10 slides</p>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="post_method_slide.html" class="btn btn-secondary"
-                        style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:5px;">
-                        <i class="fas fa-layer-group"></i> Method Tool
-                    </a>
+                <div style="display: flex; gap: 10px;">
                     <button class="btn btn-secondary" onclick="toggleExportMode()">
                         <i class="fas fa-images"></i> Export Mode
                     </button>
@@ -160,13 +156,13 @@
     </div>
 
     <script>
-        // Default Data - Note Posting Fatigue Theme
+        // Data - Voice Lesson Ad based on VJ
         let slidesData = [
             {
                 type: 'cover',
-                tag: 'Content Creator',
-                title: '毎日のnote発信、\nだるすぎ',
-                text: '「今日も何か書かなきゃ」\n「ネタが思いつかない」\n「文章にまとめる時間がない」\n\n...もう疲れた。',
+                tag: 'Voice Lesson',
+                title: '準備ができるまで\n待ってる？',
+                text: '「自信がついたら...」\n「練習してから...」\n\nその考え、\n一生始まりません。',
                 bgImage: 'img/udatsu_empathy.png',
                 imgStyle: 'cover',
                 fontScale: 1,
@@ -178,10 +174,24 @@
             },
             {
                 type: 'content',
-                tag: 'Problem',
-                title: 'ネタ探しと文章作成で\n1日が終わる',
-                text: 'ネタを考えて、構成を練って、\n文章を書いて、推敲して...\n\n気づけば2〜3時間。\n本業に使うべき時間が\nどんどん削られていく。',
-                bgImage: '',
+                tag: 'Mindset',
+                title: 'ナレーターに\nなりたいけど...',
+                text: '「スクールに行く前に基礎を...」\n「デモテを作る前に練習を...」\n「まだ下手だから...」\n\nそう言って、\n何年も足踏みしていませんか？',
+                bgImage: 'img/concrete_bg.png',
+                imgStyle: 'cover',
+                fontScale: 1,
+                posX: 0, posY: 0,
+                tagScale: 1, tagX: 0, tagY: 0,
+                titleScale: 1, titleX: 0, titleY: 0, titleLineHeight: 1.2,
+                textScale: 1, textX: 0, textY: 0, textLineHeight: 1.8, textWidth: 100,
+                footerScale: 1, footerY: 0
+            },
+            {
+                type: 'content',
+                tag: 'Reality',
+                title: '準備完了なんて\n一生来ない',
+                text: '完璧な準備なんて存在しない。\n\n「パンツ一丁で旅に出る」\nくらいの勢いが必要です。\n足りないものは、\n走りながら現地調達すればいい。',
+                bgImage: 'img/concrete_bg.png',
                 imgStyle: 'cover',
                 fontScale: 1,
                 posX: 0, posY: 0,
@@ -193,8 +203,8 @@
             {
                 type: 'content',
                 tag: 'Solution',
-                title: 'Udatsuなら、\n話すだけで記事完成',
-                text: 'スマホに向かって、\n思いついたことを話すだけ。\n\nAIとプロの編集者が、\nあなたの声を\nnote記事に仕上げます。',
+                title: 'アウトプットこそ\n最大のインプット',
+                text: '知識を入れてからやるんじゃなくて、\nやるために知識を入れる。\n\n「教える」「発信する」ことで、\n初めて本当の学びになる。\n僕も最初はハッタリからでした。',
                 bgImage: 'img/udatsu_solution.png',
                 imgStyle: 'cover',
                 fontScale: 1,
@@ -206,9 +216,9 @@
             },
             {
                 type: 'content',
-                tag: 'Benefit',
-                title: '時間が生まれる。\n本業に集中できる',
-                text: '記事作成にかかる時間が\n1/10以下に。\n\n浮いた時間で、本業や\n新しい挑戦に集中できる。\n発信も続けられる。',
+                tag: 'Just Do It',
+                title: 'まずは声を\n録音しよう',
+                text: '下手でもいい。\nスマホで録音して、誰かに送る。\n\nそこから全てが始まる。\nあなたの「声」という資産は、\n使わないと磨かれない。',
                 bgImage: 'img/udatsu_benefit.png',
                 imgStyle: 'cover',
                 fontScale: 1,
@@ -221,8 +231,8 @@
             {
                 type: 'cta',
                 tag: 'Start Now',
-                title: 'まずは無料で\n試してみよう',
-                text: '発信の負担を減らして、\n本当に大切なことに時間を使おう。\n\n無料相談・体験実施中。\n詳細はプロフィールリンクから\n→ @udatsuageteko',
+                title: '本気なら、\n今すぐ始めよう',
+                text: '「準備」はいりません。\nあなたの「声」だけ持ってきてください。\n\n実践的ボイスレッスン\n無料相談受付中。\n詳細はプロフリンクから\n→ @nayuta_yamamoto',
                 bgImage: 'img/udatsu_lifestyle_casual_1_1764726921299.png',
                 imgStyle: 'cover',
                 fontScale: 1,
