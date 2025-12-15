@@ -819,15 +819,37 @@
         }
 
         async function downloadImage() {
-            const canvas = document.getElementById('ad-canvas');
-            const originalTransform = canvas.style.transform;
-            canvas.style.transform = 'scale(1)';
+            const originalCanvas = document.getElementById('ad-canvas');
+
+            // Clone the node to capture it without view-dependent transforms
+            const clone = originalCanvas.cloneNode(true);
+
+            // Force specific styles on the clone to ensure 1080x1350 capture
+            clone.style.transform = 'none';
+            clone.style.position = 'fixed'; // Remove from flow
+            clone.style.top = '0';
+            clone.style.left = '0';
+            clone.style.zIndex = '-9999';   // Hide behind everything
+            clone.style.margin = '0';
+            clone.style.width = '1080px';
+            clone.style.height = '1350px';
+
+            // Append to body so html2canvas can render it
+            document.body.appendChild(clone);
 
             try {
-                const result = await html2canvas(canvas, {
-                    scale: 1, useCORS: true, width: 1080, height: 1350,
-                    backgroundColor: '#fff', scrollY: -window.scrollY
+                const result = await html2canvas(clone, {
+                    scale: 1,
+                    useCORS: true,
+                    backgroundColor: '#fff',
+                    width: 1080,
+                    height: 1350,
+                    scrollX: 0,
+                    scrollY: 0,
+                    windowWidth: 1080,
+                    windowHeight: 1350
                 });
+
                 const link = document.createElement('a');
                 link.download = `voice_school_slide_${currentIndex + 1}.png`;
                 link.href = result.toDataURL('image/png');
@@ -836,7 +858,8 @@
                 console.error(e);
                 alert('Export Error');
             } finally {
-                canvas.style.transform = originalTransform;
+                // Clean up
+                document.body.removeChild(clone);
             }
         }
 
