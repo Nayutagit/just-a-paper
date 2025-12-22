@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" id="theme">
     <style>
-        /* Font: Tsukushi B Gothic priority */
+        /* Font: Tsukushi B Maru Gothic priority */
         @font-face {
-            font-family: 'Tsukushi B Gothic';
-            src: local('Tsukushi B Gothic'), local('筑紫Bゴシック'), local('YuGothic'), local('Yu Gothic'), sans-serif;
+            font-family: 'Tsukushi B Maru Gothic';
+            src: local('Tsukushi B Maru Gothic'), local('筑紫B丸ゴシック'), local('YuGothic'), local('Yu Gothic'), sans-serif;
         }
 
         body,
         .reveal {
-            font-family: 'Tsukushi B Gothic', '筑紫Bゴシック', sans-serif !important;
+            font-family: 'Tsukushi B Maru Gothic', '筑紫B丸ゴシック', sans-serif !important;
             color: #111 !important;
             background-color: #fff !important;
         }
@@ -28,6 +28,16 @@
         }
 
         /* Typography Adjustments */
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            text-transform: none !important;
+            /* Fix: Disable default uppercase */
+        }
+
         .reveal h1 {
             font-size: 2.2em !important;
             margin: 10px 0 20px 0 !important;
