@@ -538,19 +538,20 @@
         </div>
     </div>
 
-    <!-- PNG Download Button -->
-    <div class="png-btn" onclick="downloadSlideAsPng()"
+    <!-- PDF Download Button -->
+    <div class="pdf-btn" onclick="downloadAllPDF()"
         style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #333; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
-        Download Slide (PNG)
+        Download Full PDF
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
     <script>
         Reveal.initialize({
-            width: 1123, // A4 Landscape width
-            height: 794, // A4 Landscape height
-            margin: 0.05, // Minimum margin
+            width: 1123,
+            height: 794,
+            margin: 0.05,
             minScale: 0.2,
             maxScale: 2.0,
             controls: true,
@@ -562,38 +563,98 @@
             slideNumber: false
         });
 
-        function downloadSlideAsPng() {
-            // Find the currently active slide
-            const activeSlide = document.querySelector('.reveal .slides > section.present');
+        async function downloadAllPDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [1123, 794]
+            });
 
-            if (activeSlide) {
-                // Ensure background is white for capture
-                const originalBg = activeSlide.style.background;
-                activeSlide.style.background = "#fff";
+            const slides = document.querySelectorAll('.reveal .slides > section');
+            const totalSlides = slides.length;
+            const btn = document.querySelector('.pdf-btn');
 
-                // Specific scaling to ensure high quality
-                html2canvas(activeSlide, {
-                    scale: 2, // 2x resolution
-                    useCORS: true,
-                    backgroundColor: "#ffffff",
-                    logging: false,
-                    onclone: (clonedDoc) => {
-                        // Fix potential transform issues in clone if needed
-                        // clonedDoc.querySelector('.reveal .slides > section.present').style.transform = 'none';
-                    }
-                }).then(canvas => {
-                    const link = document.createElement('a');
-                    const slideIndex = Reveal.getIndices().h + 1;
-                    link.download = 'theta_slide_' + slideIndex + '.png';
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
+            btn.innerText = "Generating... (0/" + totalSlides + ")";
+            btn.style.opacity = "0.7";
+            btn.style.pointerEvents = "none";
 
-                    // Restore background (though usually not changed)
-                    activeSlide.style.background = originalBg;
-                });
-            } else {
-                alert("Slide not found or not loaded.");
+            // Temporary styling to ensure captures are clean
+            const originalTransform = document.querySelector('.reveal .slides').style.transform;
+            document.querySelector('.reveal .slides').style.transform = "none";
+
+            for (let i = 0; i < totalSlides; i++) {
+                const slide = slides[i];
+
+                // Make slide visible and positioned for capture
+                const originalDisplay = slide.style.display;
+                const originalOpacity = slide.style.opacity;
+                const originalPosition = slide.style.position;
+                const originalTop = slide.style.top;
+                const originalLeft = slide.style.left;
+                const originalZ = slide.style.zIndex;
+
+                // Force layout for capture
+                slide.style.display = "flex";
+                slide.style.opacity = "1";
+                slide.style.position = "fixed";
+                slide.style.top = "0";
+                slide.style.left = "0";
+                slide.style.zIndex = "9999";
+                slide.style.background = "#ffffff";
+                slide.style.width = "1123px";
+                slide.style.height = "794px";
+                slide.style.transform = "none";
+                slide.style.margin = "0";
+
+                // Allow a brief moment for rendering
+                await new Promise(resolve => setTimeout(resolve, 150));
+
+                try {
+                    const canvas = await html2canvas(slide, {
+                        scale: 1.5, // Good balance of quality/size
+                        useCORS: true,
+                        backgroundColor: "#ffffff",
+                        width: 1123,
+                        height: 794,
+                        windowWidth: 1123,
+                        windowHeight: 794,
+                        logging: false
+                    });
+
+                    const imgData = canvas.toDataURL('image/jpeg', 0.9);
+
+                    if (i > 0) pdf.addPage([1123, 794], 'landscape');
+                    pdf.addImage(imgData, 'JPEG', 0, 0, 1123, 794);
+
+                    btn.innerText = "Generating... (" + (i + 1) + "/" + totalSlides + ")";
+
+                } catch (e) {
+                    console.error("Slide " + i + " error:", e);
+                } finally {
+                    // Restore styles
+                    slide.style.display = originalDisplay;
+                    slide.style.opacity = originalOpacity;
+                    slide.style.position = originalPosition;
+                    slide.style.top = originalTop;
+                    slide.style.left = originalLeft;
+                    slide.style.zIndex = originalZ;
+                    slide.style.background = "";
+                    slide.style.width = "";
+                    slide.style.height = "";
+                    slide.style.transform = "";
+                    slide.style.margin = "";
+                }
             }
+
+            // Restore global
+            document.querySelector('.reveal .slides').style.transform = originalTransform;
+
+            pdf.save('THETA_Proposal.pdf');
+
+            btn.innerText = "Download Full PDF";
+            btn.style.opacity = "1";
+            btn.style.pointerEvents = "auto";
         }
     </script>
 </body>
