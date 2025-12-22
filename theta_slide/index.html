@@ -538,28 +538,19 @@
         </div>
     </div>
 
-    <!-- PDF Download Button -->
-    <div class="pdf-btn" onclick="window.print()"
+    <!-- PNG Download Button -->
+    <div class="png-btn" onclick="downloadSlideAsPng()"
         style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #333; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
-        Download PDF
-    </div>
-    <style>
-        @media print {
-            .pdf-btn {
-                display: none !important;
-            }
-        }
-    </style>
-
-    </div>
+        Download Slide (PNG)
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
     <script>
         Reveal.initialize({
-            width: 1123,
-            height: 794,
-            margin: 0.1,
+            width: 1123, // A4 Landscape width
+            height: 794, // A4 Landscape height
+            margin: 0.05, // Minimum margin
             minScale: 0.2,
             maxScale: 2.0,
             controls: true,
@@ -570,6 +561,40 @@
             pdfMaxPagesPerSlide: 1,
             slideNumber: false
         });
+
+        function downloadSlideAsPng() {
+            // Find the currently active slide
+            const activeSlide = document.querySelector('.reveal .slides > section.present');
+
+            if (activeSlide) {
+                // Ensure background is white for capture
+                const originalBg = activeSlide.style.background;
+                activeSlide.style.background = "#fff";
+
+                // Specific scaling to ensure high quality
+                html2canvas(activeSlide, {
+                    scale: 2, // 2x resolution
+                    useCORS: true,
+                    backgroundColor: "#ffffff",
+                    logging: false,
+                    onclone: (clonedDoc) => {
+                        // Fix potential transform issues in clone if needed
+                        // clonedDoc.querySelector('.reveal .slides > section.present').style.transform = 'none';
+                    }
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    const slideIndex = Reveal.getIndices().h + 1;
+                    link.download = 'theta_slide_' + slideIndex + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+
+                    // Restore background (though usually not changed)
+                    activeSlide.style.background = originalBg;
+                });
+            } else {
+                alert("Slide not found or not loaded.");
+            }
+        }
     </script>
 </body>
 
