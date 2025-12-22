@@ -54,17 +54,31 @@ Object.values(shadowControls).forEach(el => {
 });
 
 // Image Upload with Dynamic Resizing
+// Image Loading & Sizing Logic
+function updateCanvasSize() {
+    if (bgImage.naturalWidth && bgImage.naturalHeight) {
+        // Apply natural dimensions to the container
+        canvasArea.style.width = `${bgImage.naturalWidth}px`;
+        canvasArea.style.height = `${bgImage.naturalHeight}px`;
+    }
+}
+
+// Ensure resizing happens when image loads
+bgImage.onload = updateCanvasSize;
+
+// Force update on init in case cached
+if (bgImage.complete) {
+    updateCanvasSize();
+}
+
+// Image Upload with Dynamic Resizing
 bgInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
             bgImage.src = e.target.result;
-            // Wait for image to load to get dimensions
-            bgImage.onload = () => {
-                canvasArea.style.width = `${bgImage.naturalWidth}px`;
-                canvasArea.style.height = `${bgImage.naturalHeight}px`;
-            }
+            // onload handler defined above will trigger resizing
         }
         reader.readAsDataURL(file);
     }
