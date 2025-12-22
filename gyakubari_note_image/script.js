@@ -54,17 +54,22 @@ Object.values(shadowControls).forEach(el => {
 });
 
 // Image Upload with Dynamic Resizing
-// Image Loading & Sizing Logic
+// Image Loading & Sizing Logic (Strict)
 function updateCanvasSize() {
     if (bgImage.naturalWidth && bgImage.naturalHeight) {
-        // Apply natural dimensions to the container
+        // Force the container to match the image exactly
         canvasArea.style.width = `${bgImage.naturalWidth}px`;
         canvasArea.style.height = `${bgImage.naturalHeight}px`;
+
+        // Reset scale transform slightly to ensure it renders correctly if cached
+        // canvasArea.style.transform = 'scale(0.6)'; 
     }
 }
 
 // Ensure resizing happens when image loads
-bgImage.onload = updateCanvasSize;
+bgImage.onload = () => {
+    updateCanvasSize();
+};
 
 // Force update on init in case cached
 if (bgImage.complete) {
@@ -78,7 +83,7 @@ bgInput.addEventListener('change', (e) => {
         const reader = new FileReader();
         reader.onload = (e) => {
             bgImage.src = e.target.result;
-            // onload handler defined above will trigger resizing
+            // onload handles sizing
         }
         reader.readAsDataURL(file);
     }
