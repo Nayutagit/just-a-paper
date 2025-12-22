@@ -35,34 +35,44 @@
         .reveal h5,
         .reveal h6 {
             text-transform: none !important;
-            /* Fix: Disable default uppercase */
+            font-family: 'Tsukushi B Maru Gothic', '筑紫B丸ゴシック', sans-serif !important;
         }
 
         .reveal h1 {
             font-size: 2.2em !important;
-            margin: 10px 0 20px 0 !important;
+            margin: 10px 0 30px 0 !important;
+            color: #333;
         }
 
         .reveal h2 {
-            font-size: 1.5em !important;
-            margin-bottom: 20px !important;
-            border-left: 10px solid #000;
+            font-size: 1.6em !important;
+            margin-bottom: 25px !important;
+            border-left: 8px solid #555;
+            /* Softer border color */
             padding-left: 15px;
+            color: #222;
         }
 
         .reveal h3 {
-            font-size: 1.1em !important;
-            margin-top: 10px !important;
-            margin-bottom: 5px !important;
-            color: #000;
+            font-size: 1.2em !important;
+            margin-top: 5px !important;
+            margin-bottom: 10px !important;
+            color: #333;
+            border-bottom: 1px dashed #ccc;
+            /* Add separator for sections */
+            padding-bottom: 5px;
+            display: inline-block;
+            /* Wrap to text width */
         }
 
-        /* Adjusted for fit: 19px instead of 21px to prevent overflow */
+        /* Adjusted for fit: 19px */
         .reveal p,
         .reveal li {
             font-size: 19px !important;
-            line-height: 1.5 !important;
-            color: #111;
+            line-height: 1.6 !important;
+            /* Slightly more breathing room */
+            color: #333;
+            /* Softer black */
         }
 
         .reveal ul {
@@ -70,20 +80,24 @@
         }
 
         .reveal li {
-            margin-bottom: 5px !important;
+            margin-bottom: 8px !important;
         }
 
         /* Compact Layout components */
         .box {
-            padding: 15px;
+            padding: 20px;
             margin: 10px 0;
-            background: #f4f4f4;
-            border: 1px solid #ccc;
+            background: #fafafa;
+            /* Lighter background */
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            /* Rounded corners to match Maru Gothic */
         }
 
         .cols {
             display: flex;
-            gap: 20px;
+            gap: 25px;
+            /* Increase gap slightly */
         }
 
         .col-6 {
@@ -97,39 +111,60 @@
         /* Helper to force smaller text in tight boxes */
         .dense-text p,
         .dense-text li {
-            font-size: 17px !important;
+            font-size: 18px !important;
+            /* Slight adjust */
         }
 
         /* Table adjustments */
         table {
-            font-size: 17px !important;
+            font-size: 18px !important;
             width: 100%;
-            border-collapse: collapse;
-            border-bottom: 2px solid #ccc;
-            /* Fix: Explicit bottom border for entire table */
+            border-collapse: separate;
+            /* For rounding */
+            border-spacing: 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            /* Rounded table */
+            overflow: hidden;
+            border-bottom: none;
+            /* Handle via last-child */
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
         }
 
         th {
-            background: #e0e0e0;
-            color: #000;
-            padding: 8px;
+            background: #eee;
+            color: #222;
+            padding: 10px;
             font-weight: bold;
-            border: 1px solid #ccc;
-            /* Ensure all sides have border */
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+        }
+
+        th:last-child {
+            border-right: none;
         }
 
         td {
-            padding: 8px;
-            border: 1px solid #ccc;
-            /* Ensure all sides have border */
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            vertical-align: top;
+        }
+
+        td:last-child {
+            border-right: none;
         }
 
         .slide-number {
             position: absolute;
-            bottom: 20px;
-            right: 30px;
-            font-size: 14px;
-            color: #999;
+            bottom: 15px;
+            right: 25px;
+            font-size: 12px;
+            color: #bbb;
+            /* Subtle number */
         }
     </style>
 </head>
