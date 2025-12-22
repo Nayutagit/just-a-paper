@@ -523,8 +523,9 @@
             </section>
 
             <!-- 9. Conclusion -->
-            <section>
-                <div style="margin-top: 20%; text-align: center;">
+            <section style="text-align: center;"> <!-- Center align -->
+                <div>
+                    <!-- Removed margin-top: 20% to allow flexbox centering -->
                     <h1 style="border:none; font-size: 2.0em !important; margin-bottom: 40px !important;">
                         <!-- Reduced font size 2.5em -> 2.0em -->
                         流行を追うのではなく、<br>「質」で圧倒する。
@@ -535,6 +536,22 @@
             </section>
 
         </div>
+    </div>
+
+    <!-- PDF Download Button -->
+    <div class="pdf-btn" onclick="window.print()"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #333; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+        Download PDF
+    </div>
+    <style>
+        @media print {
+            .pdf-btn {
+                display: none !important;
+            }
+        }
+    </style>
+
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
