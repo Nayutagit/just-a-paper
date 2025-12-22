@@ -191,11 +191,69 @@
         }
 
         @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden !important;
+            }
+
+            .reveal {
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            .reveal .viewport {
+                background: #fff !important;
+            }
+
+            .reveal .slides {
+                transform: none !important;
+                /* Disable Reveal's scaling for print */
+                width: 100% !important;
+                height: 100% !important;
+                text-align: left !important;
+            }
+
+            /* Enforce Frame & Layout for Print */
             .reveal .slides>section {
-                border: 1px solid #333 !important;
-                page-break-after: always;
+                border: 2px solid #333 !important;
+                box-sizing: border-box !important;
+                border-radius: 0 !important;
                 height: 100vh !important;
-                /* Ensure full page height for positioning */
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 40px !important;
+
+                /* Layout Logic */
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: stretch !important;
+
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+
+                opacity: 1 !important;
+                visibility: visible !important;
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+            }
+
+            /* Hide Reveal Controls */
+            .reveal .controls,
+            .reveal .progress,
+            .reveal .slide-number,
+            .reveal .backgrounds {
+                display: none !important;
             }
         }
     </style>
