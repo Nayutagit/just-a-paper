@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逆光Noteサムネイル生成</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div class="container mx-auto p-4 flex flex-col md:flex-row gap-8 h-screen">
+
+        <!-- Controls -->
+        <div class="w-full md:w-1/3 flex flex-col gap-4 overflow-y-auto pr-2">
+            <h1 class="text-2xl font-bold mb-4">逆光Noteサムネイル生成</h1>
+
+            <div class="bg-gray-800 p-4 rounded-lg">
+                <h3 class="font-bold mb-2">1. 背景画像</h3>
+                <input type="file" id="bgInput" accept="image/*"
+                    class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mb-2">
+                <button id="resetBgBtn"
+                    class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm transition">デフォルトに戻す</button>
+            </div>
+
+            <div class="bg-gray-800 p-4 rounded-lg">
+                <h3 class="font-bold mb-2">2. テキスト設定</h3>
+
+                <!-- Main Text -->
+                <div class="mb-4 border-b border-gray-700 pb-4">
+                    <label class="block text-xs text-gray-400 mb-1">タイトル</label>
+                    <textarea id="textMain" rows="3"
+                        class="w-full bg-gray-900 border border-gray-700 rounded p-2 mb-2 font-bold leading-none">「やりたいこと」\nができない</textarea>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <span class="text-xs">サイズ</span>
+                            <input type="range" id="sizeMain" min="20" max="300" value="120" class="w-full">
+                        </div>
+                        <div>
+                            <span class="text-xs">行間</span>
+                            <input type="range" id="lhMain" min="0.5" max="2.0" step="0.1" value="1.1" class="w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shadow Settings -->
+                <div class="mb-4">
+                    <h4 class="text-sm font-bold mb-2 text-gray-300">影 (ドロップシャドウ) 設定</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <span class="text-xs">ぼかし (Blur)</span>
+                            <input type="range" id="shadowBlur" min="0" max="100" value="20" class="w-full">
+                        </div>
+                        <div>
+                            <span class="text-xs">距離 (Dist)</span>
+                            <input type="range" id="shadowDist" min="0" max="100" value="8" class="w-full">
+                        </div>
+                        <div>
+                            <span class="text-xs">透明度</span>
+                            <input type="range" id="shadowOpacity" min="0" max="1" step="0.1" value="0.8"
+                                class="w-full">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="downloadBtn"
+                class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg shadow-lg transition">画像を保存する</button>
+        </div>
+
+        <!-- Preview Area -->
+        <div
+            class="w-full md:w-2/3 bg-black flex items-center justify-center p-4 rounded-lg relative overflow-hidden bg-checkered">
+            <div id="canvasArea" class="relative shadow-2xl overflow-hidden select-none"
+                style="width: 1280px; height: 670px; transform: scale(0.6); transform-origin: center;">
+                <img id="bgImage" src="./default_bg.jpg" class="absolute inset-0 w-full h-full object-cover z-0">
+                <!-- No Overlay -->
+
+                <!-- Single Text Layer -->
+                <div id="layerMain"
+                    class="text-layer absolute w-full text-center font-black text-white drop-shadow-xl cursor-move leading-tight select-none whitespace-pre-wrap"
+                    style="top: 50%; transform: translateY(-50%); font-family: 'Noto Sans JP';"></div>
+            </div>
+
+            <div class="absolute bottom-4 right-4 text-xs text-gray-500">
+                テキストはドラッグで移動可能
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
