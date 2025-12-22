@@ -169,6 +169,26 @@
             color: #bbb;
             /* Subtle number */
         }
+
+        /* Frame per slide for print */
+        .reveal .slides>section {
+            border: 1px solid #333;
+            /* The Frame */
+            box-sizing: border-box;
+            border-radius: 4px;
+            /* Slight round */
+            height: 100%;
+            /* Ensure it fills the height */
+            padding: 20px;
+            /* Inner padding from frame */
+        }
+
+        @media print {
+            .reveal .slides>section {
+                border: 1px solid #333 !important;
+                page-break-after: always;
+            }
+        }
     </style>
 </head>
 
@@ -421,7 +441,8 @@
                 <div style="margin-top: 20%; text-align: center;">
                     <h1 style="border:none; font-size: 2.0em !important; margin-bottom: 40px !important;">
                         <!-- Reduced font size 2.5em -> 2.0em -->
-                        流行を追うのではなく、<br>「質」で圧倒する。</h1>
+                        流行を追うのではなく、<br>「質」で圧倒する。
+                    </h1>
                     <p>THETA θの服が持つ本来の力を、デジタルの力で最大限に引き出します。</p>
                 </div>
                 <!-- <div class="slide-number">9 / 9</div> -->
