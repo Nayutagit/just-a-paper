@@ -105,6 +105,8 @@
             font-size: 17px !important;
             width: 100%;
             border-collapse: collapse;
+            border-bottom: 2px solid #ccc;
+            /* Fix: Explicit bottom border for entire table */
         }
 
         th {
@@ -112,11 +114,14 @@
             color: #000;
             padding: 8px;
             font-weight: bold;
+            border: 1px solid #ccc;
+            /* Ensure all sides have border */
         }
 
         td {
             padding: 8px;
             border: 1px solid #ccc;
+            /* Ensure all sides have border */
         }
 
         .slide-number {
