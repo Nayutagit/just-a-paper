@@ -202,24 +202,33 @@
                 height: 100%;
                 margin: 0;
                 padding: 0;
-                overflow: hidden !important;
+                overflow: visible !important;
             }
 
             .reveal {
                 width: 100% !important;
-                height: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
             }
 
             .reveal .viewport {
                 background: #fff !important;
+                overflow: visible !important;
             }
 
             .reveal .slides {
                 transform: none !important;
-                /* Disable Reveal's scaling for print */
                 width: 100% !important;
-                height: 100% !important;
+                height: auto !important;
                 text-align: left !important;
+                position: static !important;
+                overflow: visible !important;
+                left: auto !important;
+                top: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
 
             /* Enforce Frame & Layout for Print */
@@ -275,7 +284,7 @@
 
             <!-- 2. The Logic -->
             <section>
-                <h2 style="font-size: 1.4em !important; white-space: nowrap;">0. 戦略方針：大切なのは「正しくバズる」こと</h2>
+                <h2 style="font-size: 1.4em !important; white-space: nowrap;">0. 戦略方針：大切なのは<br>「正しくバズる」こと</h2>
                 <div class="cols">
                     <div class="col-6">
                         <div class="box" style="padding: 12px !important;"> <!-- Reduced padding -->
