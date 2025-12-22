@@ -164,23 +164,38 @@
             /* Subtle number */
         }
 
-        /* Frame per slide for print */
+        /* Frame per slide for print - Flexbox for Vertical Center */
         .reveal .slides>section {
-            border: 1px solid #333;
-            /* The Frame */
+            border: 2px solid #333;
+            /* Distinct Frame */
             box-sizing: border-box;
-            border-radius: 4px;
-            /* Slight round */
-            height: 100%;
-            /* Ensure it fills the height */
-            padding: 20px;
-            /* Inner padding from frame */
+            border-radius: 0;
+            height: 98%;
+            /* Keep inside page */
+            width: 98%;
+            margin: auto;
+            padding: 40px;
+            /* Generous internal padding */
+
+            /* Vertical Centering Logic */
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        /* Reset top margins for centered content to avoid skewed spacing */
+        .reveal h1,
+        .reveal h2 {
+            margin-top: 0 !important;
         }
 
         @media print {
             .reveal .slides>section {
                 border: 1px solid #333 !important;
                 page-break-after: always;
+                height: 100vh !important;
+                /* Ensure full page height for positioning */
             }
         }
     </style>
@@ -191,14 +206,13 @@
         <div class="slides">
 
             <!-- 1. Title -->
-            <section>
-                <div style="margin-top: 10%;">
-                    <p style="font-size: 1em; color: #666; letter-spacing: 0.2em;">TikTok Operation Proposal</p>
-                    <h1 style="border: none; font-size: 3.0em !important; margin: 20px 0 40px 0 !important;">THETA θ
-                    </h1>
-                    <p style="font-size: 1em;">2026 Latest Strategic Plan</p>
+            <section style="text-align: center;"> <!-- Center align text for title -->
+                <div>
+                    <p style="font-size: 1.2em; color: #666; letter-spacing: 0.2em; margin-bottom: 20px;">TikTok
+                        Operation Proposal</p>
+                    <h1 style="border: none; font-size: 3.5em !important; margin: 0 0 40px 0 !important;">THETA θ</h1>
+                    <p style="font-size: 1.2em;">2026 Latest Strategic Plan</p>
                 </div>
-                <!-- <div class="slide-number">1 / 9</div> -->
             </section>
 
             <!-- 2. The Logic -->
