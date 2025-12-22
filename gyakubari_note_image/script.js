@@ -91,7 +91,7 @@ bgInput.addEventListener('change', (e) => {
 
 // Reset Background
 resetBgBtn.addEventListener('click', () => {
-    bgImage.src = './default_bg.png';
+    bgImage.src = './default_bg.jpg';
     bgInput.value = '';
 });
 
