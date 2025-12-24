@@ -103,38 +103,182 @@ const imageData = {
         useCase: '科学ポッドキャスト、宇宙開発関連の記事、SF小説の表紙、メタバース空間のコンセプト。',
         prompt: 'Epic shot of a mysterious alien planet landscape with twin moons, bioluminescent flora glowing in the twilight, a lone astronaut standing before a massive ancient crystalline monolith, cinematic lighting, Interstellar-esque atmosphere, breathtaking scale, hyper-realistic, 8k, concept art.',
         img: 'img/sf_planet.png'
+    },
+    'retro_citypop': {
+        title: 'シティポップ・ドリーム',
+        desc: '80年代を彷彿とさせるネオンカラーと未来的な都市風景。トレンディな女性とコンバーチブルカーが、ノスタルジックな物語を紡ぐ。',
+        useCase: 'Lo-Fi Hip Hopチャンネル、レトロフューチャーなイベント告知、アパレルのビジュアル。',
+        prompt: 'A trendy and nostalgic 80s Japanese City Pop style illustration of a stylish woman driving a convertible car along a coastal highway at twilight. Vibrant pink, purple, and blue neon colors.',
+        img: 'img/city_pop.jpg'
+    },
+    'nayuta_standard': {
+        title: 'プロフェッショナルな響き',
+        desc: 'ナレーターNayutaのスタンダードなポートレート。信頼感と知性を感じさせる表情、プロフェッショナルなスタジオの空気感。',
+        useCase: 'ボイスサンプルのカバー画像、公式プロフィールのメインビジュアル、ビジネス系記事のアイキャッチ。',
+        prompt: '(Based on reference) A high-quality professional portrait of a Japanese male narrator/voice actor named Nayuta.',
+        img: 'img/nayuta_standard.png'
+    },
+    // Placeholders for pending generation
+    'nayuta_teacher': {
+        title: '信頼の教育者',
+        desc: '教育現場やセミナーをイメージさせる、親しみやすく信頼できる講師としてのNayuta。',
+        useCase: 'オンラインスクールのLP、教育系コンテンツ、セミナー告知。',
+        prompt: 'Nayuta as a friendly and professional teacher in a classroom setting.',
+        img: 'img/nayuta_teacher.png'
+    },
+    'nayuta_fashion': {
+        title: '都市とスタイル',
+        desc: '洗練されたストリートファッションを身に纏ったNayuta。都会的な背景とシネマティックなライティングが際立つ一枚。',
+        useCase: 'アパレルブランドのルックブック、ファッション誌の広告、ライフスタイル提案。',
+        prompt: 'A stylish fashion portrait of Nayuta in an urban setting.',
+        img: 'img/nayuta_fashion.png'
+    },
+    'nayuta_young_casual': {
+        title: '休日のストリート',
+        desc: '若々しいカジュアルスタイルのNayuta。自然光の下、リラックスした表情で佇む。',
+        useCase: '若者向けサービスのLP、カジュアルブランドの広告、SNSプロフィール。',
+        prompt: 'Younger Nayuta in hoodie/casual jacket on street.',
+        img: 'img/nayuta_young_casual.png'
+    },
+    'nayuta_young_student': {
+        title: '知の探求',
+        desc: 'カフェや図書館で学ぶ、知的な学生風のNayuta。PCやノートを広げ、真剣な眼差しを見せる。',
+        useCase: '学習アプリの広告、大学のパンフレット、スタートアップの採用。',
+        prompt: 'Younger Nayuta studying in cafe/library.',
+        img: 'https://placehold.co/600x400/161b22/fcc800?text=Young+Student'
+    },
+    'nayuta_young_creative': {
+        title: 'クリエイティブ・マインド',
+        desc: 'カメラを手に街を歩く、あるいはスケッチブックに向かう、創造性あふれる若き日のNayuta。',
+        useCase: 'アートスクールの紹介、クリエイター募集、ポートフォリオサイト。',
+        prompt: 'Younger Nayuta with camera or sketchbook.',
+        img: 'https://placehold.co/600x400/161b22/fcc800?text=Young+Creative'
+    },
+    'ec_product': {
+        title: 'プロダクトの輝き',
+        desc: 'ECサイト向けのクリーンで高品質な商品写真。シンプルな背景と計算されたライティングが、商品の魅力を最大限に引き出す。',
+        useCase: 'オンラインショップの商品画像、Amazon/楽天の出品画像、D2Cブランドの広告。',
+        prompt: 'Clean and high-quality product photography for EC site.',
+        img: 'https://placehold.co/600x400/161b22/fcc800?text=EC+Product'
+    },
+    'food_restaurant': {
+        title: '至福の一皿',
+        desc: 'シズル感たっぷりの料理写真。湯気や照り、色彩の鮮やかさが食欲を刺激する、レストラン向けのハイクオリティな一枚。',
+        useCase: 'グルメサイトの店舗ページ、飲食店のメニューブック、SNSの飯テロ投稿。',
+        prompt: 'Delicious and appetizing food photography for a restaurant.',
+        img: 'https://placehold.co/600x400/161b22/fcc800?text=Food'
+    },
+    'music_vibe': {
+        title: '音の風景',
+        desc: '音楽イベントやDJのプレイ風景。躍動感あふれる光と影が、その場の熱気とバイブスを伝える。',
+        useCase: 'クラブイベントのフライヤー、アーティストのジャケット写真、音楽フェスの公式サイト。',
+        prompt: 'Energetic music event photography with vibrant lighting.',
+        img: 'https://placehold.co/600x400/161b22/fcc800?text=Music'
+    },
+    'text_ad': {
+        title: 'メッセージを届ける',
+        desc: 'キャッチコピーを入れるための余白（ネガティブスペース）を意識した構図。広告バナーやポスターの背景として最適。',
+        useCase: 'WEB広告バナー、キャンペーンポスター、文字入れ用Instagramストーリー背景。',
+        prompt: 'Ad background image with negative space for text.',
+        img: 'https://placehold.co/600x400/161b22/fcc800?text=Text+Space'
+    },
+    '3d_character': {
+        title: 'コラボレーションの形',
+        desc: '多様な人々が協力し合う様子を、温かみのある3Dクレイレンダリングで表現。',
+        useCase: 'チームビルディングの研修資料、スタートアップの採用ページ、協調性をテーマにした記事。',
+        prompt: 'A cute and friendly 3D clay rendering of a diverse group of people.',
+        img: 'https://placehold.co/600x400/161b22/fcc800?text=3D+Clay'
+    },
+    'flat_business': {
+        title: 'ビジネス・イノベーション',
+        desc: '現代的なフラットデザインで描く、ビジネスチームのディスカッション風景。クリーンで洗練された印象。',
+        useCase: 'テック企業の公式サイト、BtoBサービスの紹介資料、プレゼンテーションスライド。',
+        prompt: 'Modern flat vector illustration of a business team discussion.',
+        img: 'https://placehold.co/600x400/161b22/fcc800?text=Flat+Design'
     }
 };
 
-// Filter logic
+// Filter Logic with URL Routing
 const filterBtns = document.querySelectorAll('.filter-btn');
 const cards = document.querySelectorAll('.card');
 
+// Function to update active button state
+function updateActiveButtons(filterValue) {
+    filterBtns.forEach(btn => {
+        if (btn.getAttribute('data-filter') === filterValue) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+}
+
+// Function to apply filter to cards
+function applyFilter(filter) {
+    cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        // Simple logic: 'all' shows everything.
+        // Specific filters check if the card's category matches.
+        // Note: For now, we assume 1-to-1 mapping or simplified logic. 
+        // If a card belongs to multiple categories, we might need more complex logic.
+        // But for this portfolio, 'photo' is a style, 'nayuta' is a model. A card might need multiple tags.
+        // Let's implement a "contains" logic if we add multiple classes or data-attributes later.
+        // For now, let's assume data-category matches the filter.
+
+        // Wait, 'nayuta' images might be 'photo' style too. 
+        // Let's support simple string matching for now.
+        if (filter === 'all' || category === filter || (filter === 'nayuta' && category.includes('nayuta'))) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Initialize on Load
+function init() {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category') || 'all';
+
+    updateActiveButtons(category);
+    applyFilter(category);
+}
+
+// Event Listeners
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Remove active class
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
         const filter = btn.getAttribute('data-filter');
 
-        cards.forEach(card => {
-            if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+        // Update URL
+        const newUrl = new URL(window.location);
+        if (filter === 'all') {
+            newUrl.searchParams.delete('category');
+        } else {
+            newUrl.searchParams.set('category', filter);
+        }
+        window.history.pushState({}, '', newUrl);
+
+        updateActiveButtons(filter);
+        applyFilter(filter);
     });
 });
 
-// Modal logic
+// Handle Back/Forward Browser Buttons
+window.addEventListener('popstate', () => {
+    init();
+});
+
+// Run Init
+init();
+
+// Modal logic (unchanged)
 const modal = document.getElementById('imageModal');
 const modalImg = document.getElementById('modalImg');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
 const modalUseCase = document.getElementById('modalUseCase');
 const modalPrompt = document.getElementById('modalPrompt');
+const modalId = document.getElementById('modalId'); // New element for ID
 
 function openModal(id) {
     const data = imageData[id];
@@ -145,6 +289,7 @@ function openModal(id) {
     modalDesc.innerText = data.desc;
     modalUseCase.innerText = data.useCase;
     modalPrompt.innerText = data.prompt;
+    if (modalId) modalId.innerText = `ID: ${data.displayId}`; // Set ID
 
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -164,7 +309,6 @@ function copyPrompt() {
     });
 }
 
-// Close on outside click
 window.addEventListener('click', (event) => {
     if (event.target == modal) {
         closeModal();

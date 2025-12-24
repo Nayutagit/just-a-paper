@@ -18,16 +18,147 @@
         <p>思考を拡張し、新しい世界を構築するAI画像ポートフォリオ</p>
     </header>
 
-    <div class="filters">
-        <button class="filter-btn active" data-filter="all">All Styles</button>
-        <button class="filter-btn" data-filter="photo">Photography</button>
-        <button class="filter-btn" data-filter="anime">Anime</button>
-        <button class="filter-btn" data-filter="watercolor">Watercolor</button>
-        <button class="filter-btn" data-filter="sf">SF Movie</button>
+    <div class="filters-container">
+        <div class="filter-group">
+            <h3>Model</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="male">Male Model</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <h3>Style</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-filter="photo">Photography</button>
+                <button class="filter-btn" data-filter="anime">Anime</button>
+                <button class="filter-btn" data-filter="watercolor">Watercolor</button>
+                <button class="filter-btn" data-filter="sf">SF Movie</button>
+                <button class="filter-btn" data-filter="3d">3D Art</button>
+                <button class="filter-btn" data-filter="flat">Flat Design</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <h3>Subject</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-filter="ec">EC / Product</button>
+                <button class="filter-btn" data-filter="food">Food / Restaurant</button>
+                <button class="filter-btn" data-filter="music">Music</button>
+                <button class="filter-btn" data-filter="education">Education</button>
+            </div>
+        </div>
     </div>
 
     <main class="gallery-container">
         <div class="gallery-grid" id="galleryGrid">
+            <!-- Card: Male Standard -->
+            <div class="card" data-category="male" onclick="openModal('male_standard')">
+                <img src="img/male_standard.png" alt="Male Standard">
+                <div class="card-info">
+                    <span class="card-tag">Male Model</span>
+                    <h2 class="card-title">プロフェッショナルな響き</h2>
+                    <p class="card-desc">信頼感と知性を感じさせる表情。</p>
+                </div>
+            </div>
+
+            <!-- Card: City Pop -->
+            <div class="card" data-category="anime" onclick="openModal('retro_citypop')">
+                <img src="img/city_pop.jpg" alt="City Pop">
+                <div class="card-info">
+                    <span class="card-tag">Retro Anime</span>
+                    <h2 class="card-title">シティポップ・ドリーム</h2>
+                    <p class="card-desc">80年代の風とネオンライト。</p>
+                </div>
+            </div>
+            <!-- Card: Male Teacher -->
+            <div class="card" data-category="male education" onclick="openModal('male_teacher')">
+                <img src="img/male_teacher.png" alt="Male Teacher">
+                <div class="card-info">
+                    <span class="card-tag">Male / Education</span>
+                    <h2 class="card-title">信頼の教育者</h2>
+                    <p class="card-desc">親しみやすく信頼できる講師。</p>
+                </div>
+            </div>
+
+            <!-- Card: Nayuta Fashion -->
+            <div class="card" data-category="nayuta photo" onclick="openModal('nayuta_fashion')">
+                <img src="img/nayuta_fashion.png" alt="Nayuta Fashion">
+                <div class="card-info">
+                    <span class="card-tag">Nayuta / Fashion</span>
+                    <h2 class="card-title">都市とスタイル</h2>
+                    <p class="card-desc">洗練されたストリートファッション。</p>
+                </div>
+            </div>
+
+            <!-- Card: Nayuta Young Casual -->
+            <div class="card" data-category="nayuta photo" onclick="openModal('nayuta_young_casual')">
+                <img src="https://placehold.co/600x400/161b22/fcc800?text=Young+Casual" alt="Nayuta Young Casual">
+                <div class="card-info">
+                    <span class="card-tag">Nayuta / Young</span>
+                    <h2 class="card-title">休日のストリート</h2>
+                    <p class="card-desc">若々しさとリラックスした空気感。</p>
+                </div>
+            </div>
+
+            <!-- Card: Nayuta Young Student -->
+            <div class="card" data-category="nayuta photo" onclick="openModal('nayuta_young_student')">
+                <img src="https://placehold.co/600x400/161b22/fcc800?text=Young+Student" alt="Nayuta Young Student">
+                <div class="card-info">
+                    <span class="card-tag">Nayuta / Student</span>
+                    <h2 class="card-title">知の探求</h2>
+                    <p class="card-desc">真剣な眼差しで学ぶ学生の日常。</p>
+                </div>
+            </div>
+
+            <!-- Card: Nayuta Young Creative -->
+            <div class="card" data-category="nayuta photo" onclick="openModal('nayuta_young_creative')">
+                <img src="https://placehold.co/600x400/161b22/fcc800?text=Young+Creative" alt="Nayuta Young Creative">
+                <div class="card-info">
+                    <span class="card-tag">Nayuta / Creative</span>
+                    <h2 class="card-title">クリエイティブ・マインド</h2>
+                    <p class="card-desc">創造性を刺激する若きアーティスト。</p>
+                </div>
+            </div>
+
+            <!-- Card: EC Product -->
+            <div class="card" data-category="ec photo" onclick="openModal('ec_product')">
+                <img src="https://placehold.co/600x400/161b22/fcc800?text=EC+Product" alt="EC Product">
+                <div class="card-info">
+                    <span class="card-tag">EC / Product</span>
+                    <h2 class="card-title">プロダクトの輝き</h2>
+                    <p class="card-desc">魅力を引き出す商品写真。</p>
+                </div>
+            </div>
+
+            <!-- Card: Food -->
+            <div class="card" data-category="food photo" onclick="openModal('food_restaurant')">
+                <img src="https://placehold.co/600x400/161b22/fcc800?text=Food" alt="Food">
+                <div class="card-info">
+                    <span class="card-tag">Food</span>
+                    <h2 class="card-title">至福の一皿</h2>
+                    <p class="card-desc">食欲をそそるシズル感。</p>
+                </div>
+            </div>
+
+            <!-- Card: Music -->
+            <div class="card" data-category="music photo" onclick="openModal('music_vibe')">
+                <img src="https://placehold.co/600x400/161b22/fcc800?text=Music" alt="Music">
+                <div class="card-info">
+                    <span class="card-tag">Music</span>
+                    <h2 class="card-title">音の風景</h2>
+                    <p class="card-desc">熱気あふれるライブシーン。</p>
+                </div>
+            </div>
+
+            <!-- Card: Text Ad -->
+            <div class="card" data-category="photo" onclick="openModal('text_ad')">
+                <img src="https://placehold.co/600x400/161b22/fcc800?text=Text+Ad" alt="Text Ad">
+                <div class="card-info">
+                    <span class="card-tag">Ad Background</span>
+                    <h2 class="card-title">メッセージを届ける</h2>
+                    <p class="card-desc">文字入れに最適な構図。</p>
+                </div>
+            </div>
+
             <!-- Card 1: Anime Studio -->
             <div class="card" data-category="anime" onclick="openModal('anime')">
                 <img src="img/anime.png" alt="Anime Style Reading Drama">
@@ -188,6 +319,9 @@
                 <img id="modalImg" src="" alt="">
             </div>
             <div class="modal-details">
+                <div id="modalId"
+                    style="font-family: monospace; color: var(--accent-color); font-size: 0.9rem; margin-bottom: 0.5rem; letter-spacing: 0.1em;">
+                </div>
                 <h2 id="modalTitle" class="card-title" style="font-size: 2rem;"></h2>
                 <p id="modalDesc" class="card-desc" style="font-size: 1.1rem; margin-top: 1rem;"></p>
 
