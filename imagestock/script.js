@@ -132,7 +132,7 @@ const imageData = {
         title: 'プロフェッショナルな響き',
         desc: 'ナレーターNayutaのスタンダードなポートレート。信頼感と知性を感じさせる表情、プロフェッショナルなスタジオの空気感。',
         useCase: 'ボイスサンプルのカバー画像、公式プロフィールのメインビジュアル、ビジネス系記事のアイキャッチ。',
-        prompt: '(Based on reference) A high-quality professional portrait of a Japanese male narrator/voice actor named Nayuta.',
+        prompt: '(Based on reference) A professional studio portrait of a handsome Japanese male narrator named Nayuta, wearing a crisp white shirt, soft studio lighting, neutral background, trustworthy and intelligent expression, high-end commercial photography, 8k resolution.',
         img: 'img/nayuta_standard.png'
     },
     // Placeholders for pending generation
@@ -141,7 +141,7 @@ const imageData = {
         title: '信頼の教育者',
         desc: '教育現場やセミナーをイメージさせる、親しみやすく信頼できる講師としてのNayuta。',
         useCase: 'オンラインスクールのLP、教育系コンテンツ、セミナー告知。',
-        prompt: 'Nayuta as a friendly and professional teacher in a classroom setting.',
+        prompt: 'A friendly and professional photo of a Japanese male teacher standing in a modern bright classroom, wearing smart casual business attire, smiling warmly, soft natural light from windows, educational atmosphere, depth of field.',
         img: 'img/nayuta_teacher.png'
     },
     'nayuta_fashion': {
@@ -149,7 +149,7 @@ const imageData = {
         title: '都市とスタイル',
         desc: '洗練されたストリートファッションを身に纏ったNayuta。都会的な背景とシネマティックなライティングが際立つ一枚。',
         useCase: 'アパレルブランドのルックブック、ファッション誌の広告、ライフスタイル提案。',
-        prompt: 'A stylish fashion portrait of Nayuta in an urban setting.',
+        prompt: 'Cinematic fashion portrait of a stylish Japanese man in an urban night setting, wearing a tailored coat, city lights in the background causing beautiful bokeh, cool color grading, moody and sophisticated atmosphere, editorial photography style.',
         img: 'img/nayuta_fashion.png'
     },
     'nayuta_young_casual': {
@@ -157,7 +157,7 @@ const imageData = {
         title: '休日のストリート',
         desc: '若々しいカジュアルスタイルのNayuta。自然光の下、リラックスした表情で佇む。',
         useCase: '若者向けサービスのLP、カジュアルブランドの広告、SNSプロフィール。',
-        prompt: 'Younger Nayuta in hoodie/casual jacket on street.',
+        prompt: 'A candid street snap of a trendy young Japanese man wearing a casual hoodie and denim jacket, walking on a sunny street in Tokyo, relaxed and energetic vibe, natural sunlight, high shutter speed, street fashion photography.',
         img: 'img/nayuta_young_casual.png'
     },
     'nayuta_young_student': {
@@ -165,7 +165,7 @@ const imageData = {
         title: '知の探求',
         desc: 'カフェや図書館で学ぶ、知的な学生風のNayuta。PCやノートを広げ、真剣な眼差しを見せる。',
         useCase: '学習アプリの広告、大学のパンフレット、スタートアップの採用。',
-        prompt: 'Younger Nayuta studying in cafe/library.',
+        prompt: 'A young Japanese student studying seriously in a quiet library with a laptop and notebooks, wearing glasses and a knit sweater, soft warm lighting, studious and focused expression, academic atmosphere, high details.',
         img: 'img/nayuta_young_student.png'
     },
     'nayuta_young_creative': {
@@ -173,16 +173,24 @@ const imageData = {
         title: 'クリエイティブ・マインド',
         desc: 'カメラを手に街を歩く、あるいはスケッチブックに向かう、創造性あふれる若き日のNayuta。',
         useCase: 'アートスクールの紹介、クリエイター募集、ポートフォリオサイト。',
-        prompt: 'Younger Nayuta with camera or sketchbook.',
+        prompt: 'An artistic portrait of a young creative Japanese man holding a vintage film camera, standing in an art studio or loft, messy hair, wearing a loose shirt, soft window light, inspiring and artistic mood, film grain texture.',
         img: 'img/nayuta_young_creative.png'
     },
     'ec_product': {
         displayId: 'NST-023',
-        title: 'プロダクトの輝き',
-        desc: 'ECサイト向けのクリーンで高品質な商品写真。シンプルな背景と計算されたライティングが、商品の魅力を最大限に引き出す。',
-        useCase: 'オンラインショップの商品画像、Amazon/楽天の出品画像、D2Cブランドの広告。',
-        prompt: 'Clean and high-quality product photography for EC site.',
+        title: 'プロダクトの輝き (Pink)',
+        desc: 'ECサイト向けのクリーンで高品質な商品写真。パステルカラーのプロップを使用し、ブランドの世界観を演出。',
+        useCase: 'Instagram広告、ブランドサイトのラインナップ紹介、D2Cブランドのキービジュアル。',
+        prompt: 'Professional product photography of a sleek white skincare lotion bottle standing on a geometric pastel pink podium.',
         img: 'img/ec_product.png'
+    },
+    'ec_product_2': {
+        displayId: 'NST-029',
+        title: 'プロダクトの輝き (White)',
+        desc: 'Amazon/楽天などで求められる、完全白背景の商品写真。被写体を際立たせるライティングと反射の表現。',
+        useCase: 'Amazon・楽天の商品詳細ページ、カタログ画像、切り抜き用の素材。',
+        prompt: 'High-end commercial product photography of a white skincare bottle, isolated on pure white background, soft studio lighting, reflection below.',
+        img: 'img/ec_product_2.png'
     },
     'food_restaurant': {
         displayId: 'NST-024',
