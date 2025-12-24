@@ -224,6 +224,14 @@ const imageData = {
         prompt: 'Close-up beauty portrait of a cute Japanese woman with glowing clear skin, gently touching her cheek, soft natural window lighting, minimalist white background, clean and fresh atmosphere, high-end skincare advertisement aesthetic, 8k resolution, sharp focus on eyes.',
         img: 'img/ec_beauty.png'
     },
+    'ec_business': {
+        displayId: 'NST-034',
+        title: 'Trusted Workflow',
+        desc: '信頼感のあるオフィスシーン。自然な明るさと親しみやすい笑顔で、企業のクリーンなイメージを訴求。',
+        useCase: 'コーポレートサイトの採用ページ、SaaS製品の導入事例、ビジネスセミナーの告知。',
+        prompt: 'Waist-up shot of a professional Japanese office lady in a clean white blouse using a laptop in a modern bright office, looking at the camera with a friendly and trustworthy smile, soft daylight, corporate website material, high quality, authentic look.',
+        img: 'img/ec_business.png'
+    },
     '3d_character': {
         displayId: 'NST-040',
         title: 'Friendly Robot',
