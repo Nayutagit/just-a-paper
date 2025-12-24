@@ -240,6 +240,14 @@ const imageData = {
         prompt: 'Full body fashion shot of a stylish young Japanese woman wearing a beige trench coat and jeans, walking on a stylish street in Omotesando, smiling naturally at the camera, sunlight filtering through trees, shallow depth of field, fashion magazine style, energetic and cute.',
         img: 'img/ec_fashion.jpg'
     },
+    'ec_wellness': {
+        displayId: 'NST-036',
+        title: 'Morning Yoga',
+        desc: '健康的なライフスタイルを象徴するヨガシーン。柔らかな朝の光が、ウェルネスブランドのクリーンな世界観を演出。',
+        useCase: 'フィットネスジムの広告、ヨガウェアのカタログ、健康食品のLP。',
+        prompt: 'A fit and cute Japanese woman doing yoga stretches in a sunlit living room, wearing pastel colored activewear, healthy and energetic vibe, morning light streaming in, wellness lifestyle photography, natural make-up.',
+        img: 'img/ec_wellness.png'
+    },
     '3d_character': {
         displayId: 'NST-040',
         title: 'Friendly Robot',
