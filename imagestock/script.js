@@ -272,6 +272,14 @@ const imageData = {
         prompt: 'Modern flat vector illustration of a diverse startup team working around a desk with laptops, vibrant corporate colors (blue and yellow), clean lines, minimalism, abstract background elements, suitable for tech website.',
         img: 'img/flat_design.png'
     },
+    'bg_lofi': {
+        displayId: 'NST-051',
+        title: 'Chill Beats',
+        desc: 'YouTubeの作業用BGM動画（Lo-Fi Hip Hop）に最適な、アニメタッチのループ素材風イラスト。雨の夜の静けさと温かさを表現。',
+        useCase: '音楽配信チャンネルの背景、Vtuberの配信待機画面、ASMR動画のサムネイル。',
+        prompt: 'Lo-Fi Hip Hop aesthetic illustration, a girl studying at a desk in a cozy messy room at night, rain on window, warm lamp light, purple and blue ambient lighting, relaxed atmosphere, anime style backgroundart, high detail.',
+        img: 'img/bg_lofi.png'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
