@@ -232,6 +232,14 @@ const imageData = {
         prompt: 'Waist-up shot of a professional Japanese office lady in a clean white blouse using a laptop in a modern bright office, looking at the camera with a friendly and trustworthy smile, soft daylight, corporate website material, high quality, authentic look.',
         img: 'img/ec_business.png'
     },
+    'ec_fashion': {
+        displayId: 'NST-035',
+        title: 'City Walker',
+        desc: 'トレンド感のあるストリートスナップ。表参道の木漏れ日の中で、アパレルの魅力を自然な表情と共に表現。',
+        useCase: 'アパレルブランドのECサイト、ファッション誌のWeb記事、SNS広告。',
+        prompt: 'Full body fashion shot of a stylish young Japanese woman wearing a beige trench coat and jeans, walking on a stylish street in Omotesando, smiling naturally at the camera, sunlight filtering through trees, shallow depth of field, fashion magazine style, energetic and cute.',
+        img: 'img/ec_fashion.jpg'
+    },
     '3d_character': {
         displayId: 'NST-040',
         title: 'Friendly Robot',
