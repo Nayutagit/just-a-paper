@@ -252,18 +252,12 @@ function updateActiveButtons(filterValue) {
 // Function to apply filter to cards
 function applyFilter(filter) {
     cards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        // Simple logic: 'all' shows everything.
-        // Specific filters check if the card's category matches.
-        // Note: For now, we assume 1-to-1 mapping or simplified logic. 
-        // If a card belongs to multiple categories, we might need more complex logic.
-        // But for this portfolio, 'photo' is a style, 'nayuta' is a model. A card might need multiple tags.
-        // Let's implement a "contains" logic if we add multiple classes or data-attributes later.
-        // For now, let's assume data-category matches the filter.
+        // Get the card's categories (space separated)
+        const categories = card.getAttribute('data-category').split(' ');
 
-        // Wait, 'nayuta' images might be 'photo' style too. 
-        // Let's support simple string matching for now.
-        if (filter === 'all' || category === filter || (filter === 'nayuta' && category.includes('nayuta'))) {
+        // Check if 'all' is selected OR if the card's categories include the filter
+        // Special case: 'nayuta' filter might match 'nayuta' in composite categories even if not exact match (already covered by split)
+        if (filter === 'all' || categories.includes(filter)) {
             card.style.display = 'block';
         } else {
             card.style.display = 'none';
