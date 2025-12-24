@@ -143,6 +143,14 @@ const imageData = {
         prompt: 'Candid snapshot of a cute Japanese woman turning back in a busy Shibuya crowd at night, slight motion blur, hair flowing, chaotic city lights and people in background, harsh camera flash, heavy film grain, 35mm film aesthetic, high contrast, vibrant colors, street realism.',
         img: 'img/photo_shibuya_blur.jpg'
     },
+    'photo_shibuya_reflection': {
+        displayId: 'NST-077',
+        title: 'Night Reflection',
+        desc: 'ショーウィンドウに映り込むネオンと、アンニュイな表情。都市の孤独と美しさが交差する。',
+        useCase: '深夜のラジオ番組のビジュアル、都会派小説の装丁、アーティスティックなポートレート写真集。',
+        prompt: 'Artistic night portrait of a Japanese woman leaning against a shop window in Shibuya, reflection of neon city lights superimposed on her face, moody expression, harsh camera flash, heavy film grain, 35mm film aesthetic, high contrast, vibrant colors, cinematic atmosphere.',
+        img: 'img/photo_shibuya_reflection.jpg'
+    },
     'watercolor': {
         displayId: 'NST-012',
         title: '春の縁側',
