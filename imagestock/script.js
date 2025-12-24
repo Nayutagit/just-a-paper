@@ -62,6 +62,20 @@ const imageData = {
         prompt: 'A realistic portrait of a beautiful Japanese woman by a sunlit window, soft morning light, wearing a white cotton shirt, slight film grain, soft focus background, Kodak Portra 400 aesthetic, natural skin texture, warm and airy atmosphere, extremely high resolution.',
         img: 'img/photo_woman_1.jpg'
     },
+    'photo_woman_2': {
+        title: '渋谷の鼓動とフラッシュ',
+        desc: '夜の渋谷、ストリートの喧騒を強めのフラッシュで切り取った一枚。35mmフィルム特有の高コントラストな色彩と粒子感が、生々しいリアリティを生んでいます。',
+        useCase: 'ストリートファッション誌、都会のライフスタイルをテーマにしたSNS、エッジの効いたカルチャー紹介。',
+        prompt: 'A realistic gritty snapshot of a cute Japanese woman on a Shibuya street at night, harsh camera flash, heavy film grain, blurry city lights in the background, candid expression, 35mm film aesthetic, high contrast, vibrant colors, nostalgic but modern look.',
+        img: 'img/photo_woman_2.jpg'
+    },
+    'photo_woman_3': {
+        title: '雨音とモノクローム',
+        desc: '雨のカフェにて、物思いにふける女性の肖像。富士フイルム Neopan 400風の階調豊かなモノクロームが、窓からの柔らかい光と陰影を芸術的に表現。',
+        useCase: '内省的なエッセイやブログの挿絵、ドキュメンタリー番組のビジュアル、シックな空間デザインのコンセプト。',
+        prompt: 'A realistic black and white film portrait of a Japanese woman sitting in a moody cafe on a rainy day, soft lighting from the window, visible film grain, artistic shadows, shot on Fujifilm Neopan 400, emotional and timeless atmosphere, detailed textures.',
+        img: 'img/photo_woman_3.jpg'
+    },
     'watercolor': {
         title: '春の縁側',
         desc: '日本の原風景を感じさせる温かみのある水彩画。猫が眠る穏やかな時間、桜の舞う庭園を淡い色彩で表現しました。',
