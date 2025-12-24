@@ -280,6 +280,14 @@ const imageData = {
         prompt: 'Lo-Fi Hip Hop aesthetic illustration, a girl studying at a desk in a cozy messy room at night, rain on window, warm lamp light, purple and blue ambient lighting, relaxed atmosphere, anime style backgroundart, high detail.',
         img: 'img/bg_lofi.png'
     },
+    'bg_business': {
+        displayId: 'NST-053',
+        title: 'Smart Explain',
+        desc: 'ビジネス解説動画や教育系コンテンツの背景素材。知的なブルー基調と幾何学模様で、情報の信頼性を高める。',
+        useCase: '解説動画のバックグラウンド、ウェビナーの待機画面、テック系ニュースのアイキャッチ。',
+        prompt: 'Abstract business background for YouTube explanation video, geometric shapes, blue and white color scheme, clean and professional, minimalist motion graphics style, subtle depth, trustworthy atmosphere.',
+        img: 'img/bg_business.png'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
