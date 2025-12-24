@@ -84,6 +84,15 @@ function closeModal() {
     document.body.style.overflow = 'auto';
 }
 
+function copyPrompt() {
+    const text = modalPrompt.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Prompt copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
 // Close on outside click
 window.addEventListener('click', (event) => {
     if (event.target == modal) {
