@@ -216,6 +216,22 @@ const imageData = {
         prompt: 'Minimalist product photography of a ceramic aroma diffuser on a wooden table, cozy home interior background with sunlight streaming in, soft shadows, lifestyle aesthetic, organic mood.',
         img: 'img/ec_interior.png'
     },
+    '3d_character': {
+        displayId: 'NST-040',
+        title: 'Friendly Robot',
+        desc: 'Pixarスタイルの3Dキャラクター。親しみやすい表情と高品質なレンダリングで、テック企業のナビゲーターに最適。',
+        useCase: 'チャットボットのアイコン、Tech企業のLP、マニュアル動画のキャラクター。',
+        prompt: 'A cute, high-quality 3D rendered character of a friendly robot helper, Pixar style, glossy plastic texture, studio lighting, soft pastel background, 8k resolution, 3d art.',
+        img: 'img/3d_character.png'
+    },
+    'flat_design': {
+        displayId: 'NST-041',
+        title: 'Startup Team',
+        desc: 'Tech企業向けのフラットデザイン・イラストレーション。多様性のあるチームと先進的なイメージを、清潔感のあるベクターアートで表現。',
+        useCase: 'SaaS製品のLP、コーポレートサイトのMV、ピッチ資料の挿絵。',
+        prompt: 'Modern flat vector illustration of a diverse startup team working around a desk with laptops, vibrant corporate colors (blue and yellow), clean lines, minimalism, abstract background elements, suitable for tech website.',
+        img: 'img/flat_design.png'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
