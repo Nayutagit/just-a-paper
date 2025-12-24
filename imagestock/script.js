@@ -248,6 +248,14 @@ const imageData = {
         prompt: 'A fit and cute Japanese woman doing yoga stretches in a sunlit living room, wearing pastel colored activewear, healthy and energetic vibe, morning light streaming in, wellness lifestyle photography, natural make-up.',
         img: 'img/ec_wellness.png'
     },
+    'ec_relax': {
+        displayId: 'NST-037',
+        title: 'Cozy Evening',
+        desc: 'リラックスした夜のひととき。ルームウェアの柔らかさと温かい照明が、心地よい暮らしのイメージを顧客に届ける。',
+        useCase: 'ルームウェアブランドの広告、インテリア雑貨のEC、不動産のライフスタイル提案。',
+        prompt: 'Relaxed portrait of a cute Japanese woman wearing fluffy roomwear sitting on a beige sofa holding a mug, warm and cozy lighting, evening atmosphere, comfortable lifestyle, authentic home interior background, soft focus.',
+        img: 'img/ec_relax.jpg'
+    },
     '3d_character': {
         displayId: 'NST-040',
         title: 'Friendly Robot',
