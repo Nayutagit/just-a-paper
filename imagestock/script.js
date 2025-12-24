@@ -288,6 +288,14 @@ const imageData = {
         prompt: 'Abstract business background for YouTube explanation video, geometric shapes, blue and white color scheme, clean and professional, minimalist motion graphics style, subtle depth, trustworthy atmosphere.',
         img: 'img/bg_business.png'
     },
+    'bg_variety': {
+        displayId: 'NST-056',
+        title: 'Pop Variety',
+        desc: 'バラエティ番組やエンタメ系YouTuber向けの、エネルギッシュなアメコミ風背景。画面に勢いと楽しさをプラスする。',
+        useCase: 'ドッキリ動画のオープニング、コメディ企画のアイキャッチ、ゲーム実況の背景。',
+        prompt: 'Pop art style background with comic book effects, sunburst lines (concentrated lines), vibrant yellow and red colors, energetic and fun atmosphere, suitable for variety show or comedy video.',
+        img: 'img/bg_variety.jpg'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
