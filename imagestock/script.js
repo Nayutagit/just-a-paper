@@ -248,6 +248,14 @@ const imageData = {
         prompt: 'Professional product photography of a sleek white skincare lotion bottle standing on a geometric pastel pink podium.',
         img: 'img/ec_product.png'
     },
+    'diversity_society': {
+        displayId: 'NST-027',
+        title: '共生する未来',
+        desc: 'クレイアニメ風の温かみのあるキャラクターたち。多様な人種、年齢、特性を持つ人々が笑顔で寄り添い、ポジティブな社会を表現。',
+        useCase: '公共サービスのポスター、企業のCSR活動報告書、ダイバーシティ＆インクルージョン研修資料。',
+        prompt: 'A heartwarming claymation style illustration of a diverse group of people (various races, ages, abilities including wheelchair user) standing together on a green hill, smiling happy expressions, blue sky background, soft lighting, 3d render style, cute and friendly atmosphere.',
+        img: 'img/diversity_society.jpg'
+    },
     'ec_product_2': {
         displayId: 'NST-029',
         title: 'プロダクトの輝き (White)',
