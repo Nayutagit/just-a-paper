@@ -192,6 +192,14 @@ const imageData = {
         prompt: 'High-end commercial product photography of a white skincare bottle, isolated on pure white background, soft studio lighting, reflection below.',
         img: 'img/ec_product_2.png'
     },
+    'ec_gadget': {
+        displayId: 'NST-030',
+        title: 'Tech & Style',
+        desc: '最新ガジェットの高級感と先進性を表現した広告ビジュアル。ネオンライティングと浮遊感のある構図。',
+        useCase: 'ガジェット製品のLP、クラウドファンディングのメイン画像、テック系メディアの記事。',
+        prompt: 'Professional commercial product photography of sleek black wireless earbuds floating in mid-air, dynamic angle, dramatic studio lighting, dark background with blue neon rim light, high detail, 4k.',
+        img: 'img/ec_gadget.png'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
