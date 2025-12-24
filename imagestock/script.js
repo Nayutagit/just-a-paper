@@ -119,6 +119,14 @@ const imageData = {
         prompt: 'A realistic gritty snapshot of a cheerful Japanese woman walking on a street in Hiroshima at night, retro streetcar (tram) passing by in the background, neon signs of "Okonomiyaki" and "Carp", harsh camera flash, heavy film grain, candid smile, 35mm film aesthetic, nostalgic vibrant night atmosphere.',
         img: 'img/photo_hiroshima_night_2.jpg'
     },
+    'photo_hiroshima_day': {
+        displayId: 'NST-074',
+        title: 'Hiroshima Sunny',
+        desc: '晴天の広島、路面電車のある風景。爽やかな風と、穏やかな日常の瞬間。',
+        useCase: '広島観光ガイド、鉄道旅のポスター、春の旅行プロモーション。',
+        prompt: 'A refreshing and nostalgic photograph of a Japanese woman walking across a pedestrian crossing in Hiroshima on a sunny day, retro streetcar (green tram) passing by in background, clear blue sky, old-school arcade shops, film photography style, soft natural lighting, peaceful atmosphere.',
+        img: 'img/photo_hiroshima_day.jpg'
+    },
     'watercolor': {
         displayId: 'NST-012',
         title: '春の縁側',
