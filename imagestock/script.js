@@ -159,6 +159,14 @@ const imageData = {
         prompt: 'A photorealistic close-up shot of a young Asian woman holding a vintage silver Nikon SLR camera up to her right eye to take a picture. Focus is sharp on the camera lens and her hands, with a shallow depth of field making her face slightly soft and out of focus. She is winking her left eye. She wears a black t-shirt, a black digital sports watch on her left wrist, and a thin silver bracelet on her right wrist. Bright solid yellow wall background. Natural lighting, 50mm lens, high resolution.',
         img: 'img/photo_camera_girl.jpg'
     },
+    'photo_camera_girl_blue': {
+        displayId: 'NST-079',
+        title: 'Pure Focus',
+        desc: '爽やかなブルーバックと白い衣装。透明感のある構図で、写真への純粋な情熱を表現。',
+        useCase: '写真館のキャンペーン、夏向けカメラ講座のLP、清潔感のあるガジェット広告。',
+        prompt: 'A photorealistic close-up shot of a young Asian woman holding a vintage silver Nikon SLR camera up to her right eye. Focus is sharp on the camera lens and her fingers. She wears a sleeveless white blouse, and has a gold ear cuff on her left ear. Light blue textured background. Soft natural light, high key lighting, clean and refreshing atmosphere, slight smile, shallow depth of field.',
+        img: 'img/photo_camera_girl_blue.jpg'
+    },
     'watercolor': {
         displayId: 'NST-012',
         title: '春の縁側',
