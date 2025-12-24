@@ -1,5 +1,6 @@
 const imageData = {
     'anime': {
+        displayId: 'NST-001',
         title: '朗読劇の情景',
         desc: 'ナレーション収録スタジオにおけるエモーショナルな瞬間。深みのある夕闇のバックスタイルと、キャラクターの細やかな表情を追求しました。',
         useCase: 'YouTubeの朗読動画、オーディオブックのメインビジュアル、声優・ナレーターの活動紹介ページ。',
@@ -7,6 +8,7 @@ const imageData = {
         img: 'img/anime.png'
     },
     'anime_kids': {
+        displayId: 'NST-002',
         title: '子供たちの笑顔',
         desc: '公園で遊ぶ純粋な子供たちの表情を、温かみのあるアニメ調で描写。泥だらけになっても笑い合う、物語の一場面を切り取った一枚。',
         useCase: '知育コンテンツ、子供向けの読み聞かせ動画、ファミリー層向けブログのアイキャッチ、教育サービス。',
@@ -14,6 +16,7 @@ const imageData = {
         img: 'img/anime_kids.jpg'
     },
     'anime_elderly': {
+        displayId: 'NST-003',
         title: '穏やかな老後',
         desc: 'リビングで手を取り合う老夫婦。優しさと信頼に包まれた空気感を、落ち着いたトーンのアニメスタイルで表現。',
         useCase: '介護・福祉サービスの紹介、ライフプラン設計、シニア向けメディア、「家族の絆」をテーマにしたコンテンツ。',
@@ -21,6 +24,7 @@ const imageData = {
         img: 'img/anime_elderly.jpg'
     },
     'photo': {
+        displayId: 'NST-004',
         title: '瀬戸内の夕暮れ',
         desc: '瀬戸内海の多島美と、夕日に染まる空のグラデーション。プロフェッショナルな風景写真のような解像感と空気感を再現。',
         useCase: '旅行・観光メディアのヘッダー、宿泊施設のWebサイト、癒やし系ポッドキャストのカバー画像。',
@@ -28,6 +32,7 @@ const imageData = {
         img: 'img/photo.png'
     },
     'photo_artisan': {
+        displayId: 'NST-005',
         title: '職人の眼差し',
         desc: '日本の伝統工芸を支える職人のポートレート。柔らかな自然光と浅い被写界深度で、その年輪と情熱を克明に捉えました。',
         useCase: '企業のブランディング資料、伝統文化のインタビュー記事、高品質なプロダクト紹介ページ。',
@@ -35,6 +40,7 @@ const imageData = {
         img: 'img/photo_artisan.png'
     },
     'photo_street_snap': {
+        displayId: 'NST-006',
         title: '雨上がりの静寂',
         desc: '何気ない日本の住宅街。雨に濡れたアスファルトの質感や電柱の影など、日常の瞬間を切り取ったスナップ写真風の一枚。',
         useCase: '都市生活をテーマにしたコラム、エッセイNoteの挿絵、ストリートファッション・カルチャーの背景。',
@@ -42,6 +48,7 @@ const imageData = {
         img: 'img/photo_street_snap.jpg'
     },
     'photo_ramen': {
+        displayId: 'NST-007',
         title: '立ち上る湯気',
         desc: '地元の食堂で提供される一杯。レンズのボケ味とライティングにより、食欲をそそる素材のディテールと店内の空気感を再現。',
         useCase: '地域メディアのグルメ紹介、フードデリバリーサイトのメインビジュアル、料理・レシピ関連記事。',
@@ -49,6 +56,7 @@ const imageData = {
         img: 'img/photo_ramen.jpg'
     },
     'photo_bench': {
+        displayId: 'NST-008',
         title: '夕暮れの追憶',
         desc: '公園の片隅、長い影が伸びる夕暮れ時。35mmフィルムのような質感と、ノスタルジックな黄金色の光が感情に訴えかける一枚。',
         useCase: '情緒的な文章の背景、メンタルヘルス・カウンセリングサイト、物語性のあるSNS投稿。',
@@ -56,6 +64,7 @@ const imageData = {
         img: 'img/photo_bench.jpg'
     },
     'photo_woman_1': {
+        displayId: 'NST-009',
         title: '窓辺の光と透明感',
         desc: '柔らかな朝の光に包まれた日本人女性のポートレート。コダック Portra 400風の色彩設計と微細な粒子感が、肌の質感と透明感を強調しています。',
         useCase: 'ライフスタイルメディアのインタビュー記事、美容・スキンケアブランドの広告、自然体なブランドイメージの構築。',
@@ -63,6 +72,7 @@ const imageData = {
         img: 'img/photo_woman_1.jpg'
     },
     'photo_woman_2': {
+        displayId: 'NST-010',
         title: '渋谷の鼓動とフラッシュ',
         desc: '夜の渋谷、ストリートの喧騒を強めのフラッシュで切り取った一枚。35mmフィルム特有の高コントラストな色彩と粒子感が、生々しいリアリティを生んでいます。',
         useCase: 'ストリートファッション誌、都会のライフスタイルをテーマにしたSNS、エッジの効いたカルチャー紹介。',
@@ -70,6 +80,7 @@ const imageData = {
         img: 'img/photo_woman_2.jpg'
     },
     'photo_woman_3': {
+        displayId: 'NST-011',
         title: '雨音とモノクローム',
         desc: '雨のカフェにて、物思いにふける女性の肖像。富士フイルム Neopan 400風の階調豊かなモノクロームが、窓からの柔らかい光と陰影を芸術的に表現。',
         useCase: '内省的なエッセイやブログの挿絵、ドキュメンタリー番組のビジュアル、シックな空間デザインのコンセプト。',
@@ -77,6 +88,7 @@ const imageData = {
         img: 'img/photo_woman_3.jpg'
     },
     'watercolor': {
+        displayId: 'NST-012',
         title: '春の縁側',
         desc: '日本の原風景を感じさせる温かみのある水彩画。猫が眠る穏やかな時間、桜の舞う庭園を淡い色彩で表現しました。',
         useCase: 'グリーティングカード、癒やし系アプリ、季節のニュースレター、ライフスタイルブランド。',
@@ -84,6 +96,7 @@ const imageData = {
         img: 'img/watercolor.png'
     },
     'watercolor_autumn': {
+        displayId: 'NST-013',
         title: '秋の錦鯉',
         desc: '秋の深まりを感じさせる石橋と紅葉の情景。水面に浮かぶ落ち葉と、優雅に泳具錦鯉を繊細なタッチで描写。',
         useCase: '和食料亭のWebサイト、季節のキャンペーン広告、日本の伝統文化を紹介するインバウンド向けメディア。',
@@ -91,6 +104,7 @@ const imageData = {
         img: 'img/watercolor_autumn.jpg'
     },
     'sf_city': {
+        displayId: 'NST-014',
         title: '不夜城の鼓動',
         desc: 'ネオンとホログラムが交錯する近未来のメガロポリス。降りしきる雨と空中を往来するビークルが、サイバーパンクな世界観を構築。',
         useCase: 'IT・最新テクノロジー関連のニュース、SF・ファンタジー系の動画制作、未来予測コラム。',
@@ -98,6 +112,7 @@ const imageData = {
         img: 'img/sf_city.png'
     },
     'sf_planet': {
+        displayId: 'NST-015',
         title: '未知の境界線',
         desc: '二層の月が浮かぶ、彼方の惑星。巨大なクリスタル・モノリスと発光する植物が、静寂の中に神秘的な畏怖を感じさせる。',
         useCase: '科学ポッドキャスト、宇宙開発関連の記事、SF小説の表紙、メタバース空間のコンセプト。',
@@ -105,6 +120,7 @@ const imageData = {
         img: 'img/sf_planet.png'
     },
     'retro_citypop': {
+        displayId: 'NST-016',
         title: 'シティポップ・ドリーム',
         desc: '80年代を彷彿とさせるネオンカラーと未来的な都市風景。トレンディな女性とコンバーチブルカーが、ノスタルジックな物語を紡ぐ。',
         useCase: 'Lo-Fi Hip Hopチャンネル、レトロフューチャーなイベント告知、アパレルのビジュアル。',
@@ -112,6 +128,7 @@ const imageData = {
         img: 'img/city_pop.jpg'
     },
     'nayuta_standard': {
+        displayId: 'NST-017',
         title: 'プロフェッショナルな響き',
         desc: 'ナレーターNayutaのスタンダードなポートレート。信頼感と知性を感じさせる表情、プロフェッショナルなスタジオの空気感。',
         useCase: 'ボイスサンプルのカバー画像、公式プロフィールのメインビジュアル、ビジネス系記事のアイキャッチ。',
@@ -120,6 +137,7 @@ const imageData = {
     },
     // Placeholders for pending generation
     'nayuta_teacher': {
+        displayId: 'NST-018',
         title: '信頼の教育者',
         desc: '教育現場やセミナーをイメージさせる、親しみやすく信頼できる講師としてのNayuta。',
         useCase: 'オンラインスクールのLP、教育系コンテンツ、セミナー告知。',
@@ -127,6 +145,7 @@ const imageData = {
         img: 'img/nayuta_teacher.png'
     },
     'nayuta_fashion': {
+        displayId: 'NST-019',
         title: '都市とスタイル',
         desc: '洗練されたストリートファッションを身に纏ったNayuta。都会的な背景とシネマティックなライティングが際立つ一枚。',
         useCase: 'アパレルブランドのルックブック、ファッション誌の広告、ライフスタイル提案。',
@@ -134,6 +153,7 @@ const imageData = {
         img: 'img/nayuta_fashion.png'
     },
     'nayuta_young_casual': {
+        displayId: 'NST-020',
         title: '休日のストリート',
         desc: '若々しいカジュアルスタイルのNayuta。自然光の下、リラックスした表情で佇む。',
         useCase: '若者向けサービスのLP、カジュアルブランドの広告、SNSプロフィール。',
@@ -141,25 +161,28 @@ const imageData = {
         img: 'img/nayuta_young_casual.png'
     },
     'nayuta_young_student': {
+        displayId: 'NST-021',
         title: '知の探求',
         desc: 'カフェや図書館で学ぶ、知的な学生風のNayuta。PCやノートを広げ、真剣な眼差しを見せる。',
         useCase: '学習アプリの広告、大学のパンフレット、スタートアップの採用。',
         prompt: 'Younger Nayuta studying in cafe/library.',
-        img: 'https://placehold.co/600x400/161b22/fcc800?text=Young+Student'
+        img: 'img/nayuta_young_student.png'
     },
     'nayuta_young_creative': {
+        displayId: 'NST-022',
         title: 'クリエイティブ・マインド',
         desc: 'カメラを手に街を歩く、あるいはスケッチブックに向かう、創造性あふれる若き日のNayuta。',
         useCase: 'アートスクールの紹介、クリエイター募集、ポートフォリオサイト。',
         prompt: 'Younger Nayuta with camera or sketchbook.',
-        img: 'https://placehold.co/600x400/161b22/fcc800?text=Young+Creative'
+        img: 'img/nayuta_young_creative.png'
     },
     'ec_product': {
+        displayId: 'NST-023',
         title: 'プロダクトの輝き',
         desc: 'ECサイト向けのクリーンで高品質な商品写真。シンプルな背景と計算されたライティングが、商品の魅力を最大限に引き出す。',
         useCase: 'オンラインショップの商品画像、Amazon/楽天の出品画像、D2Cブランドの広告。',
         prompt: 'Clean and high-quality product photography for EC site.',
-        img: 'https://placehold.co/600x400/161b22/fcc800?text=EC+Product'
+        img: 'img/ec_product.png'
     },
     'food_restaurant': {
         displayId: 'NST-024',
