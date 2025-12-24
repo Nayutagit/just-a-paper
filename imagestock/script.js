@@ -320,6 +320,14 @@ const imageData = {
         prompt: 'High-end beauty advertisement photography. A close-up of a beautiful Japanese woman with flawless skin holding a metallic pink tube of UV cream near her face. A smear of white cream texture is on her cheek. Elegant mauve purple background, soft studio lighting, sophisticated and premium atmosphere. (Text overlay style)',
         img: 'img/ec_beauty_ad.png'
     },
+    'ec_beauty_luxury': {
+        displayId: 'NST-081',
+        title: 'Luxury Essence',
+        desc: '深みのある背景と鮮やかな黄色の花が、商品の高級感を引き立てる。陶器のような肌と硝子の質感が織りなす、極上の美。',
+        useCase: 'ハイブランドコスメのメインビジュアル、デパートコスメのサイネージ、海外向け美容雑誌の広告。',
+        prompt: 'A hyper-realistic close-up portrait of a beautiful East Asian woman with flawless porcelain skin, holding a rectangular luxury cosmetic bottle containing solid single-color liquid near her eye with the opposite hand. Dark moody background featuring large lush yellow flowers. Soft dramatic studio lighting highlighting the dewy skin texture and the glass bottle transparency, elegant, sophisticated, beauty photography, high resolution, 8k, sharp focus.',
+        img: 'img/ec_beauty_luxury.jpg'
+    },
     'ec_business': {
         displayId: 'NST-034',
         title: 'Trusted Workflow',
