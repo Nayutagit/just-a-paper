@@ -328,6 +328,38 @@ const imageData = {
         prompt: 'A hyper-realistic close-up portrait of a beautiful East Asian woman with flawless porcelain skin, holding a rectangular luxury cosmetic bottle containing solid single-color liquid near her eye with the opposite hand. Dark moody background featuring large lush yellow flowers. Soft dramatic studio lighting highlighting the dewy skin texture and the glass bottle transparency, elegant, sophisticated, beauty photography, high resolution, 8k, sharp focus.',
         img: 'img/ec_beauty_luxury.jpg'
     },
+    'ec_mobile_biz_1': {
+        displayId: 'NST-082',
+        title: 'Voice Command',
+        desc: 'オフィスで音声入力機能を使うビジネスパーソン。DX推進やAIツールの利便性をアピールする、現代的なワークスタイル。',
+        useCase: '音声認識アプリのLP、ビジネスチャットツールの広告、DX研修のキービジュアル。',
+        prompt: 'Professional corporate photography of a young Japanese business woman in a modern industrial office, holding a smartphone horizontally to her mouth using voice command, natural window light, serious but productive expression, wearing a beige jacket.',
+        img: 'img/ec_mobile_biz_1.jpg'
+    },
+    'ec_mobile_city': {
+        displayId: 'NST-083',
+        title: 'City Navigation',
+        desc: '夕暮れの街で地図アプリを見る女性。トレンチコートを着こなし、都会のライフスタイルとテクノロジーの融合を表現。',
+        useCase: '地図・乗換案内アプリの広告、都市型ライフスタイルのWebマガジン、アパレルECのスマホ特集。',
+        prompt: 'Cinematic street photography of a beautiful Japanese woman in a trench coat looking at her smartphone in a busy city street at twilight, bokeh of city lights and pedestrians in background, focused expression, urban lifestyle.',
+        img: 'img/ec_mobile_city.jpg'
+    },
+    'ec_mobile_student': {
+        displayId: 'NST-084',
+        title: 'Smart Learning',
+        desc: '図書館でスマホ学習をする学生。メガネと白シャツの知的な雰囲気で、EdTechや学習アプリのクリーンなイメージを訴求。',
+        useCase: '学習管理アプリのバナー、電子書籍サービスのLP、大学・専門学校の広報素材。',
+        prompt: 'A young Japanese female student with glasses and red hair using a smartphone in a library, wearing a white shirt, bookshelves in background, studious and intelligent atmosphere, soft indoor lighting, education technology concept.',
+        img: 'img/ec_mobile_student.jpg'
+    },
+    'ec_mobile_biz_2': {
+        displayId: 'NST-085',
+        title: 'Global Connect',
+        desc: '窓辺で通話するビジネスウーマン。自信に満ちた表情と洗練された空間が、グローバルなビジネス展開を予感させる。',
+        useCase: '海外通話サービスの広告、コンサルティングファームの採用ページ、リモートワークツールのMV。',
+        prompt: 'Medium shot of a confident Japanese business woman speaking on a smartphone in a bright modern office with large windows, looking away thoughtfully, wearing a dark suit jacket, professional and elegant atmosphere.',
+        img: 'img/ec_mobile_biz_2.jpg'
+    },
     'ec_business': {
         displayId: 'NST-034',
         title: 'Trusted Workflow',
