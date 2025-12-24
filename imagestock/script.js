@@ -400,6 +400,14 @@ const imageData = {
         prompt: 'A cozy shot of a young Asian woman (same model as \'photo_camera_girl\') browsing through a selection of colorful notebooks and stationery in a well-lit general store. She holds a notebook open, looking curious and engaged. Shelves of goods in background, shallow depth of field, warm and inviting day-to-day shopping scene.',
         img: 'img/ec_model_sundries.png'
     },
+    'ec_model_skin_base': {
+        displayId: 'NST-091',
+        title: 'Pure Skin Base',
+        desc: '究極の透明感を表現した、真正面のビューティーポートレート。スキンケアやベースメイクの広告に最適な、嘘のない美しさ。',
+        useCase: 'スキンケアラインのメインビジュアル、ファンデーションの色見本、美容クリニックの症例イメージ（After）。',
+        prompt: 'High-end beauty portrait of a beautiful East Asian woman with flawless porcelain skin, facing forward, neutral expression, white background. Studio lighting highlighting the skin texture and clarity, minimalist and clean aesthetic.',
+        img: 'img/ec_model_skin_base.png'
+    },
     'ec_business': {
         displayId: 'NST-034',
         title: 'Trusted Workflow',
