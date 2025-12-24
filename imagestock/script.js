@@ -5,11 +5,29 @@ const imageData = {
         prompt: 'High-quality anime style illustration of a female narrator reading a script in a modern recording studio, soft dramatic lighting, Makoto Shinkai style, emotional expression, detailed background with microphone and acoustic foam.',
         img: 'img/anime.png'
     },
+    'anime_kids': {
+        title: '子供たちの笑顔',
+        desc: '公園で遊ぶ純粋な子供たちの表情を、温かみのあるアニメ調で描写。泥だらけになっても笑い合う、物語の一場面を切り取った一枚。',
+        prompt: 'Sample provided by user (High-quality anime style, kids playing in a park)',
+        img: 'img/anime_kids.jpg'
+    },
+    'anime_elderly': {
+        title: '穏やかな老後',
+        desc: 'リビングで手を取り合う老夫婦。優しさと信頼に包まれた空気感を、落ち着いたトーンのアニメスタイルで表現。',
+        prompt: 'Sample provided by user (High-quality anime style, elderly couple on sofa)',
+        img: 'img/anime_elderly.jpg'
+    },
     'photo': {
         title: '瀬戸内の夕暮れ',
         desc: '瀬戸内海の多島美と、夕日に染まる空のグラデーション。プロフェッショナルな風景写真のような解像感と空気感を再現。',
         prompt: 'Cinematic wide shot of the Seto Inland Sea in Japan at sunset, ultra-realistic, high dynamic range, 8k, serene atmosphere, professional photography style.',
         img: 'img/photo.png'
+    },
+    'photo_artisan': {
+        title: '職人の眼差し',
+        desc: '日本の伝統工芸を支える職人のポートレート。柔らかな自然光と浅い被写界深度で、その年輪と情熱を克明に捉えました。',
+        prompt: 'Professional close-up portrait of an elderly artisan in a traditional Japanese workshop, soft natural lighting, shallow depth of field, high resolution, 8k, realistic texture, emotional and storytelling photography.',
+        img: 'img/photo_artisan.png'
     },
     'watercolor': {
         title: '春の縁側',

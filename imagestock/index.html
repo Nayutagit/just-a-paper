@@ -23,27 +23,58 @@
         <button class="filter-btn" data-filter="photo">Photography</button>
         <button class="filter-btn" data-filter="anime">Anime</button>
         <button class="filter-btn" data-filter="watercolor">Watercolor</button>
+        <button class="filter-btn" data-filter="sf">SF Movie</button>
     </div>
 
     <main class="gallery-container">
         <div class="gallery-grid" id="galleryGrid">
-            <!-- Card 1: Anime -->
+            <!-- Card 1: Anime Studio -->
             <div class="card" data-category="anime" onclick="openModal('anime')">
                 <img src="img/anime.png" alt="Anime Style Reading Drama">
                 <div class="card-info">
                     <span class="card-tag">Anime</span>
                     <h2 class="card-title">朗読劇の情景</h2>
-                    <p class="card-desc">ナレーターの感情が乗る瞬間を、Makoto Shinkai風の柔らかな光で表現。</p>
+                    <p class="card-desc">スタジオ収録のエモーショナルな瞬間。</p>
                 </div>
             </div>
 
-            <!-- Card 2: Photo -->
+            <!-- Card 1b: Anime Kids -->
+            <div class="card" data-category="anime" onclick="openModal('anime_kids')">
+                <img src="img/anime_kids.jpg" alt="Anime Kids">
+                <div class="card-info">
+                    <span class="card-tag">Anime</span>
+                    <h2 class="card-title">子供たちの笑顔</h2>
+                    <p class="card-desc">公園で無邪気に遊ぶ、日常の物語。</p>
+                </div>
+            </div>
+
+            <!-- Card 1c: Anime Elderly -->
+            <div class="card" data-category="anime" onclick="openModal('anime_elderly')">
+                <img src="img/anime_elderly.jpg" alt="Anime Elderly">
+                <div class="card-info">
+                    <span class="card-tag">Anime</span>
+                    <h2 class="card-title">穏やかな老後</h2>
+                    <p class="card-desc">優しさに包まれた、夫婦の対話。</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Photo landscape -->
             <div class="card" data-category="photo" onclick="openModal('photo')">
                 <img src="img/photo.png" alt="Photography Style Seto Inland Sea">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
                     <h2 class="card-title">瀬戸内の夕暮れ</h2>
-                    <p class="card-desc">シネマティックなライティングで捉えた、静寂と美しさが共存する風景。</p>
+                    <p class="card-desc">シネマティックな空気感を捉えた風景。</p>
+                </div>
+            </div>
+
+            <!-- Card 2b: Photo artisan -->
+            <div class="card" data-category="photo" onclick="openModal('photo_artisan')">
+                <img src="img/photo_artisan.png" alt="Photo Artisan">
+                <div class="card-info">
+                    <span class="card-tag">Photography</span>
+                    <h2 class="card-title">職人の眼差し</h2>
+                    <p class="card-desc">伝統を紡ぐ、情熱のポートレート。</p>
                 </div>
             </div>
 
@@ -53,7 +84,16 @@
                 <div class="card-info">
                     <span class="card-tag">Watercolor</span>
                     <h2 class="card-title">春の縁側</h2>
-                    <p class="card-desc">伝統的な日本家屋と四季の移ろいを、繊細な水彩画のタッチで描写。</p>
+                    <p class="card-desc">繊細な水彩タッチで描く、静かな四季。</p>
+                </div>
+            </div>
+
+            <!-- Placeholder for SF -->
+            <div class="card" data-category="sf" style="display: none;">
+                <div class="card-info">
+                    <span class="card-tag">SF Movie</span>
+                    <h2 class="card-title">Coming Soon</h2>
+                    <p class="card-desc">SF映画風のイメージを追加予定です。</p>
                 </div>
             </div>
         </div>
