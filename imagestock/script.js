@@ -360,6 +360,46 @@ const imageData = {
         prompt: 'Medium shot of a confident Japanese business woman speaking on a smartphone in a bright modern office with large windows, looking away thoughtfully, wearing a dark suit jacket, professional and elegant atmosphere.',
         img: 'img/ec_mobile_biz_2.jpg'
     },
+    'ec_model_cosmetics': {
+        displayId: 'NST-086',
+        title: 'Glamour Rouge',
+        desc: '鏡に向かってリップを引く、高揚感のある瞬間。照明の輝きとモデルの眼差しが、化粧品の魔法を表現。',
+        useCase: 'コスメブランドの秋色コレクション、デパートの化粧品売り場POP、美容雑誌のメイク特集。',
+        prompt: 'A photorealistic close-up shot of a young Asian woman (same model as \'photo_camera_girl\') applying lipstick in front of a mirror. Focus on her reflection and the high-end lipstick case. She wears a chic black dress. Soft, glamorous makeup room lighting, elegant atmosphere. High resolution, 8k.',
+        img: 'img/ec_model_cosmetics.png'
+    },
+    'ec_model_apparel': {
+        displayId: 'NST-087',
+        title: 'Autumn Stride',
+        desc: '石畳の街を颯爽と歩く、トレンチコートの女性。旅情とファッションが融合した、ストーリーを感じさせる一枚。',
+        useCase: 'アパレルブランドのAWルックブック、旅行代理店の欧州ツアー広告、ファッション誌の表紙。',
+        prompt: 'Full body fashion shot of a young Asian woman (same model as \'photo_camera_girl\') modeling a stylish autumn outfit: beige trench coat, scarf, and leather boots. Walking on a cobblestone street in a European-style shopping district. Confident stride, looking away, natural sunlight, fashion magazine aesthetic.',
+        img: 'img/ec_model_apparel.png'
+    },
+    'ec_model_alcohol': {
+        displayId: 'NST-088',
+        title: 'Bar Lounge Night',
+        desc: 'バーでグラスを傾ける、大人のリラックスタイム。間接照明のボケ味が、上質な夜の雰囲気を演出。',
+        useCase: 'クラフトビールの広告、ホテルのラウンジ紹介、大人のデートスポット特集記事。',
+        prompt: 'Medium shot of a young Asian woman (same model as \'photo_camera_girl\') relaxing at a stylish dimly lit bar, holding a glass of craft beer or cocktail. She smiles softly at the camera, enjoying the evening. Bokeh of bar shelves in the background, warm ambient lighting, sophisticated nightlife vibe.',
+        img: 'img/ec_model_alcohol.png'
+    },
+    'ec_model_appliance': {
+        displayId: 'NST-089',
+        title: 'Morning Breeze',
+        desc: '清潔感のあるバスルームでドライヤーを使う朝のひととき。製品の機能性と、心地よいライフスタイルを同時に訴求。',
+        useCase: '美容家電のLP、ヘアケア製品のCM、新生活応援キャンペーンのメインビジュアル。',
+        prompt: 'Lifestyle photography of a young Asian woman (same model as \'photo_camera_girl\') using a modern high-tech hair dryer in a bright, clean bathroom. She looks happy and satisfied with the product. White and pastel tones, morning light, clean and fresh atmosphere, home appliance advertisement style.',
+        img: 'img/ec_model_appliance.png'
+    },
+    'ec_model_sundries': {
+        displayId: 'NST-090',
+        title: 'Stationery Lover',
+        desc: '雑貨店でお気に入りの一冊を見つけた喜び。温かみのある店内の雰囲気と、日常の小さな幸せを切り取る。',
+        useCase: '文房具店のフェア告知、雑貨ブランドのInstagram、ライフスタイル誌の「手帳特集」。',
+        prompt: 'A cozy shot of a young Asian woman (same model as \'photo_camera_girl\') browsing through a selection of colorful notebooks and stationery in a well-lit general store. She holds a notebook open, looking curious and engaged. Shelves of goods in background, shallow depth of field, warm and inviting day-to-day shopping scene.',
+        img: 'img/ec_model_sundries.png'
+    },
     'ec_business': {
         displayId: 'NST-034',
         title: 'Trusted Workflow',
