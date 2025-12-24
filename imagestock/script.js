@@ -151,6 +151,14 @@ const imageData = {
         prompt: 'Artistic night portrait of a Japanese woman leaning against a shop window in Shibuya, reflection of neon city lights superimposed on her face, moody expression, harsh camera flash, heavy film grain, 35mm film aesthetic, high contrast, vibrant colors, cinematic atmosphere.',
         img: 'img/photo_shibuya_reflection.jpg'
     },
+    'photo_camera_girl': {
+        displayId: 'NST-078',
+        title: 'Snap Shooter',
+        desc: '鮮やかなイエローを背景に、愛機を構えるアジア人女性。クリエイティビティと遊び心を感じさせる一枚。',
+        useCase: 'カメラ教室の生徒募集、ガジェット系のレビュー記事、旅行系SNSのアイコン。',
+        prompt: 'A photorealistic close-up shot of a young Asian woman holding a vintage silver Nikon SLR camera up to her right eye to take a picture. Focus is sharp on the camera lens and her hands, with a shallow depth of field making her face slightly soft and out of focus. She is winking her left eye. She wears a black t-shirt, a black digital sports watch on her left wrist, and a thin silver bracelet on her right wrist. Bright solid yellow wall background. Natural lighting, 50mm lens, high resolution.',
+        img: 'img/photo_camera_girl.jpg'
+    },
     'watercolor': {
         displayId: 'NST-012',
         title: '春の縁側',
