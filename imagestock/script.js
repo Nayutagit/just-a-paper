@@ -34,6 +34,12 @@ const imageData = {
         desc: '日本の原風景を感じさせる温かみのある水彩画。猫が眠る穏やかな時間、桜の舞う庭園を淡い色彩で表現しました。',
         prompt: 'Peaceful watercolor painting of a traditional Japanese house with a small garden and a cat sleeping on the porch, soft pastel colors, delicate brushstrokes, Ghibli-esque atmosphere.',
         img: 'img/watercolor.png'
+    },
+    'watercolor_autumn': {
+        title: '秋の錦鯉',
+        desc: '秋の深まりを感じさせる石橋と紅葉の情景。水面に浮かぶ落ち葉と、優雅に泳ぐ錦鯉を繊細なタッチで描写。',
+        prompt: 'Delicate watercolor painting of an ancient stone bridge over a koi pond in a traditional Japanese garden during autumn, vibrant maple leaves falling on the water, soft sunbeams filtering through the trees, dreamy and peaceful atmosphere, Ghibli style color palette, high resolution.',
+        img: 'img/watercolor_autumn.jpg'
     }
 };
 
