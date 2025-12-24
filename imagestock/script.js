@@ -208,6 +208,14 @@ const imageData = {
         prompt: 'High-quality product photography of colorful street-style sneakers placed on a concrete block, urban background, bright natural lighting, sharp focus, hypebeast aesthetic, trend.',
         img: 'img/ec_apparel.jpg'
     },
+    'ec_interior': {
+        displayId: 'NST-032',
+        title: 'Organic Lifestyle',
+        desc: '日常の豊かさを描くライフスタイルフォト。柔らかな自然光と心地よい影が、商品のストーリーを伝える。',
+        useCase: 'インテリア雑貨のブランドサイト、SNS広告、ライフスタイル誌の挿絵。',
+        prompt: 'Minimalist product photography of a ceramic aroma diffuser on a wooden table, cozy home interior background with sunlight streaming in, soft shadows, lifestyle aesthetic, organic mood.',
+        img: 'img/ec_interior.png'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
