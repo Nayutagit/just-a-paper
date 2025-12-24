@@ -162,13 +162,15 @@ const imageData = {
         img: 'https://placehold.co/600x400/161b22/fcc800?text=EC+Product'
     },
     'food_restaurant': {
+        displayId: 'NST-024',
         title: '至福の一皿',
         desc: 'シズル感たっぷりの料理写真。湯気や照り、色彩の鮮やかさが食欲を刺激する、レストラン向けのハイクオリティな一枚。',
         useCase: 'グルメサイトの店舗ページ、飲食店のメニューブック、SNSの飯テロ投稿。',
         prompt: 'Delicious and appetizing food photography for a restaurant.',
-        img: 'https://placehold.co/600x400/161b22/fcc800?text=Food'
+        img: 'img/food_restaurant.png'
     },
     'music_vibe': {
+        displayId: 'NST-025',
         title: '音の風景',
         desc: '音楽イベントやDJのプレイ風景。躍動感あふれる光と影が、その場の熱気とバイブスを伝える。',
         useCase: 'クラブイベントのフライヤー、アーティストのジャケット写真、音楽フェスの公式サイト。',
@@ -176,6 +178,7 @@ const imageData = {
         img: 'https://placehold.co/600x400/161b22/fcc800?text=Music'
     },
     'text_ad': {
+        displayId: 'NST-026',
         title: 'メッセージを届ける',
         desc: 'キャッチコピーを入れるための余白（ネガティブスペース）を意識した構図。広告バナーやポスターの背景として最適。',
         useCase: 'WEB広告バナー、キャンペーンポスター、文字入れ用Instagramストーリー背景。',
@@ -183,6 +186,7 @@ const imageData = {
         img: 'https://placehold.co/600x400/161b22/fcc800?text=Text+Space'
     },
     '3d_character': {
+        displayId: 'NST-027',
         title: 'コラボレーションの形',
         desc: '多様な人々が協力し合う様子を、温かみのある3Dクレイレンダリングで表現。',
         useCase: 'チームビルディングの研修資料、スタートアップの採用ページ、協調性をテーマにした記事。',
@@ -190,6 +194,7 @@ const imageData = {
         img: 'https://placehold.co/600x400/161b22/fcc800?text=3D+Clay'
     },
     'flat_business': {
+        displayId: 'NST-028',
         title: 'ビジネス・イノベーション',
         desc: '現代的なフラットデザインで描く、ビジネスチームのディスカッション風景。クリーンで洗練された印象。',
         useCase: 'テック企業の公式サイト、BtoBサービスの紹介資料、プレゼンテーションスライド。',
