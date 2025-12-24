@@ -29,6 +29,24 @@ const imageData = {
         prompt: 'Professional close-up portrait of an elderly artisan in a traditional Japanese workshop, soft natural lighting, shallow depth of field, high resolution, 8k, realistic texture, emotional and storytelling photography.',
         img: 'img/photo_artisan.png'
     },
+    'photo_street_snap': {
+        title: '雨上がりの静寂',
+        desc: '何気ない日本の住宅街。雨に濡れたアスファルトの質感や電柱の影など、日常の瞬間を切り取ったスナップ写真風の一枚。',
+        prompt: 'A realistic handheld snapshot of a quiet Japanese residential street after rain, wet dark asphalt reflecting power lines and houses, puddles on the ground, slightly overcast soft lighting, amateur photography look, high detail, high grain, cinematic but direct.',
+        img: 'img/photo_street_snap.jpg'
+    },
+    'photo_ramen': {
+        title: '立ち上る湯気',
+        desc: '地元の食堂で提供される一杯。レンズのボケ味とライティングにより、食欲をそそる素材のディテールと店内の空気感を再現。',
+        prompt: 'A realistic close-up photo of a steaming bowl of ramen on a worn wooden table in a dimly lit local diner, natural lighting from a nearby window, shadows, focus on the texture of the soup and noodles, cinematic handheld shot, slightly blurry background, ISO grain.',
+        img: 'img/photo_ramen.jpg'
+    },
+    'photo_bench': {
+        title: '夕暮れの追憶',
+        desc: '公園の片隅、長い影が伸びる夕暮れ時。35mmフィルムのような質感と、ノスタルジックな黄金色の光が感情に訴えかける一枚。',
+        prompt: 'A realistic medium shot of an old wooden park bench at dusk, long shadows, dry leaves on the ground, warm golden hour sunlight, low angle, shot on 35mm film, slight motion blur, emotional and nostalgic atmosphere, extremely high resolution.',
+        img: 'img/photo_bench.jpg'
+    },
     'watercolor': {
         title: '春の縁側',
         desc: '日本の原風景を感じさせる温かみのある水彩画。猫が眠る穏やかな時間、桜の舞う庭園を淡い色彩で表現しました。',
