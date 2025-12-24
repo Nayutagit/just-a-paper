@@ -42,6 +42,7 @@
             <h3>Style</h3>
             <div class="filter-buttons">
                 <button class="filter-btn" data-filter="photo">Photography</button>
+                <button class="filter-btn" data-filter="street">Street Snap</button>
                 <button class="filter-btn" data-filter="illustration">Illustration</button>
                 <button class="filter-btn" data-filter="sf">3D / SF</button>
             </div>
@@ -327,13 +328,24 @@
             </div>
 
             <!-- Card 2c: Photo street -->
-            <div class="card" data-category="photo lifestyle" onclick="openModal('photo_street_snap')">
+            <div class="card" data-category="photo lifestyle street" onclick="openModal('photo_street_snap')">
                 <img src="img/photo_street_snap.jpg" alt="Photo Street Snap">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
                     <span class="card-id">#NST-006</span>
                     <h2 class="card-title">雨上がりの静寂</h2>
                     <p class="card-desc">日常を切り取ったスナップ写真。</p>
+                </div>
+            </div>
+
+            <!-- Card: Shibuya Grit -->
+            <div class="card" data-category="street photo female lifestyle" onclick="openModal('photo_shibuya_grit')">
+                <img src="img/photo_shibuya_grit.jpg" alt="Shibuya Grit">
+                <div class="card-info">
+                    <span class="card-tag">Street / Film</span>
+                    <span class="card-id">#NST-070</span>
+                    <h2 class="card-title">Shibuya Grit</h2>
+                    <p class="card-desc">フィルム粒子が描く、都会の焦燥と体温。</p>
                 </div>
             </div>
 
@@ -557,6 +569,11 @@
                     <p class="card-desc">創造性を育む、静かな時間。</p>
                 </div>
             </div>
+        </div>
+        <div class="view-all-container" style="text-align: center; margin-top: 2rem; display: none;">
+            <button id="viewAllBtn" class="filter-btn"
+                style="padding: 1rem 3rem; font-size: 1.1rem; border: 1px solid var(--accent-color); color: var(--accent-color);">View
+                All Gallery</button>
         </div>
     </main>
 

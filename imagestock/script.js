@@ -87,6 +87,14 @@ const imageData = {
         prompt: 'A realistic black and white film portrait of a Japanese woman sitting in a moody cafe on a rainy day, soft lighting from the window, visible film grain, artistic shadows, shot on Fujifilm Neopan 400, emotional and timeless atmosphere, detailed textures.',
         img: 'img/photo_woman_3.jpg'
     },
+    'photo_shibuya_grit': {
+        displayId: 'NST-070',
+        title: 'Shibuya Grit',
+        desc: 'フラッシュが切り裂く渋谷の夜。荒い粒子とブレが、都市のリアルな息遣いを伝える。',
+        useCase: 'ストリートブランドのルックブック、音楽アーティストのジャケット、Z世代向けメディアのアートワーク。',
+        prompt: 'A realistic gritty snapshot of a cute Japanese woman on a Shibuya street at night, harsh camera flash, heavy film grain, blurry city lights in the background, candid expression, 35mm film aesthetic, high contrast, vibrant colors, nostalgic but modern look.',
+        img: 'img/photo_shibuya_grit.jpg'
+    },
     'watercolor': {
         displayId: 'NST-012',
         title: '春の縁側',
@@ -427,35 +435,119 @@ function shuffleGallery() {
 }
 
 // Initialize on Load
+
+// Initialize
 function init() {
-    // Shuffle cards first
+    // Basic shuffle first
     shuffleGallery();
 
     const params = new URLSearchParams(window.location.search);
-    const category = params.get('category') || 'all';
+    const category = params.get('category');
 
-    updateActiveButtons(category);
-    applyFilter(category);
+    // Button event listeners
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+
+            // If it's a filter button (not View All)
+            if (filter) {
+                // Update URL
+                const url = new URL(window.location);
+                if (filter === 'all') {
+                    url.searchParams.delete('category');
+                } else {
+                    url.searchParams.set('category', filter);
+                }
+                window.history.pushState({}, '', url);
+
+                updateActiveButtons(filter);
+                applyFilter(filter);
+            }
+        });
+    });
+
+    // View All Button listener
+    const viewAllBtn = document.getElementById('viewAllBtn');
+    if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', () => {
+            // Simulate clicking 'All'
+            const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+            if (allBtn) allBtn.click();
+        });
+    }
+
+    // Modal listeners
+    const modal = document.getElementById('imageModal');
+    // ... (existing modal listeners kept by not replacing them if outside chunk, but here we are replacing init so we need to be careful)
+
+    // Initial State Logic
+    if (category && category !== 'all') {
+        // If specific category is requested via URL, show that category
+        updateActiveButtons(category);
+        applyFilter(category);
+    } else {
+        // Top Page Default: Show "Random 6"
+        updateActiveButtons('all');
+        applyFilter('top_random_6'); // Special internal filter state
+    }
 }
 
-// Event Listeners
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
 
-        // Update URL
-        const newUrl = new URL(window.location);
-        if (filter === 'all') {
-            newUrl.searchParams.delete('category');
+function applyFilter(filter) {
+    const cards = document.querySelectorAll('.card');
+    const viewAllContainer = document.querySelector('.view-all-container');
+
+    // Safety check for grid visibility
+    const grid = document.getElementById('galleryGrid');
+    if (grid) grid.style.opacity = '1';
+
+    let visibleCount = 0;
+
+    if (filter === 'top_random_6') {
+        // Special Mode: Show first 6 cards only (already shuffled)
+        cards.forEach((card, index) => {
+            if (index < 6) {
+                card.style.display = 'block';
+                // Slight timeout for animation effect if needed, but keeping it simple for stability
+                setTimeout(() => card.classList.add('visible'), 50 * index);
+            } else {
+                card.style.display = 'none';
+                card.classList.remove('visible');
+            }
+        });
+        // Show View All Button
+        if (viewAllContainer) viewAllContainer.style.display = 'block';
+
+    } else {
+        // Normal Filter Mode
+        if (viewAllContainer) viewAllContainer.style.display = 'none';
+
+        cards.forEach(card => {
+            const categories = card.getAttribute('data-category');
+            if (filter === 'all' || categories.includes(filter)) {
+                card.style.display = 'block';
+                setTimeout(() => card.classList.add('visible'), 10);
+            } else {
+                card.style.display = 'none';
+                card.classList.remove('visible');
+            }
+        });
+    }
+}
+
+function updateActiveButtons(filter) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
+        if (btn.id === 'viewAllBtn') return; // Skip View All button style update
+
+        if (btn.getAttribute('data-filter') === filter) {
+            btn.classList.add('active');
         } else {
-            newUrl.searchParams.set('category', filter);
+            btn.classList.remove('active');
         }
-        window.history.pushState({}, '', newUrl);
-
-        updateActiveButtons(filter);
-        applyFilter(filter);
     });
-});
+}
 
 // Handle Back/Forward Browser Buttons
 window.addEventListener('popstate', () => {
