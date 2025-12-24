@@ -103,6 +103,22 @@ const imageData = {
         prompt: 'A realistic gritty snapshot of a cute Japanese woman on a Shibuya street at night, harsh camera flash, heavy film grain, blurry city lights in the background, candid expression, 35mm film aesthetic, high contrast, vibrant colors, nostalgic but modern look.',
         img: 'img/photo_shibuya_grit_2.jpg'
     },
+    'photo_hiroshima_night_1': {
+        displayId: 'NST-072',
+        title: 'Hiroshima Vibes',
+        desc: '路面電車と鉄板焼きの香り。広島の夜の街歩きを、フィルムライクな質感で楽しむ。',
+        useCase: '地域観光プロモーション、広島のタウン情報誌、旅行vlogのサムネイル。',
+        prompt: 'A realistic gritty snapshot of a cheerful Japanese woman walking on a street in Hiroshima at night, retro streetcar (tram) passing by in the background, neon signs of "Okonomiyaki" and "Carp", harsh camera flash, heavy film grain, candid smile, 35mm film aesthetic, nostalgic vibrant night atmosphere.',
+        img: 'img/photo_hiroshima_night_1.jpg'
+    },
+    'photo_hiroshima_night_2': {
+        displayId: 'NST-073',
+        title: 'Hiroshima Street',
+        desc: 'ネオンサインと横断歩道。ローカルな空気感と、旅先での開放的な笑顔。',
+        useCase: '国内旅行キャンペーン、地域おこし協力隊の活動紹介、ライフスタイルメディアの特集。',
+        prompt: 'A realistic gritty snapshot of a cheerful Japanese woman walking on a street in Hiroshima at night, retro streetcar (tram) passing by in the background, neon signs of "Okonomiyaki" and "Carp", harsh camera flash, heavy film grain, candid smile, 35mm film aesthetic, nostalgic vibrant night atmosphere.',
+        img: 'img/photo_hiroshima_night_2.jpg'
+    },
     'watercolor': {
         displayId: 'NST-012',
         title: '春の縁側',
