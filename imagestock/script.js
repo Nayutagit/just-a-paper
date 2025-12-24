@@ -621,10 +621,25 @@ function init() {
     const category = params.get('category');
 
     // Button event listeners
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-filter');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons in this group
+            const group = button.parentElement;
+            group.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Update active filters state
+            // If it's a "Model" filter (all, female, male) -> reset others or combine?
+            // The current UI shows groups: Model, Purpose, Style.
+            // Let's assume simplistic logic: The last clicked filter applies, OR they add up?
+            // "simple" filtering usually just takes the value. 
+            // Looking at the previous code (implied), it calls applyFilter(filterValue).
+
+            // Let's explicitly support the new ID if needed, but standard logic should work.
+            const filter = button.getAttribute('data-filter');
 
             // If it's a filter button (not View All)
             if (filter) {
