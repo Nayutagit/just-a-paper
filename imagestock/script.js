@@ -304,6 +304,14 @@ const imageData = {
         prompt: 'Clean minimalist tech desk setup, white background, modern gadgets arranged neatly, soft studio lighting, Apple style aesthetic, bright and professional, product review background.',
         img: 'img/bg_tech.png'
     },
+    'gadget_gaming': {
+        displayId: 'NST-061',
+        title: 'Gaming Girl',
+        desc: 'RGBライティングに包まれたゲーマー女子。猫耳ヘッドセットとデバイスの光が、配信やe-Sportsの熱狂的なカルチャーを表現。',
+        useCase: 'ゲーミングデバイスの広告、ゲーム実況のサムネイル、Vtuber関連のイベント告知。',
+        prompt: 'High-quality portrait of a cute Japanese gamer girl wearing a headset with cat ears, sitting in front of a gaming PC setup with colorful neon RGB lighting (pink and blue), holding a game controller, excited expression, cyber fashion style, dynamic angle, high resolution.',
+        img: 'img/gadget_gaming.jpg'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
