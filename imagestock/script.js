@@ -296,6 +296,14 @@ const imageData = {
         prompt: 'Pop art style background with comic book effects, sunburst lines (concentrated lines), vibrant yellow and red colors, energetic and fun atmosphere, suitable for variety show or comedy video.',
         img: 'img/bg_variety.jpg'
     },
+    'bg_tech': {
+        displayId: 'NST-057',
+        title: 'Minimal Tech',
+        desc: 'ガジェットレビュー動画に最適な、洗練されたデスクセットアップ。ホワイトスペースを活かした構図で、清潔感とプロフェッショナルな印象を与える。',
+        useCase: 'ガジェット紹介動画の背景、テック系ブログのアイキャッチ、デスクツアー動画のサムネイル。',
+        prompt: 'Clean minimalist tech desk setup, white background, modern gadgets arranged neatly, soft studio lighting, Apple style aesthetic, bright and professional, product review background.',
+        img: 'img/bg_tech.png'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
