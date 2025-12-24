@@ -95,6 +95,14 @@ const imageData = {
         prompt: 'A realistic gritty snapshot of a cute Japanese woman on a Shibuya street at night, harsh camera flash, heavy film grain, blurry city lights in the background, candid expression, 35mm film aesthetic, high contrast, vibrant colors, nostalgic but modern look.',
         img: 'img/photo_shibuya_grit.jpg'
     },
+    'photo_shibuya_grit_2': {
+        displayId: 'NST-071',
+        title: 'Crossing Chaos',
+        desc: 'スクランブル交差点の喧騒。デニムジャケットとネオンライトが、東京の夜のアイコニックな瞬間を切り取る。',
+        useCase: 'ファッション系Webメディア、都会的なライフスタイル誌、旅行系ポスター。',
+        prompt: 'A realistic gritty snapshot of a cute Japanese woman on a Shibuya street at night, harsh camera flash, heavy film grain, blurry city lights in the background, candid expression, 35mm film aesthetic, high contrast, vibrant colors, nostalgic but modern look.',
+        img: 'img/photo_shibuya_grit_2.jpg'
+    },
     'watercolor': {
         displayId: 'NST-012',
         title: '春の縁側',
