@@ -369,8 +369,20 @@ function applyFilter(filter) {
     });
 }
 
+// Function to shuffle gallery cards
+function shuffleGallery() {
+    const grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+    for (let i = grid.children.length; i >= 0; i--) {
+        grid.appendChild(grid.children[Math.random() * i | 0]);
+    }
+}
+
 // Initialize on Load
 function init() {
+    // Shuffle cards first
+    shuffleGallery();
+
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category') || 'all';
 
