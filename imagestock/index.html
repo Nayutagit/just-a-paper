@@ -25,28 +25,25 @@
             <h3>Model</h3>
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="male">Male Model</button>
+                <button class="filter-btn" data-filter="female">Female</button>
+                <button class="filter-btn" data-filter="male">Male</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <h3>Purpose</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-filter="gadget">EC / Gadget</button>
+                <button class="filter-btn" data-filter="youtube">YouTube / BG</button>
+                <button class="filter-btn" data-filter="business">Business</button>
+                <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
             </div>
         </div>
         <div class="filter-group">
             <h3>Style</h3>
             <div class="filter-buttons">
                 <button class="filter-btn" data-filter="photo">Photography</button>
-                <button class="filter-btn" data-filter="anime">Anime</button>
-                <button class="filter-btn" data-filter="watercolor">Watercolor</button>
-                <button class="filter-btn" data-filter="sf">SF Movie</button>
-                <button class="filter-btn" data-filter="3d">3D Art</button>
-                <button class="filter-btn" data-filter="flat">Flat Design</button>
-            </div>
-        </div>
-        <div class="filter-group">
-            <h3>Subject</h3>
-            <div class="filter-buttons">
-                <button class="filter-btn" data-filter="ec">EC / Product</button>
-                <button class="filter-btn" data-filter="food">Food / Restaurant</button>
-                <button class="filter-btn" data-filter="music">Music</button>
-                <button class="filter-btn" data-filter="education">Education</button>
-                <button class="filter-btn" data-filter="youtube">YouTube / BG</button>
+                <button class="filter-btn" data-filter="illustration">Illustration</button>
+                <button class="filter-btn" data-filter="sf">3D / SF</button>
             </div>
         </div>
     </div>
@@ -54,7 +51,7 @@
     <main class="gallery-container">
         <div class="gallery-grid" id="galleryGrid">
             <!-- Card: Male Standard -->
-            <div class="card" data-category="male" onclick="openModal('nayuta_standard')">
+            <div class="card" data-category="male photo business" onclick="openModal('nayuta_standard')">
                 <img src="img/nayuta_standard.png" alt="Male Standard">
                 <div class="card-info">
                     <span class="card-tag">Male Model</span>
@@ -65,7 +62,7 @@
             </div>
 
             <!-- Card: City Pop -->
-            <div class="card" data-category="anime" onclick="openModal('retro_citypop')">
+            <div class="card" data-category="illustration youtube" onclick="openModal('retro_citypop')">
                 <img src="img/city_pop.jpg" alt="City Pop">
                 <div class="card-info">
                     <span class="card-tag">Retro Anime</span>
@@ -75,7 +72,7 @@
                 </div>
             </div>
             <!-- Card: Male Teacher -->
-            <div class="card" data-category="male education" onclick="openModal('nayuta_teacher')">
+            <div class="card" data-category="male photo business education" onclick="openModal('nayuta_teacher')">
                 <img src="img/nayuta_teacher.png" alt="Male Teacher">
                 <div class="card-info">
                     <span class="card-tag">Male / Education</span>
@@ -86,7 +83,7 @@
             </div>
 
             <!-- Card: Nayuta Fashion -->
-            <div class="card" data-category="nayuta photo" onclick="openModal('nayuta_fashion')">
+            <div class="card" data-category="male photo lifestyle" onclick="openModal('nayuta_fashion')">
                 <img src="img/nayuta_fashion.png" alt="Nayuta Fashion">
                 <div class="card-info">
                     <span class="card-tag">Nayuta / Fashion</span>
@@ -97,7 +94,7 @@
             </div>
 
             <!-- Card: Nayuta Young Casual -->
-            <div class="card" data-category="nayuta photo" onclick="openModal('nayuta_young_casual')">
+            <div class="card" data-category="male photo lifestyle" onclick="openModal('nayuta_young_casual')">
                 <img src="img/nayuta_young_casual.png" alt="Nayuta Young Casual">
                 <div class="card-info">
                     <span class="card-tag">Nayuta / Young</span>
@@ -108,7 +105,7 @@
             </div>
 
             <!-- Card: Nayuta Young Student -->
-            <div class="card" data-category="nayuta photo" onclick="openModal('nayuta_young_student')">
+            <div class="card" data-category="male photo education" onclick="openModal('nayuta_young_student')">
                 <img src="img/nayuta_young_student.png" alt="Nayuta Young Student">
                 <div class="card-info">
                     <span class="card-tag">Nayuta / Student</span>
@@ -119,7 +116,7 @@
             </div>
 
             <!-- Card: Nayuta Young Creative -->
-            <div class="card" data-category="nayuta photo" onclick="openModal('nayuta_young_creative')">
+            <div class="card" data-category="male photo lifestyle" onclick="openModal('nayuta_young_creative')">
                 <img src="img/nayuta_young_creative.png" alt="Nayuta Young Creative">
                 <div class="card-info">
                     <span class="card-tag">Nayuta / Creative</span>
@@ -130,7 +127,7 @@
             </div>
 
             <!-- Card: EC Product -->
-            <div class="card" data-category="ec photo" onclick="openModal('ec_product')">
+            <div class="card" data-category="gadget photo ec" onclick="openModal('ec_product')">
                 <img src="img/ec_product.png" alt="EC Product Pink">
                 <div class="card-info">
                     <span class="card-tag">EC / Brand</span>
@@ -141,7 +138,7 @@
             </div>
 
             <!-- Card: EC Product 2 -->
-            <div class="card" data-category="ec photo" onclick="openModal('ec_product_2')">
+            <div class="card" data-category="gadget photo ec" onclick="openModal('ec_product_2')">
                 <img src="img/ec_product_2.png" alt="EC Product White">
                 <div class="card-info">
                     <span class="card-tag">EC / Amazon</span>
@@ -152,7 +149,7 @@
             </div>
 
             <!-- Card: EC Gadget -->
-            <div class="card" data-category="ec photo" onclick="openModal('ec_gadget')">
+            <div class="card" data-category="gadget photo ec" onclick="openModal('ec_gadget')">
                 <img src="img/ec_gadget.png" alt="EC Gadget">
                 <div class="card-info">
                     <span class="card-tag">EC / Tech</span>
@@ -163,7 +160,7 @@
             </div>
 
             <!-- Card: EC Apparel -->
-            <div class="card" data-category="ec photo" onclick="openModal('ec_apparel')">
+            <div class="card" data-category="gadget photo ec lifestyle" onclick="openModal('ec_apparel')">
                 <img src="img/ec_apparel.jpg" alt="EC Apparel">
                 <div class="card-info">
                     <span class="card-tag">EC / Street</span>
@@ -174,7 +171,7 @@
             </div>
 
             <!-- Card: EC Interior -->
-            <div class="card" data-category="ec photo" onclick="openModal('ec_interior')">
+            <div class="card" data-category="gadget photo ec lifestyle" onclick="openModal('ec_interior')">
                 <img src="img/ec_interior.png" alt="EC Interior">
                 <div class="card-info">
                     <span class="card-tag">EC / Lifestyle</span>
@@ -185,7 +182,7 @@
             </div>
 
             <!-- Card: EC Beauty -->
-            <div class="card" data-category="ec photo beauty" onclick="openModal('ec_beauty')">
+            <div class="card" data-category="female photo beauty ec" onclick="openModal('ec_beauty')">
                 <img src="img/ec_beauty.png" alt="EC Beauty">
                 <div class="card-info">
                     <span class="card-tag">EC / Beauty</span>
@@ -196,7 +193,7 @@
             </div>
 
             <!-- Card: EC Business -->
-            <div class="card" data-category="ec photo business" onclick="openModal('ec_business')">
+            <div class="card" data-category="female photo business ec" onclick="openModal('ec_business')">
                 <img src="img/ec_business.png" alt="EC Business">
                 <div class="card-info">
                     <span class="card-tag">EC / Office</span>
@@ -207,7 +204,7 @@
             </div>
 
             <!-- Card: EC Fashion -->
-            <div class="card" data-category="ec photo fashion" onclick="openModal('ec_fashion')">
+            <div class="card" data-category="female photo fashion lifestyle ec" onclick="openModal('ec_fashion')">
                 <img src="img/ec_fashion.jpg" alt="EC Fashion">
                 <div class="card-info">
                     <span class="card-tag">EC / Fashion</span>
@@ -218,7 +215,7 @@
             </div>
 
             <!-- Card: EC Wellness -->
-            <div class="card" data-category="ec photo wellness" onclick="openModal('ec_wellness')">
+            <div class="card" data-category="female photo wellness lifestyle ec" onclick="openModal('ec_wellness')">
                 <img src="img/ec_wellness.png" alt="EC Wellness">
                 <div class="card-info">
                     <span class="card-tag">EC / Wellness</span>
@@ -229,7 +226,7 @@
             </div>
 
             <!-- Card: EC Relax -->
-            <div class="card" data-category="ec photo relax" onclick="openModal('ec_relax')">
+            <div class="card" data-category="female photo relax lifestyle ec" onclick="openModal('ec_relax')">
                 <img src="img/ec_relax.jpg" alt="EC Relax">
                 <div class="card-info">
                     <span class="card-tag">EC / Home</span>
@@ -240,7 +237,7 @@
             </div>
 
             <!-- Card: Food -->
-            <div class="card" data-category="food photo" onclick="openModal('food_restaurant')">
+            <div class="card" data-category="gadget photo lifestyle" onclick="openModal('food_restaurant')">
                 <img src="img/food_restaurant.png" alt="Food">
                 <div class="card-info">
                     <span class="card-tag">Food</span>
@@ -251,7 +248,7 @@
             </div>
 
             <!-- Card: Music -->
-            <div class="card" data-category="music photo" onclick="openModal('music_vibe')">
+            <div class="card" data-category="youtube photo lifestyle" onclick="openModal('music_vibe')">
                 <img src="img/music_vibe.png" alt="Music">
                 <div class="card-info">
                     <span class="card-tag">Music</span>
@@ -262,7 +259,7 @@
             </div>
 
             <!-- Card: Text Ad -->
-            <div class="card" data-category="ec photo" onclick="openModal('text_ad')">
+            <div class="card" data-category="gadget photo business" onclick="openModal('text_ad')">
                 <img src="img/text_ad.png" alt="Text Ad">
                 <div class="card-info">
                     <span class="card-tag">Text Ad</span>
@@ -275,7 +272,7 @@
 
 
             <!-- Card 1: Anime Studio -->
-            <div class="card" data-category="anime" onclick="openModal('anime')">
+            <div class="card" data-category="illustration youtube anime" onclick="openModal('anime')">
                 <img src="img/anime.png" alt="Anime Style Reading Drama">
                 <div class="card-info">
                     <span class="card-tag">Anime</span>
@@ -286,7 +283,7 @@
             </div>
 
             <!-- Card 1b: Anime Kids -->
-            <div class="card" data-category="anime" onclick="openModal('anime_kids')">
+            <div class="card" data-category="illustration youtube anime" onclick="openModal('anime_kids')">
                 <img src="img/anime_kids.jpg" alt="Anime Kids">
                 <div class="card-info">
                     <span class="card-tag">Anime</span>
@@ -297,7 +294,7 @@
             </div>
 
             <!-- Card 1c: Anime Elderly -->
-            <div class="card" data-category="anime" onclick="openModal('anime_elderly')">
+            <div class="card" data-category="illustration youtube anime" onclick="openModal('anime_elderly')">
                 <img src="img/anime_elderly.jpg" alt="Anime Elderly">
                 <div class="card-info">
                     <span class="card-tag">Anime</span>
@@ -308,7 +305,7 @@
             </div>
 
             <!-- Card 2: Photo landscape -->
-            <div class="card" data-category="photo" onclick="openModal('photo')">
+            <div class="card" data-category="photo lifestyle" onclick="openModal('photo')">
                 <img src="img/photo.png" alt="Photography Style Seto Inland Sea">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
@@ -319,7 +316,7 @@
             </div>
 
             <!-- Card 2b: Photo artisan -->
-            <div class="card" data-category="photo" onclick="openModal('photo_artisan')">
+            <div class="card" data-category="photo business male" onclick="openModal('photo_artisan')">
                 <img src="img/photo_artisan.png" alt="Photo Artisan">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
@@ -330,7 +327,7 @@
             </div>
 
             <!-- Card 2c: Photo street -->
-            <div class="card" data-category="photo" onclick="openModal('photo_street_snap')">
+            <div class="card" data-category="photo lifestyle" onclick="openModal('photo_street_snap')">
                 <img src="img/photo_street_snap.jpg" alt="Photo Street Snap">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
@@ -341,7 +338,7 @@
             </div>
 
             <!-- Card 2d: Photo ramen -->
-            <div class="card" data-category="photo" onclick="openModal('photo_ramen')">
+            <div class="card" data-category="photo lifestyle" onclick="openModal('photo_ramen')">
                 <img src="img/photo_ramen.jpg" alt="Photo Ramen">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
@@ -352,7 +349,7 @@
             </div>
 
             <!-- Card 2e: Photo bench -->
-            <div class="card" data-category="photo" onclick="openModal('photo_bench')">
+            <div class="card" data-category="photo lifestyle" onclick="openModal('photo_bench')">
                 <img src="img/photo_bench.jpg" alt="Photo Bench">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
@@ -363,7 +360,7 @@
             </div>
 
             <!-- Card 2f: Photo woman 1 -->
-            <div class="card" data-category="photo" onclick="openModal('photo_woman_1')">
+            <div class="card" data-category="female photo lifestyle" onclick="openModal('photo_woman_1')">
                 <img src="img/photo_woman_1.jpg" alt="Photo Woman 1">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
@@ -374,7 +371,7 @@
             </div>
 
             <!-- Card 2g: Photo woman 2 -->
-            <div class="card" data-category="photo" onclick="openModal('photo_woman_2')">
+            <div class="card" data-category="female photo lifestyle" onclick="openModal('photo_woman_2')">
                 <img src="img/photo_woman_2.jpg" alt="Photo Woman 2">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
@@ -385,7 +382,7 @@
             </div>
 
             <!-- Card 2h: Photo woman 3 -->
-            <div class="card" data-category="photo" onclick="openModal('photo_woman_3')">
+            <div class="card" data-category="female photo lifestyle" onclick="openModal('photo_woman_3')">
                 <img src="img/photo_woman_3.jpg" alt="Photo Woman 3">
                 <div class="card-info">
                     <span class="card-tag">Photography</span>
@@ -396,7 +393,7 @@
             </div>
 
             <!-- Card 3: Watercolor Spring -->
-            <div class="card" data-category="watercolor" onclick="openModal('watercolor')">
+            <div class="card" data-category="illustration lifestyle" onclick="openModal('watercolor')">
                 <img src="img/watercolor.png" alt="Watercolor Style Japanese House">
                 <div class="card-info">
                     <span class="card-tag">Watercolor</span>
@@ -407,7 +404,7 @@
             </div>
 
             <!-- Card 3b: Watercolor Autumn -->
-            <div class="card" data-category="watercolor" onclick="openModal('watercolor_autumn')">
+            <div class="card" data-category="illustration lifestyle" onclick="openModal('watercolor_autumn')">
                 <img src="img/watercolor_autumn.jpg" alt="Watercolor Autumn">
                 <div class="card-info">
                     <span class="card-tag">Watercolor</span>
@@ -418,7 +415,7 @@
             </div>
 
             <!-- Card 4: SF City -->
-            <div class="card" data-category="sf" onclick="openModal('sf_city')">
+            <div class="card" data-category="sf illustration youtube" onclick="openModal('sf_city')">
                 <img src="img/sf_city.png" alt="SF City">
                 <div class="card-info">
                     <span class="card-tag">SF Movie</span>
@@ -429,7 +426,7 @@
             </div>
 
             <!-- Card 4b: SF Planet -->
-            <div class="card" data-category="sf" onclick="openModal('sf_planet')">
+            <div class="card" data-category="sf illustration youtube" onclick="openModal('sf_planet')">
                 <img src="img/sf_planet.png" alt="SF Planet">
                 <div class="card-info">
                     <span class="card-tag">SF Movie</span>
@@ -440,7 +437,7 @@
             </div>
 
             <!-- Card: 3D Character -->
-            <div class="card" data-category="3d tech" onclick="openModal('3d_character')">
+            <div class="card" data-category="sf ec business" onclick="openModal('3d_character')">
                 <img src="img/3d_character.png" alt="3D Character">
                 <div class="card-info">
                     <span class="card-tag">3D Art</span>
@@ -451,7 +448,7 @@
             </div>
 
             <!-- Card: Flat Design -->
-            <div class="card" data-category="flat tech" onclick="openModal('flat_design')">
+            <div class="card" data-category="illustration business" onclick="openModal('flat_design')">
                 <img src="img/flat_design.png" alt="Flat Design">
                 <div class="card-info">
                     <span class="card-tag">Flat Design</span>
@@ -462,7 +459,7 @@
             </div>
 
             <!-- Card: BG LoFi -->
-            <div class="card" data-category="anime music youtube" onclick="openModal('bg_lofi')">
+            <div class="card" data-category="illustration youtube anime" onclick="openModal('bg_lofi')">
                 <img src="img/bg_lofi.png" alt="Lo-Fi BG">
                 <div class="card-info">
                     <span class="card-tag">YouTube / Anime</span>
@@ -473,7 +470,7 @@
             </div>
 
             <!-- Card: BG Business -->
-            <div class="card" data-category="education youtube business" onclick="openModal('bg_business')">
+            <div class="card" data-category="business youtube" onclick="openModal('bg_business')">
                 <img src="img/bg_business.png" alt="Business BG">
                 <div class="card-info">
                     <span class="card-tag">YouTube / Biz</span>
@@ -484,7 +481,7 @@
             </div>
 
             <!-- Card: BG Variety -->
-            <div class="card" data-category="youtube anime" onclick="openModal('bg_variety')">
+            <div class="card" data-category="youtube illustration anime" onclick="openModal('bg_variety')">
                 <img src="img/bg_variety.jpg" alt="Variety BG">
                 <div class="card-info">
                     <span class="card-tag">YouTube / Pop</span>
@@ -495,7 +492,7 @@
             </div>
 
             <!-- Card: BG Tech -->
-            <div class="card" data-category="youtube business ec" onclick="openModal('bg_tech')">
+            <div class="card" data-category="youtube business gadget" onclick="openModal('bg_tech')">
                 <img src="img/bg_tech.png" alt="Tech BG">
                 <div class="card-info">
                     <span class="card-tag">YouTube / Tech</span>
