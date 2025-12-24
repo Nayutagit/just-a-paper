@@ -175,7 +175,7 @@ const imageData = {
         desc: '音楽イベントやDJのプレイ風景。躍動感あふれる光と影が、その場の熱気とバイブスを伝える。',
         useCase: 'クラブイベントのフライヤー、アーティストのジャケット写真、音楽フェスの公式サイト。',
         prompt: 'Energetic music event photography with vibrant lighting.',
-        img: 'https://placehold.co/600x400/161b22/fcc800?text=Music'
+        img: 'img/music_vibe.png'
     },
     'text_ad': {
         displayId: 'NST-026',
@@ -183,7 +183,7 @@ const imageData = {
         desc: 'キャッチコピーを入れるための余白（ネガティブスペース）を意識した構図。広告バナーやポスターの背景として最適。',
         useCase: 'WEB広告バナー、キャンペーンポスター、文字入れ用Instagramストーリー背景。',
         prompt: 'Ad background image with negative space for text.',
-        img: 'https://placehold.co/600x400/161b22/fcc800?text=Text+Space'
+        img: 'img/text_ad.png'
     },
     '3d_character': {
         displayId: 'NST-027',
