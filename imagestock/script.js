@@ -216,6 +216,14 @@ const imageData = {
         prompt: 'Minimalist product photography of a ceramic aroma diffuser on a wooden table, cozy home interior background with sunlight streaming in, soft shadows, lifestyle aesthetic, organic mood.',
         img: 'img/ec_interior.png'
     },
+    'ec_beauty': {
+        displayId: 'NST-033',
+        title: 'Clear Beauty',
+        desc: 'スキンケア広告向けの、透明感あふれる女性ポートレート。窓辺の自然光で、肌の質感をリアルかつ美しく表現。',
+        useCase: '化粧品ブランドのキービジュアル、エステサロンのLP、美容コラムのアイキャッチ。',
+        prompt: 'Close-up beauty portrait of a cute Japanese woman with glowing clear skin, gently touching her cheek, soft natural window lighting, minimalist white background, clean and fresh atmosphere, high-end skincare advertisement aesthetic, 8k resolution, sharp focus on eyes.',
+        img: 'img/ec_beauty.png'
+    },
     '3d_character': {
         displayId: 'NST-040',
         title: 'Friendly Robot',
