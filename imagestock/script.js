@@ -312,6 +312,14 @@ const imageData = {
         prompt: 'Close-up beauty portrait of a cute Japanese woman with glowing clear skin, gently touching her cheek, soft natural window lighting, minimalist white background, clean and fresh atmosphere, high-end skincare advertisement aesthetic, 8k resolution, sharp focus on eyes.',
         img: 'img/ec_beauty.png'
     },
+    'ec_beauty_ad': {
+        displayId: 'NST-080',
+        title: 'UV Care Campaign',
+        desc: '実際の広告展開を想定したレイアウト例。商品（UVクリーム）とモデルの肌の美しさを際立たせる、高級感のある配色。',
+        useCase: '化粧品メーカーの春・夏キャンペーン、ドラッグストアのPOP、SNS広告クリエイティブ。',
+        prompt: 'High-end beauty advertisement photography. A close-up of a beautiful Japanese woman with flawless skin holding a metallic pink tube of UV cream near her face. A smear of white cream texture is on her cheek. Elegant mauve purple background, soft studio lighting, sophisticated and premium atmosphere. (Text overlay style)',
+        img: 'img/ec_beauty_ad.png'
+    },
     'ec_business': {
         displayId: 'NST-034',
         title: 'Trusted Workflow',
