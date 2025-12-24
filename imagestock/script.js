@@ -328,6 +328,14 @@ const imageData = {
         prompt: 'Lifestyle photography of a cheerful Japanese woman holding a high-end smartphone in a trendy cafe, taking a selfie or video call, natural sunlight, bright and happy expression, latte art on table, social media influencer vibe, clean composition.',
         img: 'img/gadget_mobile.jpg'
     },
+    'gadget_vr': {
+        displayId: 'NST-064',
+        title: 'Future Vision',
+        desc: 'VRゴーグル越しの新たな世界。驚きと感動の表情が、メタバースや最先端テクノロジーへの期待感を可視化する。',
+        useCase: 'VR/ARコンテンツのLP、メタバース関連のニュース記事、テクノロジー企業のブランディング。',
+        prompt: 'Futuristic portrait of a young Japanese woman wearing a sleek white VR headset, reaching out with her hand as if touching virtual objects, amazed expression, clean white tech background with subtle blue data particles (hologram effect), high-tech commercial style.',
+        img: 'img/gadget_vr.png'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
