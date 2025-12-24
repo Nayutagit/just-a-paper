@@ -58,6 +58,18 @@ const imageData = {
         desc: '秋の深まりを感じさせる石橋と紅葉の情景。水面に浮かぶ落ち葉と、優雅に泳ぐ錦鯉を繊細なタッチで描写。',
         prompt: 'Delicate watercolor painting of an ancient stone bridge over a koi pond in a traditional Japanese garden during autumn, vibrant maple leaves falling on the water, soft sunbeams filtering through the trees, dreamy and peaceful atmosphere, Ghibli style color palette, high resolution.',
         img: 'img/watercolor_autumn.jpg'
+    },
+    'sf_city': {
+        title: '不夜城の鼓動',
+        desc: 'ネオンとホログラムが交錯する近未来のメガロポリス。降りしきる雨と空中を往来するビークルが、サイバーパンクな世界観を構築。',
+        prompt: 'Cinematic wide angle shot of a colossal futuristic neon-noir city with flying vehicles and massive holographic screens, Blade Runner 2049 aesthetic, rain-slicked streets reflecting vibrant cyan and magenta lights, immense scale, high-end SF movie cinematography, ultra-detailed textures, 8k resolution.',
+        img: 'img/sf_city.png'
+    },
+    'sf_planet': {
+        title: '未知の境界線',
+        desc: '二層の月が浮かぶ、彼方の惑星。巨大なクリスタル・モノリスと発光する植物が、静寂の中に神秘的な畏怖を感じさせる。',
+        prompt: 'Epic shot of a mysterious alien planet landscape with twin moons, bioluminescent flora glowing in the twilight, a lone astronaut standing before a massive ancient crystalline monolith, cinematic lighting, Interstellar-esque atmosphere, breathtaking scale, hyper-realistic, 8k, concept art.',
+        img: 'img/sf_planet.png'
     }
 };
 
