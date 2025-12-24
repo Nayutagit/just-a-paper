@@ -57,7 +57,7 @@ header {
     position: relative;
 }
 
-header h1 {
+header .logo {
     font-family: var(--font-eng);
     font-size: 3.5rem;
     font-weight: 800;
@@ -67,12 +67,12 @@ header h1 {
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-header h1 .accent {
+header .logo .accent {
     color: var(--primary-neon);
     text-shadow: 0 0 15px rgba(252, 200, 0, 0.6);
 }
 
-header p {
+header .subtitle {
     font-size: 1rem;
     color: var(--text-gray);
     font-family: var(--font-serif);
