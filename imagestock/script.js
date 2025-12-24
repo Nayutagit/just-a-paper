@@ -127,6 +127,22 @@ const imageData = {
         prompt: 'A refreshing and nostalgic photograph of a Japanese woman walking across a pedestrian crossing in Hiroshima on a sunny day, retro streetcar (green tram) passing by in background, clear blue sky, old-school arcade shops, film photography style, soft natural lighting, peaceful atmosphere.',
         img: 'img/photo_hiroshima_day.jpg'
     },
+    'photo_shibuya_low': {
+        displayId: 'NST-075',
+        title: 'Urban Power',
+        desc: '圧倒的な都市のエネルギーと、それに負けない存在感。ローアングルが描く、力強いポートレート。',
+        useCase: 'アパレルブランドのメインビジュアル、アーティストの宣材写真、都市型イベントのLP。',
+        prompt: 'Low angle wide shot of a confident Japanese woman standing on a Shibuya street at night, looking down at the camera, towering neon billboards in background, harsh camera flash, heavy film grain, powerful stance, 35mm film aesthetic, high contrast, vibrant colors, cinematic street photography.',
+        img: 'img/photo_shibuya_low.jpg'
+    },
+    'photo_shibuya_blur': {
+        displayId: 'NST-076',
+        title: 'City Motion',
+        desc: '雑踏の中で振り返る一瞬。ブレ感が表現する、止まらない街の鼓動と物語性。',
+        useCase: 'Webマガジンのエッセイ挿絵、音楽プレイリストのジャケット、ドラマチックな広告バナー。',
+        prompt: 'Candid snapshot of a cute Japanese woman turning back in a busy Shibuya crowd at night, slight motion blur, hair flowing, chaotic city lights and people in background, harsh camera flash, heavy film grain, 35mm film aesthetic, high contrast, vibrant colors, street realism.',
+        img: 'img/photo_shibuya_blur.jpg'
+    },
     'watercolor': {
         displayId: 'NST-012',
         title: '春の縁側',
