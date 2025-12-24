@@ -200,6 +200,14 @@ const imageData = {
         prompt: 'Professional commercial product photography of sleek black wireless earbuds floating in mid-air, dynamic angle, dramatic studio lighting, dark background with blue neon rim light, high detail, 4k.',
         img: 'img/ec_gadget.png'
     },
+    'ec_apparel': {
+        displayId: 'NST-031',
+        title: 'Street Culture',
+        desc: 'ストリートカルチャーの熱量を切り取ったスニーカーフォト。コンクリートの質感と自然光がリアリティを生む。',
+        useCase: 'アパレルブランドのInstagram、新作スニーカーのルックブック、Webマガジンの特集。',
+        prompt: 'High-quality product photography of colorful street-style sneakers placed on a concrete block, urban background, bright natural lighting, sharp focus, hypebeast aesthetic, trend.',
+        img: 'img/ec_apparel.jpg'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
