@@ -312,6 +312,22 @@ const imageData = {
         prompt: 'High-quality portrait of a cute Japanese gamer girl wearing a headset with cat ears, sitting in front of a gaming PC setup with colorful neon RGB lighting (pink and blue), holding a game controller, excited expression, cyber fashion style, dynamic angle, high resolution.',
         img: 'img/gadget_gaming.jpg'
     },
+    'gadget_audio': {
+        displayId: 'NST-062',
+        title: 'Premium Sound',
+        desc: '都会の喧騒の中で音楽に没入する瞬間。高級ヘッドホンの質感と、洗練されたファッションが、上質なライフスタイルを奏でる。',
+        useCase: 'オーディオ機器のレビュー、音楽サブスクリプションの広告、都市型ライフスタイルの提案。',
+        prompt: 'Cinematic street portrait of a stylish Japanese woman wearing premium wireless noise-canceling headphones, listening to music with eyes closed in enjoyment, city lights bokeh in background, evening atmosphere, fashion-forward outfit, shallow depth of field, Sony/Bose advertisement aesthetic.',
+        img: 'img/gadget_audio.jpg'
+    },
+    'gadget_mobile': {
+        displayId: 'NST-063',
+        title: 'Smart Lifestyle',
+        desc: 'カフェでのひととき、最新スマホと共に。自然光に包まれた笑顔が、テクノロジーと日常の幸せな融合を象徴する。',
+        useCase: '格安SIMやモバイルプランのLP、スマホアプリのプロモーション、SNSマーケティングの記事。',
+        prompt: 'Lifestyle photography of a cheerful Japanese woman holding a high-end smartphone in a trendy cafe, taking a selfie or video call, natural sunlight, bright and happy expression, latte art on table, social media influencer vibe, clean composition.',
+        img: 'img/gadget_mobile.jpg'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
