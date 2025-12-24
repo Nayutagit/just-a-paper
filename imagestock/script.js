@@ -336,6 +336,14 @@ const imageData = {
         prompt: 'Futuristic portrait of a young Japanese woman wearing a sleek white VR headset, reaching out with her hand as if touching virtual objects, amazed expression, clean white tech background with subtle blue data particles (hologram effect), high-tech commercial style.',
         img: 'img/gadget_vr.png'
     },
+    'gadget_creative': {
+        displayId: 'NST-065',
+        title: 'Creative Work',
+        desc: 'タブレットに向かうクリエイターの朝。柔らかな光と植物に囲まれたデスクが、心地よい創作の時間を演出する。',
+        useCase: 'イラスト制作アプリの広告、オンライン講座のLP、クリエイティブツールの導入事例。',
+        prompt: 'A creative Japanese woman wearing glasses drawing on a tablet with a stylus pen, sitting at a wooden desk with plants, focused and smiling, soft morning light, artistic workspace atmosphere, creative workflow, iPad Pro commercial aesthetic.',
+        img: 'img/gadget_creative.jpg'
+    },
     'food_restaurant': {
         displayId: 'NST-024',
         title: '至福の一皿',
