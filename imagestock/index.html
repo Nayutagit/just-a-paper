@@ -353,6 +353,35 @@
             <!-- Card: Shibuya Grit 2 -->
             <div class="card" data-category="street photo female lifestyle" onclick="openModal('photo_shibuya_grit_2')">
                 <img src="img/photo_shibuya_grit_2.jpg" alt="Crossing Chaos">
+                lpBtn = document.createElement('a');
+                lpBtn.id = 'modal-lp-btn';
+                lpBtn.className = 'view-all-btn';
+                lpBtn.style.display = 'block'; /* Full width block */
+                lpBtn.style.width = '100%';
+                lpBtn.style.textAlign = 'center';
+                lpBtn.style.padding = '15px 0';
+                lpBtn.style.backgroundColor = 'var(--primary-neon)'; /* Use Neon font color var if possible, or gold */
+                lpBtn.style.backgroundColor = '#FFD700'; /* Gold */
+                lpBtn.style.color = '#000';
+                lpBtn.style.textDecoration = 'none';
+                lpBtn.style.fontWeight = '800';
+                lpBtn.style.fontSize = '1.2rem';
+                lpBtn.style.borderRadius = '8px';
+                lpBtn.style.letterSpacing = '0.1em';
+                lpBtn.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.4)';
+                lpBtn.style.marginTop = '20px';
+                lpBtn.style.transition = 'transform 0.2s';
+
+                // Hover effect
+                lpBtn.onmouseover = function(){ this.style.transform = 'scale(1.03)'; };
+                lpBtn.onmouseout = function(){ this.style.transform = 'scale(1)'; };
+
+                lpBtn.innerHTML = '✨ VIEW DEMO SITE ✨<br><span style="font-size:0.8rem; font-weight:normal;">(Product
+                    Landing Page Sample)</span>';
+
+                btnContainer.appendChild(lpBtn);a-category="street photo female lifestyle"
+                onclick="openModal('photo_hiroshima_night_1')">
+                <img src="img/photo_hiroshima_night_1.jpg" alt="Hiroshima Vibes">
                 <div class="card-info">
                     <span class="card-tag">Street / Icon</span>
                     <span class="card-id">#NST-071</span>
