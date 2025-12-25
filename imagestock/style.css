@@ -298,6 +298,7 @@ header .subtitle {
 }
 
 
+/* Fix for modal description cutoff */
 .modal-details .card-desc {
     -webkit-line-clamp: unset;
     display: block;
@@ -305,10 +306,13 @@ header .subtitle {
     color: #ccc;
 }
 
-background: #1a1a1a;
-overflow-y: auto;
-display: flex;
-flex-direction: column;
+.modal-details {
+    flex: 1;
+    padding: 2.5rem;
+    background: #1a1a1a;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Responsive Modal */
