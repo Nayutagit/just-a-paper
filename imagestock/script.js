@@ -280,6 +280,14 @@ const imageData = {
         prompt: 'High-end commercial product photography of a white skincare bottle, isolated on pure white background, soft studio lighting, reflection below.',
         img: 'img/ec_product_2.png'
     },
+    'ec_beauty_luxury': {
+        displayId: 'NST-081',
+        title: 'Luxury Essence',
+        desc: '高級（ラグジュアリー）化粧品のキャンペーンビジュアル。',
+        useCase: 'Webサイト / LP / SNS広告 / パンフレット',
+        prompt: 'Luxury cosmetic branding photography, a gold container of beauty cream on a dark textured rock, minimalist, dramatic lighting, premium skincare, 8k resolution --ar 16:9',
+        img: 'img/ec_beauty_balm_lp.png'
+    },
     'ec_gadget': {
         displayId: 'NST-030',
         title: 'Tech & Style',
@@ -770,6 +778,41 @@ function openModal(id) {
 
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+
+    // Remove existing dynamic button if any
+    const existingBtn = document.getElementById('modal-lp-btn');
+    if (existingBtn) existingBtn.remove();
+
+    // Specific logic for LP
+    if (id === 'ec_beauty_luxury') {
+        const btnContainer = document.querySelector('.modal-details'); // Append to details
+
+        const lpBtn = document.createElement('a');
+        lpBtn.id = 'modal-lp-btn';
+        lpBtn.href = '/imagestock/balm_lp.html'; // Direct link relative
+        lpBtn.target = '_blank';
+        lpBtn.style.display = 'block';
+        lpBtn.style.width = '100%';
+        lpBtn.style.textAlign = 'center';
+        lpBtn.style.padding = '15px 0';
+        lpBtn.style.backgroundColor = '#D4AF37'; // Gold
+        lpBtn.style.color = '#000';
+        lpBtn.style.textDecoration = 'none';
+        lpBtn.style.fontWeight = '800';
+        lpBtn.style.fontSize = '1.2rem';
+        lpBtn.style.borderRadius = '8px';
+        lpBtn.style.letterSpacing = '0.1em';
+        lpBtn.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.4)';
+        lpBtn.style.marginTop = '20px';
+        lpBtn.style.transition = 'transform 0.2s';
+
+        lpBtn.onmouseover = function () { this.style.transform = 'scale(1.03)'; };
+        lpBtn.onmouseout = function () { this.style.transform = 'scale(1)'; };
+
+        lpBtn.innerHTML = '✨ VIEW DEMO SITE ✨<br><span style="font-size:0.8rem; font-weight:normal;">(sample page)</span>';
+
+        btnContainer.appendChild(lpBtn);
+    }
 }
 
 function closeModal() {
