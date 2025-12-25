@@ -95,6 +95,9 @@
             position: absolute;
             top: 0;
             left: 0;
+            transform: scale(1.05);
+            /* Zoom to hide watermark */
+            transform-origin: center center;
         }
 
         .hero-content {
@@ -145,7 +148,7 @@
         /* Visual & Usage Section */
         .visual-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             padding: 0 20px 100px;
             max-width: 1200px;
@@ -364,6 +367,12 @@
             <img src="img/ec_model_skin_base.png" alt="Pure Skin">
             <div class="visual-text">
                 <p>Pure Clarity</p>
+            </div>
+        </div>
+        <div class="visual-item">
+            <img src="img/ec_model_cosmetics.png" alt="Make up scene">
+            <div class="visual-text">
+                <p>Morning Ritual</p>
             </div>
         </div>
     </section>
