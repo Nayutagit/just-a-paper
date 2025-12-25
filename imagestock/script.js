@@ -811,7 +811,17 @@ function openModal(id) {
 
         lpBtn.innerHTML = '✨ VIEW DEMO SITE ✨<br><span style="font-size:0.8rem; font-weight:normal;">(sample page)</span>';
 
-        btnContainer.appendChild(lpBtn);
+        // Insert after the title or meta data for higher visibility
+        // btnContainer is .modal-details. 
+        // We want it near the top. let's insert after modalTitle.
+        if (modalTitle && modalTitle.parentNode === btnContainer) {
+            modalTitle.insertAdjacentElement('afterend', lpBtn);
+            lpBtn.style.marginTop = '1rem';
+            lpBtn.style.marginBottom = '1rem';
+        } else {
+            // Fallback
+            btnContainer.prepend(lpBtn);
+        }
     }
 }
 
