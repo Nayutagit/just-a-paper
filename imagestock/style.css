@@ -297,13 +297,18 @@ header .subtitle {
     /* Global Zoom Request */
 }
 
-.modal-details {
-    flex: 1;
-    padding: 2.5rem;
-    background: #1a1a1a;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+
+.modal-details .card-desc {
+    -webkit-line-clamp: unset;
+    display: block;
+    overflow: visible;
+    color: #ccc;
+}
+
+background: #1a1a1a;
+overflow-y: auto;
+display: flex;
+flex-direction: column;
 }
 
 /* Responsive Modal */
