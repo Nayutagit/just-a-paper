@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAFE CONCRETE | Urban Sanctuary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f5f5f5;
+            --text-color: #333;
+            --accent-color: #555;
+            --font-main: 'Noto Serif JP', serif;
+            --font-display: 'Cinzel', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            background-image: url('img/cafe_hero.png');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(1.1);
+            /* Subtle Zoom */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            /* Darken for text */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: #fff;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+        }
+
+        /* Concept Section */
+        .section {
+            padding: 100px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .concept-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .concept-text h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        .concept-text p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        /* Menu / Gallery */
+        .menu-section {
+            background: #e0e0e0;
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .menu-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--accent-color);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #222;
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-family: var(--font-display);
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="back-btn">← Gallery</a>
+
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>CAFE CONCRETE</h1>
+            <p>Urban Sanctuary in the City</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="concept-grid">
+            <div class="concept-text">
+                <h2>Peace in the Noise</h2>
+                <p>都会の喧騒を忘れさせてくれる、オフィス街の隠れ家。コンクリートの無機質な空間に、季節の花々が彩りを添えます。</p>
+                <p>一杯ずつ丁寧にハンドドリップで淹れるコーヒーは、忙しい日々に一時の安らぎをもたらします。</p>
+                <p>ただコーヒーを飲むだけでなく、自分自身と向き合う時間、あるいは大切な人との会話を楽しむ場所として。</p>
+            </div>
+            <div class="concept-img">
+                <img src="img/cafe_barista.png" alt="Barista Pouring Coffee">
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section">
+        <h2 class="menu-title">MENU & SCENE</h2>
+        <div class="menu-grid">
+            <!-- Reuse existing images/placeholders for now -->
+            <div class="menu-item">
+                <div
+                    style="height:300px; background:#ddd; display:flex; align-items:center; justify-content:center; color:#777;">
+                    COFFEE</div>
+                <h3>Hand Drip</h3>
+                <p>厳選されたシングルオリジン豆を使用。</p>
+            </div>
+            <div class="menu-item">
+                <img src="img/cafe_hero.png" alt="Atmosphere">
+                <h3>Atmosphere</h3>
+                <p>心地よい音楽と、開放的な窓辺。</p>
+            </div>
+            <div class="menu-item">
+                <div
+                    style="height:300px; background:#ddd; display:flex; align-items:center; justify-content:center; color:#777;">
+                    FLOWERS</div>
+                <h3>Flowers</h3>
+                <p>週替わりのフラワーアレンジメント。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 CAFE CONCRETE. Sample Website.</p>
+    </footer>
+
+</body>
+
+</html>

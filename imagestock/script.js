@@ -288,6 +288,14 @@ const imageData = {
         prompt: 'Luxury cosmetic branding photography, a gold container of beauty cream on a dark textured rock, minimalist, dramatic lighting, premium skincare, 8k resolution --ar 16:9',
         img: 'img/ec_beauty_balm_lp.png'
     },
+    'ec_cafe_lp': {
+        displayId: 'NST-092',
+        title: 'Cafe Concrete',
+        desc: 'オフィス街の無機質カフェのHPサンプル。コンクリートと植物の対比が、都会のオアシスを表現。',
+        useCase: 'カフェ・飲食店の公式サイト、リノベーション企業の施工事例、ライフスタイルメディア。',
+        prompt: 'Modern minimalist cafe interior in a Tokyo office district, concrete walls, large glass windows exposing city greenery, subtle elegant flower arrangements, urban sanctuary atmosphere.',
+        img: 'img/cafe_hero.png'
+    },
     'ec_gadget': {
         displayId: 'NST-030',
         title: 'Tech & Style',
@@ -777,12 +785,19 @@ function openModal(id) {
     if (existingBtn) existingBtn.remove();
 
     // Specific logic for LP
+    let lpUrl = '';
     if (id === 'ec_beauty_luxury') {
+        lpUrl = '/imagestock/balm_lp.html';
+    } else if (id === 'ec_cafe_lp') {
+        lpUrl = '/imagestock/cafe_lp.html';
+    }
+
+    if (lpUrl) {
         const btnContainer = document.querySelector('.modal-details'); // Append to details
 
         const lpBtn = document.createElement('a');
         lpBtn.id = 'modal-lp-btn';
-        lpBtn.href = '/imagestock/balm_lp.html'; // Direct link relative
+        lpBtn.href = lpUrl; // Direct link relative
         lpBtn.target = '_blank';
         lpBtn.style.display = 'block';
         lpBtn.style.width = '100%';
