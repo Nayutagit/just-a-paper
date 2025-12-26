@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project STAR MAKER - Nist Studio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" id="theme">
+    <style>
+        /* Font: Tsukushi B Maru Gothic priority */
+        @font-face {
+            font-family: 'Tsukushi B Maru Gothic';
+            src: local('Tsukushi B Maru Gothic'), local('筑紫B丸ゴシック'), local('YuGothic'), local('Yu Gothic'), sans-serif;
+        }
+
+        body,
+        .reveal {
+            font-family: 'Tsukushi B Maru Gothic', '筑紫B丸ゴシック', sans-serif !important;
+            color: #111 !important;
+            background-color: #fff !important;
+        }
+
+        /* A4 Landscape Optimization */
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+
+        /* Typography Adjustments */
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            text-transform: none !important;
+            font-family: 'Tsukushi B Maru Gothic', '筑紫B丸ゴシック', sans-serif !important;
+        }
+
+        .reveal h1 {
+            font-size: 2.0em !important;
+            margin: 10px 0 20px 0 !important;
+            color: #333;
+        }
+
+        .reveal h2 {
+            font-size: 1.5em !important;
+            margin-bottom: 20px !important;
+            border-left: 8px solid #555;
+            padding-left: 15px;
+            color: #222;
+        }
+
+        .reveal h3 {
+            font-size: 1.1em !important;
+            margin-top: 5px !important;
+            margin-bottom: 8px !important;
+            color: #333;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* Adjusted for fit: Reduced to 17px */
+        .reveal p,
+        .reveal li {
+            font-size: 17px !important;
+            /* Reduced from 19px */
+            line-height: 1.5 !important;
+            color: #333;
+        }
+
+        .reveal ul {
+            margin-left: 30px !important;
+        }
+
+        .reveal li {
+            margin-bottom: 6px !important;
+        }
+
+        /* Compact Layout components */
+        .box {
+            padding: 15px;
+            /* Reduced from 20px */
+            margin: 8px 0;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+        }
+
+        .cols {
+            display: flex;
+            gap: 20px;
+            /* Reduced gap */
+        }
+
+        .col-6 {
+            flex: 1;
+        }
+
+        .col-4 {
+            flex: 1;
+        }
+
+        /* Helper to force smaller text in tight boxes */
+        .dense-text p,
+        .dense-text li {
+            font-size: 16px !important;
+            /* Reduced from 18px */
+        }
+
+        /* Table adjustments */
+        table {
+            font-size: 16px !important;
+            /* Reduced from 18px */
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            border-bottom: none;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        th {
+            background: #eee;
+            color: #222;
+            padding: 8px;
+            /* Reduced padding */
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        td {
+            padding: 10px;
+            /* Reduced from 16px */
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            vertical-align: top;
+            line-height: 1.5 !important;
+            /* Tightened line height */
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+            font-size: 12px;
+            color: #bbb;
+            /* Subtle number */
+        }
+
+        /* Frame per slide for print - Flexbox for Vertical Center */
+        .reveal .slides>section {
+            border: 2px solid #333;
+            /* Distinct Frame */
+            box-sizing: border-box;
+            border-radius: 0;
+            height: 98%;
+            /* Keep inside page */
+            width: 98%;
+            margin: auto;
+            padding: 40px;
+            /* Generous internal padding */
+
+            /* Vertical Centering Logic */
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        /* Reset top margins for centered content to avoid skewed spacing */
+        .reveal h1,
+        .reveal h2 {
+            margin-top: 0 !important;
+        }
+
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: visible !important;
+            }
+
+            .reveal {
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            .reveal .viewport {
+                background: #fff !important;
+                overflow: visible !important;
+            }
+
+            .reveal .slides {
+                transform: none !important;
+                width: 100% !important;
+                height: auto !important;
+                text-align: left !important;
+                position: static !important;
+                overflow: visible !important;
+                left: auto !important;
+                top: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Enforce Frame & Layout for Print */
+            .reveal .slides>section {
+                border: 2px solid #333 !important;
+                box-sizing: border-box !important;
+                border-radius: 0 !important;
+                height: 100vh !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 40px !important;
+
+                /* Layout Logic */
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: stretch !important;
+
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+
+                opacity: 1 !important;
+                visibility: visible !important;
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+            }
+
+            /* Hide Reveal Controls */
+            .reveal .controls,
+            .reveal .progress,
+            .reveal .slide-number,
+            .reveal .backgrounds {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 1. Title -->
+            <section style="text-align: center;"> <!-- Center align text for title -->
+                <div>
+                    <p style="font-size: 1.2em; color: #666; letter-spacing: 0.2em; margin-bottom: 20px;">
+                        Promotion & Star Development
+                    </p>
+                    <h1 style="border: none; font-size: 3.5em !important; margin: 0 0 40px 0 !important;">
+                        Project "STAR MAKER"
+                    </h1>
+                    <p style="font-size: 1.2em;">NiCT Studio Business Plan 2026</p>
+                </div>
+            </section>
+
+            <!-- 2. Concept -->
+            <section>
+                <h2>1. コンセプト：「経営者を、タレントにする」</h2>
+                <div class="cols">
+                    <div class="col-6">
+                        <div class="box" style="padding: 20px !important;">
+                            <h3 style="font-size: 1.1em !important; margin: 5px 0 8px 0 !important;">Mission</h3>
+                            <p style="font-size: 18px !important;">
+                                <strong>「いいもの」を持っているのに、伝え方が下手な職人肌の経営者をなくす。</strong>
+                            </p>
+                            <p style="font-size: 16px !important; margin-bottom: 0;">
+                                単なる広告代理店ではなく、あなたの「発掘者（プロデューサー）」となり、
+                                <strong>「声（演出）×戦略（逆光）×指導（レッスン）」</strong>で業界のスターとしてデビューさせます。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="box" style="padding: 20px !important; background-color: #333; color: #fff;">
+                            <h3 style="color: #fff !important; border-bottom: 1px dashed #777;">Services</h3>
+                            <ul style="color: #fff;">
+                                <li><strong>Phase 1: 憑依 (Story)</strong><br>徹底取材による思考の言語化</li>
+                                <li><strong>Phase 2: 演出 (Direction)</strong><br>話し方・振る舞いの指導</li>
+                                <li><strong>Phase 3: 開演 (Promotion)</strong><br>映像化・広告展開</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">2 / 7</div>
+            </section>
+
+            <!-- 3. Target Problem -->
+            <section>
+                <h2>2. ターゲット：独立2年目の警備会社社長</h2>
+                <div class="cols dense-text">
+                    <div class="col-6">
+                        <h3>Pain Points (悩み)</h3>
+                        <div class="box">
+                            <ul>
+                                <li><strong>人が来ない（採用難）</strong>: <br>大手と同じ時給条件では勝てず、3Kのイメージも払拭できない。</li>
+                                <li><strong>現場から抜けられない</strong>: <br>人手不足で社長自身が現場に出るため、営業や経営戦略に時間を使えない。</li>
+                                <li><strong>「忙しい」が口癖</strong>: <br>漠然とした不安と、目の前の業務（シフト管理等）で思考停止している。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h3>Solution (解決策)</h3>
+                        <div class="box" style="border: 2px solid #ff4081;">
+                            <p style="text-align: center; font-weight: bold; font-size: 1.2em;">
+                                「条件」で戦わず、<br>「社長の男気」で採用する。
+                            </p>
+                            <hr style="margin: 10px 0;">
+                            <p>
+                                警備員ではなく<strong>「社長の右腕」</strong>を募集する。<br>
+                                そのために、社長の人生ドラマを<strong>「THE FIRST TAKE」風の映像</strong>にし、共感採用を狙う。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">3 / 7</div>
+            </section>
+
+            <!-- 4. Objection Handling -->
+            <section>
+                <h2>3. 「忙しい」社長への処方箋</h2>
+                <p>社長の「忙しい」には4つのパターンがあります。それぞれの正体に合わせてアプローチします。</p>
+                <table style="margin-top:20px;">
+                    <tr>
+                        <th style="width:20%">Type</th>
+                        <th style="width:30%">正体（原因）</th>
+                        <th style="width:50%">NiCT Studioの解決策</th>
+                    </tr>
+                    <tr>
+                        <td><strong>現場型</strong><br>（プレイング）</td>
+                        <td>人が足りない</td>
+                        <td>→ <strong>共感採用PR</strong>で、社長の代わりに現場を守る「右腕」を採用します。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>事務型</strong><br>（管理業務）</td>
+                        <td>任せられない</td>
+                        <td>→ 信頼できる事務員採用と、<strong>デジタル化の導入</strong>をサポートします。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>営業型</strong><br>（飲み会貧乏）</td>
+                        <td>止まるのが怖い</td>
+                        <td>→ <strong>動画とWeb広告</strong>が、24時間社長の代わりに営業し続けます。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>精神型</strong><br>（思考停止）</td>
+                        <td>決めることが多い</td>
+                        <td>→ <strong>壁打ち（インタビュー）</strong>で脳内を整理し、方針を言語化します。</td>
+                    </tr>
+                </table>
+                <div class="slide-number">4 / 7</div>
+            </section>
+
+            <!-- 5. Market Rates -->
+            <section>
+                <h2>4. 費用感：選べる「松竹梅」</h2>
+                <p>ご予算と目的に応じて選定可能です。「竹」プランが最もコストパフォーマンスに優れています。</p>
+                <div class="cols dense-text" style="margin-top:10px;">
+                    <div class="col-4">
+                        <div class="box">
+                            <h4 style="text-align:center;">【梅】Start</h4>
+                            <p style="text-align:center; font-weight:bold; font-size:1.2em;">〜30万円</p>
+                            <hr>
+                            <ul>
+                                <li>SNS用動画 (スマホ撮影)</li>
+                                <li>Web広告トライアル</li>
+                                <li><strong>目的</strong>: まずは試したい</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box" style="border: 2px solid #ff4081; transform: scale(1.05);">
+                            <h4 style="text-align:center; color:#ff4081;">【竹】Recommended</h4>
+                            <p style="text-align:center; font-weight:bold; font-size:1.2em;">50〜100万円</p>
+                            <hr>
+                            <ul>
+                                <li><strong>採用ブランディング動画</strong></li>
+                                <li>プロ撮影 + ナレーション</li>
+                                <li>ターゲット広告配信</li>
+                                <li><strong>目的</strong>: 本気で人を採る</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box">
+                            <h4 style="text-align:center;">【松】Premium</h4>
+                            <p style="text-align:center; font-weight:bold; font-size:1.2em;">300万円〜</p>
+                            <hr>
+                            <ul>
+                                <li>TVCMクオリティ</li>
+                                <li>スタジオ撮影・ロケ</li>
+                                <li>TV放映料込み</li>
+                                <li><strong>目的</strong>: 地域の有名企業へ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">5 / 7</div>
+            </section>
+
+            <!-- 6. Killer Message -->
+            <section style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                <h2 style="border-left: none; text-align: center;">なぜ、「今」やるべきか？</h2>
+                <div class="box" style="padding: 30px; border: none; background: transparent;">
+                    <p style="font-size: 1.5em !important; text-align: center; margin-bottom: 30px;">
+                        「忙しい」と言っている間に、<br>
+                        ライバルは「発信」を始めています。
+                    </p>
+                    <p style="text-align: center;">
+                        私がいただくのは「制作費」ではありません。<br>
+                        <strong>「社長が本来やるべき仕事に集中するための時間」への投資</strong>です。
+                    </p>
+                    <p style="text-align: center; font-weight: bold; margin-top: 30px;">
+                        さあ、社長の物語を、世界に公開しましょう。
+                    </p>
+                </div>
+                <div class="slide-number">6 / 7</div>
+            </section>
+
+            <!-- 7. End -->
+            <section style="text-align: center;">
+                <div>
+                    <h1 style="border:none; font-size: 2.5em !important; margin-bottom: 20px !important;">
+                        NiCT Studio
+                    </h1>
+                    <p>Producer / Narrator : Nayuta Akiyama</p>
+                    <p style="margin-top: 40px; font-size: 0.8em; color: #666;">
+                        Partner: Gyakko Inc.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- PDF Download Button -->
+    <div class="pdf-btn" onclick="downloadAllPDF()"
+        style="position: fixed; bottom: 10px; left: 10px; z-index: 1000; background: #333; color: #fff; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 11px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); opacity: 0.8;">
+        Download PDF
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            width: 1123,
+            height: 794,
+            margin: 0.05,
+            minScale: 0.2,
+            maxScale: 2.0,
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'none',
+            pdfMaxPagesPerSlide: 1,
+            slideNumber: false
+        });
+
+        async function downloadAllPDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [1123, 794]
+            });
+
+            const slides = document.querySelectorAll('.reveal .slides > section');
+            const totalSlides = slides.length;
+            const btn = document.querySelector('.pdf-btn');
+
+            btn.innerText = "Generating... (0/" + totalSlides + ")";
+            btn.style.opacity = "0.7";
+            btn.style.pointerEvents = "none";
+
+            // Temporary styling to ensure captures are clean
+            const originalTransform = document.querySelector('.reveal .slides').style.transform;
+            document.querySelector('.reveal .slides').style.transform = "none";
+
+            for (let i = 0; i < totalSlides; i++) {
+                const slide = slides[i];
+
+                // Make slide visible and positioned for capture
+                const originalDisplay = slide.style.display;
+                const originalOpacity = slide.style.opacity;
+                const originalPosition = slide.style.position;
+                const originalTop = slide.style.top;
+                const originalLeft = slide.style.left;
+                const originalZ = slide.style.zIndex;
+
+                // Force layout for capture
+                slide.style.display = "flex";
+                slide.style.opacity = "1";
+                slide.style.position = "fixed";
+                slide.style.top = "0";
+                slide.style.left = "0";
+                slide.style.zIndex = "9999";
+                slide.style.background = "#ffffff";
+                slide.style.width = "1123px";
+                slide.style.height = "794px";
+                slide.style.transform = "none";
+                slide.style.margin = "0";
+
+                // Allow a brief moment for rendering
+                await new Promise(resolve => setTimeout(resolve, 150));
+
+                try {
+                    const canvas = await html2canvas(slide, {
+                        scale: 1.5, // Good balance of quality/size
+                        useCORS: true,
+                        backgroundColor: "#ffffff",
+                        width: 1123,
+                        height: 794,
+                        windowWidth: 1123,
+                        windowHeight: 794,
+                        logging: false
+                    });
+
+                    const imgData = canvas.toDataURL('image/jpeg', 0.9);
+
+                    if (i > 0) pdf.addPage([1123, 794], 'landscape');
+                    pdf.addImage(imgData, 'JPEG', 0, 0, 1123, 794);
+
+                    btn.innerText = "Generating... (" + (i + 1) + "/" + totalSlides + ")";
+
+                } catch (e) {
+                    console.error("Slide " + i + " error:", e);
+                } finally {
+                    // Restore styles
+                    slide.style.display = originalDisplay;
+                    slide.style.opacity = originalOpacity;
+                    slide.style.position = originalPosition;
+                    slide.style.top = originalTop;
+                    slide.style.left = originalLeft;
+                    slide.style.zIndex = originalZ;
+                    slide.style.background = "";
+                    slide.style.width = "";
+                    slide.style.height = "";
+                    slide.style.transform = "";
+                    slide.style.margin = "";
+                }
+            }
+
+            // Restore global
+            document.querySelector('.reveal .slides').style.transform = originalTransform;
+
+            pdf.save('Project_STAR_MAKER_Proposal.pdf');
+
+            btn.innerText = "Download Full PDF";
+            btn.style.opacity = "1";
+            btn.style.pointerEvents = "auto";
+        }
+    </script>
+</body>
+
+</html>
