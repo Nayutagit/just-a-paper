@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>株式会社逆光 忘年会2025 開催レポート</title>
-    <!-- Updated: 2025-12-28 23:50 -->
+    <!-- Updated: 2025-12-29 00:00 -->
     <style>
         body {
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-            line-height: 1.8;
-            color: #333;
+            line-height: 2.0;
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #050505;
+            /* Black background */
         }
 
         /* Report Content Styles */
@@ -22,90 +23,168 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
-            background: white;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            background: #050505;
             min-height: 100vh;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+
+        .logo-container img {
+            max-width: 250px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+            animation: fadeIn 2s ease-out;
         }
 
         h1 {
             font-size: 2rem;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
-            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #fff;
+            letter-spacing: 0.05em;
         }
 
         h2 {
             font-size: 1.5rem;
-            margin-top: 3rem;
-            border-left: 5px solid #000;
+            margin-top: 4rem;
+            border-left: 4px solid #fff;
             padding-left: 15px;
-            background-color: #f4f4f4;
-            padding-top: 5px;
-            padding-bottom: 5px;
+            color: #fff;
+            margin-bottom: 1.5rem;
         }
 
         .meta-info {
-            background-color: #eee;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 2rem;
+            background-color: #111;
+            padding: 20px;
+            border: 1px solid #222;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            color: #ccc;
         }
 
         .meta-info p {
-            margin: 5px 0;
-            font-weight: bold;
+            margin: 8px 0;
         }
 
         .intro {
             font-size: 1.1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            line-height: 2.2;
         }
 
         .person {
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #222;
+            background-color: #0a0a0a;
+            padding: 2rem;
+            border-radius: 12px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .person:hover {
+            border-color: #444;
+            transform: translateY(-2px);
         }
 
         .person-name {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
             display: block;
+            color: #fff;
         }
 
         .person-role {
             font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 1rem;
+            color: #888;
+            margin-bottom: 1.5rem;
             display: block;
+            font-weight: normal;
         }
 
         ul {
             padding-left: 20px;
+            color: #d0d0d0;
         }
 
         li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .present-section {
-            background-color: #fff8e1;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 3px solid #666;
         }
 
         strong {
-            color: #d32f2f;
-            /* Highlight color */
+            color: #fff;
+            /* Highlight color for dark mode */
+            font-weight: bold;
+        }
+
+        .highlight-text {
+            color: #ffda79;
+            /* Gold/yellow for special emphasis */
         }
 
         footer {
-            margin-top: 4rem;
+            margin-top: 5rem;
             text-align: center;
             font-size: 0.9rem;
             color: #666;
+            padding-bottom: 3rem;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Podcast Section */
+        .podcast-section {
+            margin-top: 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #111 0%, #222 100%);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid #333;
+        }
+
+        .podcast-btn {
+            display: inline-block;
+            background-color: #1DB954;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .podcast-btn:hover {
+            background-color: #1ed760;
         }
     </style>
 </head>
@@ -114,7 +193,11 @@
 
     <!-- Main Content -->
     <div id="content">
-        <h1>株式会社逆光 忘年会2025<br>開催レポート & メンバー紹介</h1>
+        <div class="logo-container">
+            <img src="images/logo.png" alt="株式会社逆光">
+        </div>
+
+        <h1>忘年会2025<br>開催レポート & メンバー紹介</h1>
 
         <div class="meta-info">
             <p>日時: 2025年12月17日（水） 19:00〜</p>
@@ -125,8 +208,8 @@
         <div class="intro">
             <p>2025年の瀬、広島の「Bar Last Tango in Paris」の3階を貸し切り、株式会社逆光主催の忘年会が開催されました。<br>
                 集まったのは、広島を拠点に活動するデザイナー、ライター、フォトグラファー、映像クリエイター、エンジニア、そして便利屋まで。</p>
-            <p>お食事は、日之出水産が運営する練り物専門店<strong>「ネッテ」</strong>の「練り物」や「カリカリがんす」。<br>
-                <strong>皆さん、ぜひ「ネッテ」に行ってくださいね！</strong><br>
+            <p>お食事は、日之出水産が運営する練り物専門店<strong class="highlight-text">「ネッテ」</strong>の「練り物」や「カリカリがんす」。<br>
+                <strong class="highlight-text">皆さん、ぜひ「ネッテ」に行ってくださいね！</strong><br>
                 酒と美食、そしてクリエイティブな会話に酔いしれた一夜の全記録です。
             </p>
         </div>
@@ -147,8 +230,7 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>hibi（マッチ型アロマ）</strong><br>「デザインのアイデアに行き詰まった時に使ってほしい」と、自身が欲しかったものをセレクト。
-                    </li>
+                        <strong>hibi（マッチ型アロマ）</strong><br>「デザインのアイデアに行き詰まった時に使ってほしい」と、自身が欲しかったものをセレクト。</li>
                 </ul>
             </div>
 
@@ -177,8 +259,7 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>「あずきのチカラ（目元用）」</strong><br>「デジタル作業で疲れた目を癒やしてほしい。レンチンすると一瞬で寝れます」という実体験に基づく「ガチ」なケア用品。
-                    </li>
+                        <strong>「あずきのチカラ（目元用）」</strong><br>「デジタル作業で疲れた目を癒やしてほしい。レンチンすると一瞬で寝れます」という実体験に基づく「ガチ」なケア用品。</li>
                 </ul>
             </div>
 
@@ -192,8 +273,7 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>ハンドソープ（オートディスペンサー）</strong><br>「自分じゃ買わないけどあったら嬉しい」枠。
-                    </li>
+                        <strong>ハンドソープ（オートディスペンサー）</strong><br>「自分じゃ買わないけどあったら嬉しい」枠。</li>
                 </ul>
             </div>
 
@@ -223,8 +303,7 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>Aesop（ハンドクリーム等）</strong><br>「逆光の集まりにはおしゃれな人しか来ないだろう」と予測し、「大人の豊かさ」をテーマに選定。
-                    </li>
+                        <strong>Aesop（ハンドクリーム等）</strong><br>「逆光の集まりにはおしゃれな人しか来ないだろう」と予測し、「大人の豊かさ」をテーマに選定。</li>
                 </ul>
             </div>
 
@@ -240,8 +319,7 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>紅茶の詰め合わせ</strong><br>本通りの紅茶専門店でセレクト。「色んなフレーバーが入っていて長く楽しめる」気配りの品。
-                    </li>
+                        <strong>紅茶の詰め合わせ</strong><br>本通りの紅茶専門店でセレクト。「色んなフレーバーが入っていて長く楽しめる」気配りの品。</li>
                 </ul>
             </div>
 
@@ -252,8 +330,7 @@
                     <li><strong>【エピソード】</strong>:
                         <ul>
                             <li><strong>「以前からのご縁」</strong>:
-                                かつて廿日市の現場で佐々木さんが携わるプロジェクトでカメラアシスタントをしていた。時を経て再会し、現在は宮島の映像などを共に制作。
-                            </li>
+                                かつて廿日市の現場で佐々木さんが携わるプロジェクトでカメラアシスタントをしていた。時を経て再会し、現在は宮島の映像などを共に制作。</li>
                             <li><strong>「選挙と映像」</strong>: 選挙関連の映像制作など、硬派な現場でも活躍中。</li>
                         </ul>
                     </li>
@@ -275,8 +352,7 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>カンボジアの生胡椒（塩漬け）</strong><br>「卵かけご飯に乗せると絶品。お酒のアテにもなる」。知人が扱っているこだわりの逸品。
-                    </li>
+                        <strong>カンボジアの生胡椒（塩漬け）</strong><br>「卵かけご飯に乗せると絶品。お酒のアテにもなる」。知人が扱っているこだわりの逸品。</li>
                 </ul>
             </div>
 
@@ -310,8 +386,7 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>こだわりスイーツ</strong><br>「僕に刺さりすぎて家に何十個もストックがある」という激推しスイーツ。
-                    </li>
+                        <strong>こだわりスイーツ</strong><br>「僕に刺さりすぎて家に何十個もストックがある」という激推しスイーツ。</li>
                 </ul>
             </div>
 
@@ -327,8 +402,7 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>倉敷帆布の小物</strong><br>「通販にはない、現地でしか買えない、在庫限りのレア物」。
-                    </li>
+                        <strong>倉敷帆布の小物</strong><br>「通販にはない、現地でしか買えない、在庫限りのレア物」。</li>
                 </ul>
             </div>
 
@@ -374,19 +448,16 @@
                         </ul>
                     </li>
                     <li class="present-section"><strong>【プレゼント】</strong>:
-                        <strong>非公式「逆光スウェット」</strong><br>勝手に逆光ロゴを入れた世界に一つのスウェット。
-                    </li>
+                        <strong>非公式「逆光スウェット」</strong><br>勝手に逆光ロゴを入れた世界に一つのスウェット。</li>
                 </ul>
             </div>
         </section>
 
-        <section
-            style="margin-top: 4rem; text-align: center; background-color: #f0f0f0; padding: 2rem; border-radius: 8px;">
+        <section class="podcast-section">
             <h2 style="margin-top: 0; border: none; padding: 0; background: none;">🎙️ 毎週火曜日は「逆張りマーケラジオ」</h2>
             <p>逆光メンバーの思考や裏側を配信中。毎週火曜日の更新をぜひお聴きください！</p>
-            <p><a href="https://open.spotify.com/show/02abD398asPC5qrUWzEf88?si=68ad6aec8bfc48ad" target="_blank"
-                    style="display: inline-block; background-color: #1DB954; color: white; padding: 10px 20px; text-decoration: none; border-radius: 20px; font-weight: bold;">Spotifyで聴く</a>
-            </p>
+            <a href="https://open.spotify.com/show/02abD398asPC5qrUWzEf88?si=68ad6aec8bfc48ad" target="_blank"
+                class="podcast-btn">Spotifyで聴く</a>
         </section>
 
         <footer>
