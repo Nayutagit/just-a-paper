@@ -15,72 +15,9 @@
             background-color: #f9f9f9;
         }
 
-        /* Password Overlay Styles */
-        #password-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        #password-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 90%;
-            width: 300px;
-        }
-
-        #password-box h2 {
-            margin-top: 0;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        #password-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 1rem;
-        }
-
-        #submit-btn {
-            background-color: #000;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            width: 100%;
-        }
-
-        #submit-btn:hover {
-            background-color: #333;
-        }
-
-        #error-msg {
-            color: red;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            display: none;
-        }
-
         /* Report Content Styles */
         #content {
-            display: none;
-            /* Hidden by default */
+            display: block;
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
@@ -174,16 +111,6 @@
 
 <body>
 
-    <!-- Password Overlay -->
-    <div id="password-overlay">
-        <div id="password-box">
-            <h2>パスワードを入力してください</h2>
-            <input type="password" id="password-input" placeholder="Password">
-            <button id="submit-btn" onclick="checkPassword()">閲覧する</button>
-            <div id="error-msg">パスワードが間違っています</div>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div id="content">
         <h1>株式会社逆光 忘年会2025<br>開催レポート & メンバー紹介</h1>
@@ -205,7 +132,7 @@
         </div>
 
         <section>
-            <h2>📸 株式会社逆光 & クリエイティブチーム</h2>
+            <h2>🤝 参加メンバー紹介</h2>
 
             <div class="person">
                 <span class="person-name">佐々木 勇</span>
@@ -284,10 +211,6 @@
                             梨のシードル</strong><br>「一人暮らしでも、誰かを呼ぶきっかけになれば」。お家時間をパーティーに変える、愛のあるセット。</li>
                 </ul>
             </div>
-        </section>
-
-        <section>
-            <h2>🎨 デザイン・アート・映像</h2>
 
             <div class="person">
                 <span class="person-name">オリシゲ シュウジ</span>
@@ -353,10 +276,6 @@
                         <strong>カンボジアの生胡椒（塩漬け）</strong><br>「卵かけご飯に乗せると絶品。お酒のアテにもなる」。知人が扱っているこだわりの逸品。</li>
                 </ul>
             </div>
-        </section>
-
-        <section>
-            <h2>🛠 プロフェッショナル & 異業種クリエイター</h2>
 
             <div class="person">
                 <span class="person-name">岩本 圭司</span>
@@ -419,6 +338,8 @@
                             <li>バイクスタントのイベントを主催。「もっと面白く、大きく」をモットーに活動中。</li>
                         </ul>
                     </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>: <strong>PAPIER
+                            D'ARMENIE（紙のお香）</strong><br>「社長が言うセンス」として選ばれた一品。急遽参加が決まった中で、間違いのないセンスを発揮。</li>
                 </ul>
             </div>
 
@@ -437,10 +358,6 @@
                     </li>
                 </ul>
             </div>
-        </section>
-
-        <section>
-            <h2>🎙 記録・進行</h2>
 
             <div class="person">
                 <span class="person-name">秋山 那由他</span>
@@ -465,33 +382,6 @@
             <p>&copy; 2025 株式会社逆光 忘年会実行委員会</p>
         </footer>
     </div>
-
-    <script>
-        function checkPassword() {
-            const password = document.getElementById("password-input").value;
-            const correctPassword = "Gyakko1217";
-            const overlay = document.getElementById("password-overlay");
-            const content = document.getElementById("content");
-            const errorMsg = document.getElementById("error-msg");
-
-            if (password === correctPassword) {
-                overlay.style.display = "none";
-                content.style.display = "block";
-                window.scrollTo(0, 0); // Reset scroll
-            } else {
-                errorMsg.style.display = "block";
-                // Shake effect or simple error
-                document.getElementById("password-input").style.borderColor = "red";
-            }
-        }
-
-        // Allow Enter key to submit
-        document.getElementById("password-input").addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                checkPassword();
-            }
-        });
-    </script>
 </body>
 
 </html>
