@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Standard - Slides</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        :root {
+            --primary-color: #FCC800;
+            /* Neon Gold */
+            --accent-color: #00A4D8;
+            /* Teal */
+            --text-main: #333333;
+            --text-sub: #666666;
+            --border-color: #e0e0e0;
+            --font-main: "Tsukushi B Round Gothic", "筑紫B丸ゴシック", "Zen Maru Gothic", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            /* Light gray for screen viewing */
+            font-family: var(--font-main);
+            color: var(--text-main);
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            background-color: #ffffff;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20mm;
+            box-sizing: border-box;
+            overflow: hidden;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary-color);
+            color: #333;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s;
+            font-family: var(--font-main);
+            border: 2px solid #fff;
+        }
+
+        .print-btn:hover {
+            transform: scale(1.05);
+            background-color: #ffdb4d;
+        }
+
+        /* --- Components --- */
+        .header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-main {
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .header-sub {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* --- Table Page --- */
+        .matrix-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .matrix-table th {
+            background-color: rgba(252, 200, 0, 0.1);
+            color: var(--text-main);
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .matrix-table td.category {
+            background-color: #fafafa;
+            font-weight: bold;
+            width: 15%;
+            text-align: center;
+            vertical-align: middle;
+            color: var(--accent-color);
+        }
+
+        .matrix-table td.item {
+            font-weight: bold;
+            width: 20%;
+        }
+
+        .matrix-table td.desc {
+            width: 55%;
+        }
+
+        .matrix-table td.check {
+            width: 10%;
+            text-align: center;
+            color: #ddd;
+            font-size: 1.2rem;
+        }
+
+        /* --- Detail Page --- */
+        .detail-box {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .detail-box.basic {
+            border: 2px solid var(--primary-color);
+            background-color: rgba(252, 200, 0, 0.05);
+        }
+
+        .label {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background-color: #fff;
+            padding: 0 10px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .detail-box.basic .label {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .content-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+
+        .example-area {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ddd;
+        }
+
+        .example-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .memo-area {
+            margin-top: auto;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 20px;
+        }
+
+        .memo-title {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .empty-lines {
+            width: 100%;
+            height: 150px;
+            background-image: repeating-linear-gradient(transparent, transparent 29px, #e0e0e0 30px);
+        }
+
+        .deep-dive {
+            background-color: rgba(0, 164, 216, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .deep-dive h4 {
+            margin: 0 0 10px 0;
+        }
+
+        .mark {
+            position: relative;
+            display: inline-block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .bubble {
+            position: absolute;
+            font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+            color: #ff4500;
+            font-size: 0.7rem;
+            font-weight: bold;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1px 5px;
+            border: 1px solid #ff4500;
+            border-radius: 6px;
+            top: -1.4em;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+            pointer-events: none;
+        }
+
+        .bubble.below {
+            top: auto;
+            bottom: -1.2em;
+        }
+
+        .bubble.circle {
+            border: 2px solid #ff4500;
+            border-radius: 50%;
+            width: 1.5em;
+            height: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .wavy-line {
+            text-decoration: underline wavy #ff4500;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            text-align: right;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PAGE 1: The Matrix -->
+    <div class="page">
+        <div class="header">
+            <div class="header-title-group">
+                <span class="header-main">The Standard</span>
+                <span class="header-sub">聴き取りやすい話し方の基準</span>
+            </div>
+            <span class="header-meta">Ver 1.0</span>
+        </div>
+
+        <div class="matrix-container">
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Cat.</th>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Check</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Vocal -->
+                    <tr>
+                        <td rowspan="7" class="category">Vocal<br><span
+                                style="font-size:0.8rem; font-weight:normal;">(聴覚)</span></td>
+                        <td class="item">Volume</td>
+                        <td class="desc">聴き取れない言葉がない音量で話すことができているか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Key</td>
+                        <td class="desc">甲高い声・低すぎる声で相手に聴き取りづらさを与えていないか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Speed</td>
+                        <td class="desc">速すぎることによって滑舌に問題が出ていないか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Tone</td>
+                        <td class="desc">高圧的ではないか・自信が無いように聞こえていないか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Pause</td>
+                        <td class="desc">相手に相槌を打たせられているか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Filler</td>
+                        <td class="desc">話に関係のないフィラーが入ってしまっていないか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Reaction</td>
+                        <td class="desc">返答が不自然になっていないか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <!-- Visual -->
+                    <tr>
+                        <td rowspan="5" class="category">Visual<br><span
+                                style="font-size:0.8rem; font-weight:normal;">(視覚)</span></td>
+                        <td class="item">Eyes</td>
+                        <td class="desc">意味のない視線逸らしをしていないか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Face</td>
+                        <td class="desc">大頬骨筋をコントロールして話せているか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Mouth</td>
+                        <td class="desc">口角が下がって印象を悪くしていないか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Hands</td>
+                        <td class="desc">視線誘導・強調など意味のある手の動きができているか</td>
+                        <td class="check">□</td>
+                    </tr>
+                    <tr>
+                        <td class="item">Body</td>
+                        <td class="desc">背筋・首の角度はまっすぐか</td>
+                        <td class="check">□</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">The Standard / Confidential</div>
+    </div>
+
+    <!-- PAGE 2: Volume -->
+    <div class="page">
+        <div class="header">
+            <div class="header-title-group">
+                <span class="header-main">Volume</span>
+                <span class="header-sub">声の大きさ</span>
+            </div>
+            <span class="header-meta">Vocal - 01</span>
+        </div>
+
+        <div class="detail-box">
+            <span class="label">Goal</span>
+            <div class="content-text">聴き取れない言葉がない音量で話すことができているか</div>
+        </div>
+
+        <div class="detail-box basic">
+            <span class="label">Basic Rule</span>
+            <div class="content-text">文頭から文末まで、一定の音量をキープする</div>
+        </div>
+
+        <div class="section-title">Example & Practice</div>
+        <div class="example-area">
+            <div class="example-text">
+                <span class="mark">私<span class="bubble">エッジボイス</span></span>は最近はコーヒー<span class="mark">に<span
+                        class="bubble circle"></span></span>ハマっています。
+                朝は強くないほう<span class="mark">なので<span class="bubble below">↓DE</span></span>、眠い目をこすりながら
+                お湯をこぼしてしまう<span class="mark wavy-line">こともあります<span class="bubble below">MOA低/Vol大</span></span>。
+                でも、部屋中が良い香りに包まれると
+                とても贅沢な気分になれます。ぜひ朝の一杯を淹れてみてください。
+            </div>
+        </div>
+
+        <div class="memo-area">
+            <span class="memo-title">Memo</span>
+            <div class="memo-area">
+                <span class="memo-title">Memo</span>
+                <div style="font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap; font-family: monospace;">
+                    ・「私は」の「は」の上：エッジボイス
+                    ・「しっかり発音する」
+                    ・「コーヒーに」の「に」：○で囲み強調
+                    ・「なので、」：下矢印（↓）、「DE」
+                    ・「こともあります」：波線、「MOA低 ボリューム大」、「エッジボイス」
+                    ・Memo欄：こうこうがい（硬口蓋）、なんこうがい（軟口蓋）、ナヌネノ
+                    ・最後の一文字まで語尾まで音量を下げない</div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 3: Key -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Key</span>
+                    <span class="header-sub">声の高低</span>
+                </div>
+                <span class="header-meta">Vocal - 02</span>
+            </div>
+
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">甲高い声・低すぎる声で相手に聴き取りづらさを与えていないか</div>
+            </div>
+
+            <div class="detail-box basic">
+                <span class="label">Basic Rule</span>
+                <div class="content-text">高い声で喋り出し、文末に向けて低い声で着地する</div>
+            </div>
+
+            <div class="deep-dive">
+                <h4>💡 Deep Dive: 信頼感を醸成する「グラデーション」と「着地」</h4>
+                <div style="font-size: 0.95rem; line-height: 1.6; display: flex; gap: 20px;">
+                    <div style="flex: 1; text-align: center;">
+                        <!-- SVG: Ideal -->
+                        <svg width="100%" height="60" viewBox="0 0 200 60" style="margin-bottom: 10px;">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#00A4D8;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FCC800;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Smooth wave scaling down -->
+                            <path d="M20,10 C80,10 100,50 180,50" stroke="url(#grad1)" stroke-width="4" fill="none"
+                                stroke-linecap="round" />
+                            <!-- Circle at the end -->
+                            <circle cx="180" cy="50" r="4" fill="#FCC800" />
+                        </svg>
+                        <div style="text-align: left;">
+                            <strong style="color: var(--accent-color);">1. Ideal: グラデーション & エッジボイス</strong><br>
+                            文頭(高)→文末(低)のなめらかな波を作り、<br>
+                            <strong>エッジボイス(声帯振動)</strong>を交えて低い音域へ着地。<br>
+                            → 「落ち着き」と「母性的な包容力」を演出。
+                        </div>
+                    </div>
+                    <div
+                        style="flex: 1; border-left: 1px solid rgba(0,0,0,0.1); padding-left: 20px; text-align: center;">
+                        <!-- SVG: Anti-Pattern -->
+                        <svg width="100%" height="60" viewBox="0 0 200 60" style="margin-bottom: 10px;">
+                            <!-- Jagged rising line -->
+                            <path d="M20,50 L60,50 L80,30 L100,50 L140,50 L160,20" stroke="#FF6B6B" stroke-width="4"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                            <!-- X mark -->
+                            <line x1="150" y1="10" x2="170" y2="30" stroke="#FF6B6B" stroke-width="3" />
+                            <line x1="170" y1="10" x2="150" y2="30" stroke="#FF6B6B" stroke-width="3" />
+                        </svg>
+                        <div style="text-align: left;">
+                            <strong style="color: #ff6b6b;">2. Anti-Pattern: 助詞上がり & 語尾上がり</strong><br>
+                            「何々の⤴」「何々で⤴」や文末が上がる癖。<br>
+                            → 「自信のなさ」や「幼稚な印象」を与える。<br>
+                            <strong>助詞は上げない。語尾はしっかり下げる。</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Example & Practice</div>
+            <div class="example-area">
+                <div class="example-text">
+                    <span class="mark">はじめまして<span class="bubble">高</span></span>！ <span class="mark">名前は<span
+                            class="bubble">低(MASO)</span></span>〇〇と申します。
+                    そうは見られないことが多いのですが実は<span class="mark">人見知りなので<span class="bubble">低</span></span>、
+                    初対面の方がおおいこの場に少し緊張しています。
+                    <span class="mark">ただ<span class="bubble">高</span></span>人とお話しすることはとても好きなので、
+                    ぜひ気軽に話しかけてください！よろしくお願い<span class="mark">します<span class="bubble below">↓</span></span>。
+                </div>
+            </div>
+
+            <div class="memo-area">
+                <span class="memo-title">Memo</span>
+                <div class="memo-area">
+                    <span class="memo-title">Memo</span>
+                    <div style="font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap; font-family: monospace;">
+                        ・例文「はじめまして」：「高」マーク、「名前は」：「低」マーク(MASO)
+                        ・「人見知りなので」：「低」
+                        ・「ただ」：「高」
+                        ・文の節々で高低差をつける、グラデーションにして話していく
+                        ・耳たぶのうしろとさこつの上の"ツボ"をほぐす（胸鎖乳突筋）
+                        ・モワッとした声は咽頭腔を広げて喉仏を下げて出している</div>
+                </div>
+                <div class="footer">The Standard / Confidential</div>
+            </div>
+
+            <!-- PAGE 4: Speed -->
+            <div class="page">
+                <div class="header">
+                    <div class="header-title-group">
+                        <span class="header-main">Speed</span>
+                        <span class="header-sub">声の速さ</span>
+                    </div>
+                    <span class="header-meta">Vocal - 03</span>
+                </div>
+
+                <div class="detail-box">
+                    <span class="label">Goal</span>
+                    <div class="content-text">速すぎることによって滑舌に問題が出ていないか</div>
+                </div>
+
+                <div class="detail-box basic" style="border-style: dashed; background: none;">
+                    <span class="label">Basic Rule</span>
+                    <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+                </div>
+
+                <div class="section-title">Notes</div>
+                <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                    <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+                </div>
+                <div class="footer">The Standard / Confidential</div>
+            </div>
+
+            <!-- PAGE 5: Tone -->
+            <div class="page">
+                <div class="header">
+                    <div class="header-title-group">
+                        <span class="header-main">Tone</span>
+                        <span class="header-sub">声の強さ</span>
+                    </div>
+                    <span class="header-meta">Vocal - 04</span>
+                </div>
+
+                <div class="detail-box">
+                    <span class="label">Goal</span>
+                    <div class="content-text">高圧的ではないか・自信が無いように聞こえていないか</div>
+                </div>
+
+                <div class="detail-box basic">
+                    <span class="label">Basic Rule</span>
+                    <div class="content-text">アタックをはっきりと発声し、エッジボイスを意識する</div>
+                </div>
+
+                <div class="deep-dive">
+                    <h4>💡 Deep Dive</h4>
+                    <div style="font-size: 0.95rem; line-height: 1.6;">
+                        <strong>1. アタック（出だし）= 自信</strong><br>
+                        文頭の音をクリアにすることで、「意思」と「自信」を伝える。<br><br>
+                        <strong>2. エッジボイス = 信頼・受容</strong><br>
+                        声帯を適度に閉鎖し、声に深みを持たせることで、「落ち着き」と「高圧的にならない知性」を演出する。<br><br>
+                        👉 <strong>「自信」と「安心感」を両立させるプロの響きを作る。</strong>
+                    </div>
+                </div>
+
+                <div class="section-title">Example & Practice</div>
+                <div class="example-area">
+                    <div class="example-text">
+                        <span class="mark">私の趣味は<span class="bubble">shu</span></span>本を読むことです。
+                        集中力があるほうではない<span class="mark">ので<span class="bubble below">↓ DEV</span></span>、つい途中で違う本に
+                        手が伸びてしまう<span class="mark">こともあります<span class="bubble">De. "D"強く</span></span>。
+                        でも、本を読んでいるとなんだかいいことをしている
+                        気分になれます。ぜひみなさんも読書してみてください。
+                    </div>
+                </div>
+            </div>
+            <div class="memo-area">
+                <span class="memo-title">Memo</span>
+                <div style="font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap; font-family: monospace;">
+                    ・エッジボイスは印象を良くしたいときに入れる
+                    ・助詞上がりを助詞までの音が低いのは最悪
+                    ・「私の趣味は…」：syuより shuで考える
+                    ・「本を読むことです」：キーは低めでエッジボイス
+                    ・「こともあります」：De."D"を強くする
+                    ・子音(Consonant)を強くすると印象良くなる。母音が強いと印象悪い。</div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 6: Pause -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Pause</span>
+                    <span class="header-sub">文の間</span>
+                </div>
+                <span class="header-meta">Vocal - 05</span>
+            </div>
+
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">相手に相槌を打たせられているか</div>
+            </div>
+            <div class="detail-box basic" style="border-style: dashed; background: none;">
+                <span class="label">Basic Rule</span>
+                <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+            </div>
+            <div class="section-title">Notes</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 7: Filler -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Filler</span>
+                    <span class="header-sub">納得の最適さ</span>
+                </div>
+                <span class="header-meta">Vocal - 06</span>
+            </div>
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">話に関係のないフィラーが入ってしまっていないか</div>
+            </div>
+            <div class="detail-box basic" style="border-style: dashed; background: none;">
+                <span class="label">Basic Rule</span>
+                <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+            </div>
+            <div class="section-title">Notes</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 8: Reaction -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Reaction</span>
+                    <span class="header-sub">相槌の量・高低</span>
+                </div>
+                <span class="header-meta">Vocal - 07</span>
+            </div>
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">返答が不自然になっていないか</div>
+            </div>
+            <div class="detail-box basic" style="border-style: dashed; background: none;">
+                <span class="label">Basic Rule</span>
+                <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+            </div>
+            <div class="section-title">Notes</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 9: Eyes -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Eyes</span>
+                    <span class="header-sub">視線</span>
+                </div>
+                <span class="header-meta">Visual - 01</span>
+            </div>
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">意味のない視線逸らしをしていないか</div>
+            </div>
+            <div class="detail-box basic" style="border-style: dashed; background: none;">
+                <span class="label">Basic Rule</span>
+                <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+            </div>
+            <div class="section-title">Notes</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 10: Face -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Face</span>
+                    <span class="header-sub">表情</span>
+                </div>
+                <span class="header-meta">Visual - 02</span>
+            </div>
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">大頬骨筋をコントロールして話せているか</div>
+            </div>
+            <div class="detail-box basic" style="border-style: dashed; background: none;">
+                <span class="label">Basic Rule</span>
+                <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+            </div>
+            <div class="section-title">Notes</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 11: Mouth -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Mouth</span>
+                    <span class="header-sub">口角</span>
+                </div>
+                <span class="header-meta">Visual - 03</span>
+            </div>
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">口角が下がって印象を悪くしていないか</div>
+            </div>
+            <div class="detail-box basic" style="border-style: dashed; background: none;">
+                <span class="label">Basic Rule</span>
+                <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+            </div>
+            <div class="section-title">Notes</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 12: Hands -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Hands</span>
+                    <span class="header-sub">ジェスチャー</span>
+                </div>
+                <span class="header-meta">Visual - 04</span>
+            </div>
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">視線誘導・箇条・強調など意味のある手の動き、相槌</div>
+            </div>
+            <div class="detail-box basic" style="border-style: dashed; background: none;">
+                <span class="label">Basic Rule</span>
+                <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+            </div>
+            <div class="section-title">Notes</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 13: Body -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Body</span>
+                    <span class="header-sub">姿勢</span>
+                </div>
+                <span class="header-meta">Visual - 05</span>
+            </div>
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">背筋・首の角度はまっすぐか</div>
+            </div>
+            <div class="detail-box basic" style="border-style: dashed; background: none;">
+                <span class="label">Basic Rule</span>
+                <div class="content-text" style="color:#aaa;">(Method to be defined)</div>
+            </div>
+            <div class="section-title">Notes</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE 14: Other -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Other</span>
+                    <span class="header-sub">その他</span>
+                </div>
+                <span class="header-meta">Note</span>
+            </div>
+            <div class="detail-box">
+                <span class="label">Goal</span>
+                <div class="content-text">動きの癖など、その他気になる点はないか</div>
+            </div>
+            <div class="section-title">Free Note</div>
+            <div class="memo-area" style="border:none; padding:0; flex-grow:1;">
+                <div class="empty-lines" style="height: 100%; box-sizing:border-box;"></div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+
+        <!-- PAGE: Nist Voice School -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Experience</span>
+                    <span class="header-sub">初回体験シート</span>
+                </div>
+                <span class="header-meta">Nist Voice School</span>
+            </div>
+            <div class="section-title">Introduction Script</div>
+            <div class="example-area">
+                <div class="example-text" style="font-size: 0.9rem;">
+                    みなさんこんにちは。本日はお忙しい中お集まりいただき、本当にありがとうございます。
+                    私は、普段から<span class="mark">「人前で話すこと」<span class="bubble">Giveの精神</span></span>に大きな意味があると感じています。
+                    言葉は、相手の心に届いて初めて力を持ちます。
+                    <span class="mark">どんなに素晴らしいアイデアも<span class="bubble">結論から</span></span>、声に出して伝えなければ相手には伝わりません。
+
+                    1つ目は、「緊張は味方にできる」ということです。
+                    2つ目は、「思いやりの心」です。
+                    そして3つ目は、「楽しむこと」。
+
+                    ご清聴ありがとうございました。
+                </div>
+            </div>
+            <div class="memo-area">
+                <span class="memo-title">Memo</span>
+                <div style="font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; font-family: monospace;">
+                    ・"ね"を付ける言葉（助詞上がり、語尾上がり）
+                    ・ウォーミングアップ:
+                    a: 縦2本上の歯みせる
+                    i: 下の歯より上の歯を多く見せる
+                    u: 下唇がかたくならないように
+                    e: サプライズされたときのえ!! 嬉しい喜び
+                    o: 上も下もかたくならず Uより口上げる
+                    ・音読練習:
+                    自分のしゃべりにつれてってあげる
+                    相手に合わせる（声高をむかえにいく、ムードづくり）
+                    ・「私という科目をみんなに教えてあげる」
+                    ・Giveの精神 (教えてあげる、与えてあげる)
+                    ・結論から話す。オチから話す。</div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE: Reading Practice -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Practice</span>
+                    <span class="header-sub">原稿読み練習</span>
+                </div>
+                <span class="header-meta">2025.12.18</span>
+            </div>
+            <div class="section-title">Points</div>
+            <div style="background:#f9f9f9; padding:15px; border-radius:8px; margin-bottom:15px;">
+                <ul style="margin:0; padding-left:20px; line-height:1.6;">
+                    <li>うなずかない!! 首・肩・頭の位置は動かさない</li>
+                    <li>舞台役者の話し方をマネするイメージ</li>
+                    <li>CTA (Call To Action): クリックとかアクションをしてほしくなるような終わり方</li>
+                    <li>「ソ」のシャープ</li>
+                </ul>
+            </div>
+            <div class="example-area">
+                <div style="font-weight:bold; color:var(--accent-color); margin-bottom:5px;">1. 自己紹介</div>
+                <div class="example-text" style="font-size: 0.95rem;">
+                    こんにちは。ナレーターの立道和佳奈です。
+                    <span class="mark">普段は<span
+                            class="bubble">Point</span></span>ラジオのパーソナリティや、企業のプロモーション映像のナレーションを担当<span
+                        class="mark">しています<span class="bubble">MAS</span></span>。
+                    『伝わる声』って、<span class="mark">ただ<span
+                            class="bubble">Point</span></span>大きいだけじゃないんです。相手の心にスッと入っていく、<span class="mark">温度感のある声<span
+                            class="bubble">首動かさない</span></span>。<span class="mark">それ<span
+                            class="bubble">Point</span></span>が私の目指すナレーションです。
+                    あなたの想いを、私の声で届けませんか？お仕事のご依頼、<span class="mark">お待ちしています<span class="bubble">口角意識/頷かない</span></span>。
+                </div>
+
+                <div style="font-weight:bold; color:var(--accent-color); margin-bottom:5px; margin-top:20px;">2. 明るい
+                    (化粧品)</div>
+                <div class="example-text" style="font-size: 0.95rem;">
+                    朝、<span class="mark">鏡を見た時の『あれ？』<span class="bubble">誰見て？</span></span>寝不足の顔、くすんだ肌……。
+                    そんな朝こそ、<span class="mark">モーニングドロップ<span class="bubble">高
+                            (固有名詞)</span></span>。たった3滴で、肌がパッと目覚める。ビタミンC誘導体が、<span class="mark">透明感<span
+                            class="bubble">SE (キラリーン)</span></span>を引き出します。
+                    『今日も頑張れそう』鏡の中の自分が、そう言ってくれる。
+                    モーニングドロップ。あなたの朝を、輝かせる一滴<span class="mark">。<span class="bubble circle">CTA</span></span>
+                </div>
+
+                <div style="font-weight:bold; color:var(--accent-color); margin-bottom:5px; margin-top:20px;">3. シリアス
+                    (環境)</div>
+                <div class="example-text" style="font-size: 0.95rem;">
+                    私たちが毎日使っている<span class="mark">プラスチック<span class="bubble">同じ波にしない</span></span>。その量は、年間約<span
+                        class="mark">800万トン<span class="bubble">Emotional</span></span>。海に流れ込み、<span
+                        class="mark">生態系<span class="bubble">TE NA / MO弱く</span></span>をおびやかしています。
+                    『自分一人が変わっても、<span class="mark">何も変わらない<span class="bubble">MO (Not O)</span></span>』そう思っていませんか？
+                    でも、一人ひとりの小さな選択が、未来を作ります。
+                </div>
+            </div>
+            <div class="memo-area">
+                <span class="memo-title">Memo</span>
+                <div style="font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; font-family: monospace;">【自己紹介】
+                    ・感情入れてる感じ。「普段は」「ただ」「それがいい」がポイント。
+                    ・「お待ちしています」：口角にずっと意識、うなずかない。
+                    【明るい（化粧品）】
+                    ・「鏡を見た時の『あれ？』」：言葉を置かない。誰見て。
+                    ・「モーニングドロップ」：高知名（キラリーンが聞こえてくるように）
+                    ・「透明感」：SEっぽく。
+                    ・「カチッ！」：押そうと思わせる終わり方(CTA)。
+
+                    【シリアス（環境）】
+                    ・シリアスな時ほど涙が大事。真剣な感じで。
+                    ・「800万トン」：数字だけどエモーショナルに読む。
+                    ・ファンクショナル(機能) vs エモーショナル(感情)。人の感情を動かしたいところをエモーショナルに。</div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- PAGE: Snow White -->
+        <div class="page">
+            <div class="header">
+                <div class="header-title-group">
+                    <span class="header-main">Practice</span>
+                    <span class="header-sub">コロン スノーホワイト</span>
+                </div>
+                <span class="header-meta">2025.12.07</span>
+            </div>
+            <div class="example-area">
+                <div class="example-text" style="font-family: serif;">
+                    窓の外は、白い世界。
+                    寒さに<span class="mark">凍える心に<span class="bubble">高→沈む</span></span>、<span class="mark">そっと<span
+                            class="bubble">エッジボイス</span></span>触れるような優しさを。
+                    <span class="mark">コロン<span class="bubble">YA / Edge</span></span> スノーホワイト。
+                    軽いワッフルの中に、粉雪のようにふわりと<span class="mark">溶け出す<span class="bubble">着地</span></span>、
+                    <span class="mark">特別な<span class="bubble">HOWA効かない</span></span>ホワイトクリーム。
+                    <span class="mark">重すぎない<span class="bubble">重</span></span>、この軽やかな<span class="mark">口どけが<span
+                            class="bubble">エッジボイス</span></span>、
+                    冬の時間を<span class="mark">そっと<span class="bubble">MAS</span></span>温めてくれます。
+                    “<span class="mark">ふわり、<span class="bubble">ためる</span></span>コロン。”
+                    あなたの手に、この冬だけの贈り物。
+                    <span class="mark">期間限定<span class="bubble">余韻残す</span></span>の発売です。
+                </div>
+            </div>
+            <div class="memo-area">
+                <span class="memo-title">Memo</span>
+                <div style="font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; font-family: monospace;">
+                    ・下唇に歯を軽くあてて口つむ（む）かんじ
+                    ・MADOのAを強くせずに、顔を動かさない
+                    ・ウィスパーボイスで言った方がいい
+                    ・「凍える心に」：いつもの高い声で言いつつ、すっと沈む
+                    ・「特別な」：HOWA 効かないイメージ、ニュートラルのまま
+                    ・1個の文章の中で、同じような語尾の止め方厳禁
+                    ・頭の中で対照的な色んなことを想像しつづける（白or黒、右or左）
+                    ・「余韻」が残るように口を閉じない</div>
+            </div>
+            <div class="footer">The Standard / Confidential</div>
+        </div>
+
+        <!-- Floating Print Button -->
+        <div class="print-btn no-print" onclick="window.print()">
+            <span style="font-size: 1.2rem;">📄</span> PDFダウンロード / 印刷
+        </div>
+
+</body>
+
+</html>
