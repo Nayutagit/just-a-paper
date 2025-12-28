@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社逆光 忘年会2025 開催レポート</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Password Overlay Styles */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #password-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 90%;
+            width: 300px;
+        }
+
+        #password-box h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        #submit-btn {
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        #submit-btn:hover {
+            background-color: #333;
+        }
+
+        #error-msg {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Report Content Styles */
+        #content {
+            display: none;
+            /* Hidden by default */
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2rem;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            border-left: 5px solid #000;
+            padding-left: 15px;
+            background-color: #f4f4f4;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .meta-info {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+        }
+
+        .meta-info p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .person {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2rem;
+        }
+
+        .person-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .person-role {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+        }
+
+        .present-section {
+            background-color: #fff8e1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        strong {
+            color: #d32f2f;
+            /* Highlight color */
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Password Overlay -->
+    <div id="password-overlay">
+        <div id="password-box">
+            <h2>パスワードを入力してください</h2>
+            <input type="password" id="password-input" placeholder="Password">
+            <button id="submit-btn" onclick="checkPassword()">閲覧する</button>
+            <div id="error-msg">パスワードが間違っています</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="content">
+        <h1>株式会社逆光 忘年会2025<br>開催レポート & メンバー紹介</h1>
+
+        <div class="meta-info">
+            <p>日時: 2025年12月17日（水） 19:00〜</p>
+            <p>場所: Bar Last Tango in Paris 3階 (広島)</p>
+            <p>参加費: 2,000円（食事代） + ドリンク別</p>
+            <p>文責: 秋山 那由他</p>
+        </div>
+
+        <div class="intro">
+            <p>2025年の瀬、広島の「Bar Last Tango in Paris」の3階を貸し切り、株式会社逆光主催の忘年会が開催されました。<br>
+                集まったのは、広島を拠点に活動するデザイナー、ライター、フォトグラファー、映像クリエイター、エンジニア、そして外構屋やスタントマンまで。</p>
+            <p>お食事は、日之出水産が運営する練り物専門店<strong>「ネッテ」</strong>の「練り物」や「カリカリがんす」。<br>
+                <strong>皆さん、ぜひ「ネッテ」に行ってくださいね！</strong><br>
+                酒と美食、そしてクリエイティブな会話に酔いしれた一夜の全記録です。
+            </p>
+        </div>
+
+        <section>
+            <h2>📸 株式会社逆光 & クリエイティブチーム</h2>
+
+            <div class="person">
+                <span class="person-name">佐々木 勇</span>
+                <span class="person-role">株式会社逆光 代表</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li><strong>「Webサイト？やめとけ」</strong>:
+                                波多野さんが独立直後に「HP作りたい」と相談に来た際、「まだその段階じゃない」と一蹴。「機能が情緒を上回ることはない」という信念のもと、まずは思想とブランディングの確立を叩き込みました。
+                            </li>
+                            <li><strong>「如水館のパンフレットで入学即決」</strong>: 倉田さんが制作した如水館中学校のパンフレットを見て、「ここなら！」と息子の受験を決意。</li>
+                            <li><strong>「合理的選択の結果」</strong>:
+                                息子さん（士くん）が見事合格するも、寮が中学生にはないことが発覚。結果、<strong>片道2時間半（アストラム〜JR〜バス）</strong>の通学が決定。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>hibi（マッチ型アロマ）</strong><br>「デザインのアイデアに行き詰まった時に使ってほしい」と、自身が欲しかったものをセレクト。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">佐々木 美月</span>
+                <span class="person-role">株式会社逆光</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>今回のプレゼント選びでは、「本当はたまごっち（1万円）をあげたかったけど予算オーバー」で断念。その代わり、トレンドを押さえたアイテムをチョイス。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>「写ルンです」</strong><br>「今すごい流行ってる。今日のご縁を記録に残してほしい」というエモい配慮。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">西岡 真奈美</span>
+                <span class="person-role">デザイナー / ライター</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>大進創寫舘での仕事を通じて逆光チームと連携。</li>
+                            <li>クリエイターの健康を第一に考える「お母さん」的視点を持つ。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>「あずきのチカラ（目元用）」</strong><br>「デジタル作業で疲れた目を癒やしてほしい。レンチンすると一瞬で寝れます」という実体験に基づく「ガチ」なケア用品。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">真殿 理瑛 (マドピー)</span>
+                <span class="person-role">デザイナー (大進創寫舘 デザイン部)</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li><strong>「元保育士」</strong>: 4年前まで保育士をしていた異色の経歴。そこからデザインを学び、現在はバリバリのデザイナーに。</li>
+                            <li><strong>「社長が言うセンス」</strong>: 勇社長からの「センスが問われるぞ」というプレッシャーを一身に受けながらプレゼントを選定。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>ハンドソープ（オートディスペンサー）</strong><br>「自分じゃ買わないけどあったら嬉しい」枠。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">清水 礼子</span>
+                <span class="person-role">フォトグラファー / 映像クリエイター</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>キャリア25年以上のベテラン。現在は動画制作、ショートドラマ、映画の現場（エンドロール掲載！）など活動領域を拡大中。</li>
+                            <li><strong>「2026年のテーマは未来の先取り」</strong>: 常に新しいことに挑戦し続ける姿勢を表明。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>: <strong>本格パエリアセット ＆
+                            梨のシードル</strong><br>「一人暮らしでも、誰かを呼ぶきっかけになれば」。お家時間をパーティーに変える、愛のあるセット。</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎨 デザイン・アート・映像</h2>
+
+            <div class="person">
+                <span class="person-name">オリシゲ シュウジ</span>
+                <span class="person-role">グラフィックデザイナー / イラストレーター / ディレクター</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>デザインだけでなく、プロジェクト全体の「取りまとめ」やディレクションもこなす要石。</li>
+                            <li>真殿さんの「パソコンスクール」時代の先生でもある。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>Aesop（ハンドクリーム等）</strong><br>「逆光の集まりにはおしゃれな人しか来ないだろう」と予測し、「大人の豊かさ」をテーマに選定。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">奥村 大佑</span>
+                <span class="person-role">「甘党 はち乃木」代表</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li><strong>「ご近所のご縁」</strong>: 事務所がたまたま逆光の近くだったことから交流が始まり、共同で「鯛焼き」プロダクト（パッケージ：倉田さん）を開発。</li>
+                            <li><strong>「ボイパ披露！」</strong>:
+                                趣味のアカペラ（ボイパ担当）への熱量がすごく、実際に少し披露してくれましたが、<strong>めちゃくちゃ上手かったです。</strong></li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>紅茶の詰め合わせ</strong><br>本通りの紅茶専門店でセレクト。「色んなフレーバーが入っていて長く楽しめる」気配りの品。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">杉岡 陸</span>
+                <span class="person-role">映像クリエイター</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li><strong>「以前からのご縁」</strong>: かつて廿日市の現場で佐々木さんのカメラアシスタントをしていた。時を経て再会し、現在は宮島「大元堂」の映像などを共に制作。
+                            </li>
+                            <li><strong>「選挙と映像」</strong>: 選挙関連の映像制作など、硬派な現場でも活躍中。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>: <strong>パロサント（香木）＆
+                            専用プレート</strong><br>「僕も香り系なんです。木を燃やして香りを楽しむ、焚き火のような時間を」。ハイセンスなチョイス。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">倉田 美幸</span>
+                <span class="person-role">デザイナー (Thinc Form)</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li><strong>「乾杯の音頭」</strong>: 急な無茶振りにも関わらず、素晴らしい乾杯の音頭をありがとうございました！</li>
+                            <li><strong>「如水館パンフの激闘」</strong>:
+                                昨年制作した如水館中学校のパンフレット。先生との熱いやり取りを経て、素晴らしいクオリティに仕上げました。その熱意が、勇さんの心を動かし（息子受験へ）、最高の成果物を生みました。
+                            </li>
+                            <li>夫・圭司さんと共に「カフェバー」開業の夢も追う。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>カンボジアの生胡椒（塩漬け）</strong><br>「卵かけご飯に乗せると絶品。お酒のアテにもなる」。知人が扱っているこだわりの逸品。</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>🛠 プロフェッショナル & 異業種クリエイター</h2>
+
+            <div class="person">
+                <span class="person-name">岩本 圭司</span>
+                <span class="person-role">PC博士（ハードウェア） / バー開業準備中</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>美幸さんの夫。PC組み立てなどハードウェアに強い。</li>
+                            <li><strong>「Bar × eSports」</strong>:
+                                現在、銀行と融資交渉中！広島にない「BarとeSports」を掛け合わせた新店舗を計画中。「来年の忘年会はそこで！」との声も。</li>
+                            <li>息子のいぶき君（赤ちゃん）を溺愛。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>丸氷製氷器（アイスボールメーカー）</strong><br>「ウイスキーをロックで飲む時、透明で丸い氷だと最高だから」。1個しか作れないが、クオリティの高い氷ができるグッズ。
+                    </li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">上野 慎之介</span>
+                <span class="person-role">コーダー / ディレクター</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>デザインやディレクションの視点を持ってコーディングできるのが強み。</li>
+                            <li><strong>「広島青春テラス」</strong>:
+                                人生のテーマは「青春」。24〜35歳を対象としたマッチングサービスを立ち上げ、1/24-25に試験開催予定。参加者募集中（切実）。</li>
+                            <li>「もし周りに恋愛したい人いたら紹介してください！」</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>こだわりスイーツ</strong><br>「僕に刺さりすぎて家に何十個もストックがある」という激推しスイーツ。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">波多野 公平</span>
+                <span class="person-role">外構屋 (東広島)</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>独立3年目。勇さんとは「車仲間」。</li>
+                            <li>Webもデザインも分からない状態で勇さんに相談し、「思想（ブランディング）」を叩き込まれる。</li>
+                            <li><strong>「取り柄は行動力」</strong>: こだわりの品を求めて現地へ。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>倉敷帆布の小物</strong><br>「通販にはない、現地でしか買えない、在庫限りのレア物」。</li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">ていてい</span>
+                <span class="person-role">フリーランス / バイクスタント</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li><strong>「昨日会ったばかり」</strong>: 波多野さんと現場が一緒で、忘年会の前日（昨日）に勇さんを紹介され、即参加が決まったというスピードスター。</li>
+                            <li>バイクスタントのイベントを主催。「もっと面白く、大きく」をモットーに活動中。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="person">
+                <span class="person-name">森田 陽樹</span>
+                <span class="person-role">株式会社ラクス 営業</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>那由他のスタバ時代のバイト仲間。「楽楽精算」のラクス営業マン。</li>
+                            <li><strong>「公認会計士志望」</strong>: 現在勉強中。将来的には独立し、那由他のお金周りや、みんなの財務をサポートする（予定）。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>ラルフローレンの靴下</strong><br>「一周回って王道。クリスマスプレゼントの正解はこれ」。おしゃれクリエイター集団の中で、あえての「ベタ」という逆張りを見せる。
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎙 記録・進行</h2>
+
+            <div class="person">
+                <span class="person-name">秋山 那由他</span>
+                <span class="person-role">ナレーター / 文筆</span>
+                <ul>
+                    <li><strong>【エピソード】</strong>:
+                        <ul>
+                            <li>今回の幹事＆音声収録＆記事作成担当。</li>
+                            <li>毎日更新のPodcast「逆張りマーケラジオ」で、当日の様子も余すことなくコンテンツ化。</li>
+                        </ul>
+                    </li>
+                    <li class="present-section"><strong>【プレゼント】</strong>:
+                        <strong>非公式「逆光ニット」</strong><br>自身のカフェのニットと同じ刺繍技術を使い、勝手に逆光ロゴを入れた世界に一つのニット。「原価ほぼ3,000円」のキラーアイテム。
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <p>2026年、この個性豊かなメンバーが「Bar × eSports」で再会するのか、「広島青春テラス」で新たなカップルが生まれているのか。<br>
+                逆光が生み出す渦に、今後も要注目です！</p>
+            <p>&copy; 2025 株式会社逆光 忘年会実行委員会</p>
+        </footer>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("password-input").value;
+            const correctPassword = "Gyakko1217";
+            const overlay = document.getElementById("password-overlay");
+            const content = document.getElementById("content");
+            const errorMsg = document.getElementById("error-msg");
+
+            if (password === correctPassword) {
+                overlay.style.display = "none";
+                content.style.display = "block";
+                window.scrollTo(0, 0); // Reset scroll
+            } else {
+                errorMsg.style.display = "block";
+                // Shake effect or simple error
+                document.getElementById("password-input").style.borderColor = "red";
+            }
+        }
+
+        // Allow Enter key to submit
+        document.getElementById("password-input").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+
+</html>
