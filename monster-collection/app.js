@@ -10,8 +10,8 @@ const resetBtn = document.getElementById('reset-btn');
 let monsters = [];
 let particles = [];
 let caughtTypes = new Set();
-const monsterTypes = ['chibikaiju', 'teoku'];
-const totalTypes = 2; // Update win condition
+const monsterTypes = ['chibikaiju', 'teoku', 'wanwan'];
+const totalTypes = 3; // Update win condition
 let isGameActive = true;
 
 // Assets
@@ -19,6 +19,7 @@ const images = {};
 const assetPaths = {
     'chibikaiju': 'assets/monster_chibikaiju.png',
     'teoku': 'assets/monster_teoku.png',
+    'wanwan': 'assets/monster_wanwan.png',
     'ball': 'assets/capture_ball.png'
 };
 
