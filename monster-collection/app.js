@@ -58,8 +58,8 @@ class Monster {
         this.size = 80;
         this.x = Math.random() * (canvas.width - this.size);
         this.y = Math.random() * (canvas.height - this.size);
-        this.vx = (Math.random() - 0.5) * 40; // 10x speed
-        this.vy = (Math.random() - 0.5) * 40; // 10x speed
+        this.vx = (Math.random() - 0.5) * 8; // 2x original speed
+        this.vy = (Math.random() - 0.5) * 8; // 2x original speed
         this.isBeingCaught = false;
         this.catchTimer = 0;
     }
@@ -79,8 +79,8 @@ class Monster {
 
         // Randomly change direction
         if (Math.random() < 0.02) {
-            this.vx = (Math.random() - 0.5) * 40;
-            this.vy = (Math.random() - 0.5) * 40;
+            this.vx = (Math.random() - 0.5) * 8;
+            this.vy = (Math.random() - 0.5) * 8;
         }
     }
 
