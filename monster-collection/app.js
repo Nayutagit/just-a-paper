@@ -197,15 +197,16 @@ function spawnMonster() {
 
 function catchMonster(index) {
     const monster = monsters[index];
+
+    // Check if already caught -> Game Over IMMEDIATELY
+    if (caughtTypes.has(monster.type)) {
+        gameOver();
+        return;
+    }
+
     monster.isBeingCaught = true;
 
     setTimeout(() => {
-        // Check if already caught -> Game Over
-        if (caughtTypes.has(monster.type)) {
-            gameOver();
-            return;
-        }
-
         // Success Logic
         caughtTypes.add(monster.type);
         updateUI();
@@ -243,7 +244,7 @@ function gameWin() {
 
 function gameOver() {
     isGameActive = false;
-    messageText.innerText = "GAME OVER";
+    messageText.innerText = "GAME OVER\n(Duplicate Caught!)";
     messageText.style.color = '#ff0055';
     messageArea.classList.remove('hidden');
 }
