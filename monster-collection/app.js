@@ -200,11 +200,15 @@ function catchMonster(index) {
     monster.isBeingCaught = true;
 
     setTimeout(() => {
-        // Success Logic
-        if (!caughtTypes.has(monster.type)) {
-            caughtTypes.add(monster.type);
-            updateUI();
+        // Check if already caught -> Game Over
+        if (caughtTypes.has(monster.type)) {
+            gameOver();
+            return;
         }
+
+        // Success Logic
+        caughtTypes.add(monster.type);
+        updateUI();
 
         // Spawn particles
         for (let i = 0; i < 10; i++) {
@@ -233,6 +237,14 @@ function updateUI() {
 function gameWin() {
     isGameActive = false;
     messageText.innerText = "COMPLETED!";
+    messageText.style.color = '#00f2ea';
+    messageArea.classList.remove('hidden');
+}
+
+function gameOver() {
+    isGameActive = false;
+    messageText.innerText = "GAME OVER";
+    messageText.style.color = '#ff0055';
     messageArea.classList.remove('hidden');
 }
 
