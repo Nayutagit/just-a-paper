@@ -10,19 +10,15 @@ const resetBtn = document.getElementById('reset-btn');
 let monsters = [];
 let particles = [];
 let caughtTypes = new Set();
-const monsterTypes = ['fire', 'water', 'grass', 'electric', 'psychic'];
-const totalTypes = 5;
+const monsterTypes = ['chibikaiju']; // Currently only one type implemented
+const totalTypes = 1; // Update win condition
 let isGameActive = true;
 
 // Assets
 const images = {};
 const assetPaths = {
-    'fire': 'assets/monster_fire.png',
-    'water': 'assets/monster_water.png',
-    'grass': 'assets/monster_grass.png',
-    'electric': 'assets/monster_electric.png',
-    'psychic': 'assets/monster_psychic.png',
-    'ball': 'assets/capture_ball.png'
+    'chibikaiju': 'assets/monster_chibikaiju.png',
+    // 'ball': 'assets/capture_ball.png' // Use code fallback for now
 };
 
 let imagesLoaded = 0;
@@ -107,10 +103,21 @@ class Monster {
             if (images['ball'] && images['ball'].complete && images['ball'].naturalWidth !== 0) {
                 ctx.drawImage(images['ball'], -this.size / 2, -this.size / 2, this.size, this.size);
             } else {
-                ctx.fillStyle = 'red';
+                // Ball Fallback (Neon Style)
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00f2ea';
+                ctx.fillStyle = 'white';
                 ctx.beginPath();
                 ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
                 ctx.fill();
+
+                ctx.strokeStyle = '#00f2ea';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.shadowBlur = 0;
             }
             ctx.restore();
             return;
@@ -260,7 +267,7 @@ function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Update & Draw Monsters
-    if (isGameActive && Math.random() < 0.02) spawnMonster();
+    if (isGameActive && Math.random() < 0.05) spawnMonster();
 
     monsters.forEach(m => {
         m.update();
