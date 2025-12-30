@@ -18,7 +18,7 @@ let isGameActive = true;
 const images = {};
 const assetPaths = {
     'chibikaiju': 'assets/monster_chibikaiju.png',
-    // 'ball': 'assets/capture_ball.png' // Use code fallback for now
+    'ball': 'assets/capture_ball.png'
 };
 
 let imagesLoaded = 0;
