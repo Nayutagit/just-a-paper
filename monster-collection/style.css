@@ -65,6 +65,22 @@ body {
     letter-spacing: 2px;
 }
 
+#controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+#controls label {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+#speed-slider {
+    cursor: pointer;
+}
+
 .slots {
     display: flex;
     gap: 10px;

@@ -5,14 +5,21 @@ const slots = document.querySelectorAll('.slot');
 const messageArea = document.getElementById('message-area');
 const messageText = document.getElementById('message-text');
 const resetBtn = document.getElementById('reset-btn');
+const speedSlider = document.getElementById('speed-slider');
 
 // Game State
+let speedMultiplier = parseInt(speedSlider.value, 10);
 let monsters = [];
 let particles = [];
 let caughtTypes = new Set();
 const monsterTypes = ['chibikaiju', 'teoku', 'wanwan'];
-const totalTypes = 3; // Update win condition
+const totalTypes = 3;
 let isGameActive = true;
+
+// Speed Control Listener
+speedSlider.addEventListener('input', (e) => {
+    speedMultiplier = parseInt(e.target.value, 10);
+});
 
 // Assets
 const images = {};
@@ -33,10 +40,8 @@ function loadImages() {
         img.onload = () => {
             imagesLoaded++;
         };
-        // Fallback for missing images (during initial setup)
         img.onerror = () => {
             console.warn(`Failed to load ${path}`);
-            // Treat as loaded to not block game loop, will draw placeholders
             imagesLoaded++;
         }
         images[key] = img;
@@ -58,8 +63,9 @@ class Monster {
         this.size = 80;
         this.x = Math.random() * (canvas.width - this.size);
         this.y = Math.random() * (canvas.height - this.size);
-        this.vx = (Math.random() - 0.5) * 4; // Original speed
-        this.vy = (Math.random() - 0.5) * 4; // Original speed
+        // Base direction vector
+        this.dirX = (Math.random() - 0.5) * 2;
+        this.dirY = (Math.random() - 0.5) * 2;
         this.isBeingCaught = false;
         this.catchTimer = 0;
     }
@@ -70,25 +76,27 @@ class Monster {
             return;
         }
 
-        this.x += this.vx;
-        this.y += this.vy;
+        // Apply current speed multiplier
+        // Divide by 4 to make the slider range (1-50) feel reasonable (4 being original speed)
+        this.x += this.dirX * (speedMultiplier / 4);
+        this.y += this.dirY * (speedMultiplier / 4);
 
         // Bounce
-        if (this.x < 0 || this.x + this.size > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y + this.size > canvas.height) this.vy *= -1;
+        if (this.x < 0 || this.x + this.size > canvas.width) this.dirX *= -1;
+        if (this.y < 0 || this.y + this.size > canvas.height) this.dirY *= -1;
 
         // Randomly change direction
         if (Math.random() < 0.02) {
-            this.vx = (Math.random() - 0.5) * 4;
-            this.vy = (Math.random() - 0.5) * 4;
+            this.dirX = (Math.random() - 0.5) * 2;
+            this.dirY = (Math.random() - 0.5) * 2;
         }
     }
 
     draw() {
         if (this.isBeingCaught) {
             // Draw Ball
-            const progress = this.catchTimer / 30; // 0.5s animation
-            if (progress > 1) return; // Disappear
+            const progress = this.catchTimer / 30;
+            if (progress > 1) return;
 
             const size = this.size * (1 - progress);
             const centerX = this.x + this.size / 2;
@@ -105,20 +113,18 @@ class Monster {
             if (images['ball'] && images['ball'].complete && images['ball'].naturalWidth !== 0) {
                 ctx.drawImage(images['ball'], -this.size / 2, -this.size / 2, this.size, this.size);
             } else {
-                // Ball Fallback (Neon Style)
+                // Ball Fallback
                 ctx.shadowBlur = 10;
                 ctx.shadowColor = '#00f2ea';
                 ctx.fillStyle = 'white';
                 ctx.beginPath();
                 ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
                 ctx.fill();
-
                 ctx.strokeStyle = '#00f2ea';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
                 ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
                 ctx.stroke();
-
                 ctx.shadowBlur = 0;
             }
             ctx.restore();
@@ -139,11 +145,9 @@ class Monster {
 
     getTypeColor() {
         switch (this.type) {
-            case 'fire': return '#f87171';
-            case 'water': return '#60a5fa';
-            case 'grass': return '#4ade80';
-            case 'electric': return '#facc15';
-            case 'psychic': return '#a78bfa';
+            case 'chibikaiju': return '#f87171'; // Red-ish
+            case 'teoku': return '#fbbf24'; // Yellow-ish
+            case 'wanwan': return '#1f2937'; // Black-ish
             default: return 'gray';
         }
     }
@@ -160,7 +164,7 @@ class Monster {
     }
 }
 
-// Particle System for effects
+// Particle System
 class Particle {
     constructor(x, y, color) {
         this.x = x;
@@ -256,7 +260,7 @@ canvas.addEventListener('click', (e) => {
     for (let i = monsters.length - 1; i >= 0; i--) {
         if (monsters[i].checkClick(mx, my)) {
             catchMonster(i);
-            break; // Catch only one
+            break;
         }
     }
 });
@@ -265,10 +269,8 @@ resetBtn.addEventListener('click', resetGame);
 
 // Main Loop
 function loop() {
-    // Clear
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Update & Draw Monsters
     if (isGameActive && Math.random() < 0.05) spawnMonster();
 
     monsters.forEach(m => {
@@ -276,7 +278,6 @@ function loop() {
         m.draw();
     });
 
-    // Update & Draw Particles
     for (let i = particles.length - 1; i >= 0; i--) {
         particles[i].update();
         particles[i].draw();
