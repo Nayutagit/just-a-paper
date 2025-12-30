@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Collection</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+
+        <div id="ui-layer">
+            <div id="collection-status">
+                <h2>Collection <span id="count">0</span>/5</h2>
+                <div class="slots">
+                    <div class="slot" data-type="fire"><img src="assets/monster_fire.png" alt="???"></div>
+                    <div class="slot" data-type="water"><img src="assets/monster_water.png" alt="???"></div>
+                    <div class="slot" data-type="grass"><img src="assets/monster_grass.png" alt="???"></div>
+                    <div class="slot" data-type="electric"><img src="assets/monster_electric.png" alt="???"></div>
+                    <div class="slot" data-type="psychic"><img src="assets/monster_psychic.png" alt="???"></div>
+                </div>
+            </div>
+
+            <div id="message-area" class="hidden">
+                <h1 id="message-text"></h1>
+                <button id="reset-btn">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
