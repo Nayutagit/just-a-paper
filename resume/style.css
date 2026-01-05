@@ -225,3 +225,96 @@ table.jis-table {
         page-break-after: auto;
     }
 }
+
+/* Work History Specific Styles - IMAGE MATCH */
+.wh-header {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.wh-title {
+    font-size: 18pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 0.1em;
+}
+
+.wh-name {
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.wh-furigana {
+    font-size: 8pt;
+    text-align: right;
+}
+
+.wh-section-title {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.wh-text {
+    font-size: 10pt;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 25px;
+}
+
+.wh-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin-bottom: 30px;
+}
+
+.wh-table th,
+.wh-table td {
+    border: 1px solid #aaa;
+    padding: 8px;
+    vertical-align: middle;
+}
+
+.wh-table th {
+    background-color: #f9f9f9;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.wh-col-company {
+    width: 18%;
+    font-weight: bold;
+    background-color: #fafafa;
+}
+
+.wh-col-role {
+    width: 10%;
+}
+
+.wh-col-period {
+    width: 15%;
+    font-size: 9pt;
+}
+
+.wh-col-content {
+    width: 57%;
+}
+
+.qual-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 10pt;
+    line-height: 1.8;
+}
+
+.qual-list li::before {
+    content: "・";
+    margin-right: 5px;
+}

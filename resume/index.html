@@ -10,20 +10,20 @@
 
 <body>
 
-    <!-- PAGE 1: JIS RESUME (履歴書) -->
+    <!-- PAGE 1: JIS RESUME -->
     <div class="page">
         <div class="resume-header">
             <div class="resume-title">履歴書</div>
             <div class="date-now">2026年 1月 5日 現在</div>
         </div>
 
-        <!-- Photo Position Absolute in CSS related to Page -->
+        <!-- Photo -->
         <div class="photo-cell">
             <img src="./images/face_photo.png" alt="写真">
         </div>
 
         <!-- Profile Area -->
-        <table class="jis-table" style="width: 78%; margin-top: 25px;"> <!-- Width adjusted for photo -->
+        <table class="jis-table" style="width: 78%; margin-top: 25px;">
             <tr>
                 <td colspan="4" style="border-top: 2px solid #000; border-left: 2px solid #000;">
                     <div class="furigana">ふりがな　あきやま　なゆた</div>
@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td colspan="3" style="font-size: 10pt; padding: 10px;">
-                    1994年 7月 8日生 （満 31 歳） <!-- 2026-1994 -->
+                    1994年 7月 8日生 （満 31 歳）
                 </td>
                 <td style="width: 60px; text-align: center;">男</td>
             </tr>
@@ -121,18 +121,6 @@
                 <td class="center-text"></td>
                 <td class="u-right">以下、別紙職務経歴書参照　</td>
             </tr>
-
-            <!-- Filler rows to fill space if needed, JIS usually has strict lines -->
-            <tr>
-                <td class="center-text">&nbsp;</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="center-text">&nbsp;</td>
-                <td></td>
-                <td></td>
-            </tr>
             <tr>
                 <td class="center-text">&nbsp;</td>
                 <td></td>
@@ -168,23 +156,22 @@
                 <td>全国音楽療法士養成協議会認定音楽療法士1種</td>
             </tr>
             <tr>
-                <td class="center-text">&nbsp;</td>
-                <td></td>
-                <td></td>
+                <td class="center-text">2023</td>
+                <td class="center-text"></td>
+                <td>J.C.Q.A.認定コーヒーインストラクター検定2級</td>
             </tr>
         </table>
 
         <!-- Free Space / PR -->
-        <div style="margin-top: 10px; border: 2px solid #000; padding: 10px;">
+        <div style="margin-top: 10px; border: 2px solid #000; padding: 10px; height: 160px;">
             <div class="u-bold" style="margin-bottom: 5px;">志望動機・特技・アピールポイントなど</div>
-            <div style="font-size: 10pt; line-height: 1.5;">
-                【志望動機：地域の人材育成への貢献】<br>
-                広島を拠点に「伝えるプロフェッショナル」として、企業研修から個人指導まで幅広く人材育成に携わってきました。
-                貴社の「地域社会の発展・人材の成長に貢献する」という理念に共感し、自身の講師経験（リクルートでのビジネス研修や音楽講師歴9年）と、ナレーターとしての「伝える技術」を活かせると確信しております。<br>
+            <div style="font-size: 10pt; line-height: 1.4;">
+                <span class="u-bold">【志望動機】</span><br>
+                地元広島で「人材育成」に深く貢献されている貴社の事業に魅力を感じ、応募いたしました。
+                これまでフィットネス、音楽、ビジネス研修（リクルート）と、9年間にわたり様々な分野で「講師」として活動してきました。一貫して「相手の可能性を引き出し、成長をサポートする」ことに情熱を注いでおり、貴社の一員として中国地方の働く人々のスキルアップに貢献したいと強く願っています。<br>
                 <br>
-                【強み：論理と感性の両立】<br>
-                感覚的になりがちなコミュニケーションを、プロの技術と論理的思考（ロジカルシンキング）に基づいて言語化し、誰にでも再現可能な形として指導できることが私の強みです。
-                詳細な実績については別紙職務経歴書をご参照ください。
+                <span class="u-bold">【自己PR】</span><br>
+                強みは「伝える力」と「場を動かす力」です。ナレーターとしての「声の表現技術」と、ラジオ制作で培った「構成力」を活かし、感覚的になりがちなコミュニケーションスキルを論理的かつ実践的に指導できます。また、フィットネスインストラクターの経験から、受講者を巻き込んで熱量を高める「参加型」の研修運営が得意です。即戦力として貢献いたします。
             </div>
         </div>
 
@@ -200,100 +187,117 @@
                 </td>
             </tr>
         </table>
-
     </div>
 
-    <!-- PAGE 2: WORK HISTORY (職務経歴書) -->
+    <!-- PAGE 2: WORK HISTORY (職務経歴書) - NEW LAYOUT -->
     <div class="page">
-        <div class="cv-header">
-            <div class="cv-title">職務経歴書</div>
-            <div class="date-now">2026年 1月 5日 現在</div>
-            <div class="u-right">氏名：秋山 那由他</div>
+        <div class="wh-title">職務経歴書</div>
+
+        <div class="wh-header">
+            <div class="wh-furigana">あきやま なゆた</div>
+            <div class="wh-name">秋山 那由他</div>
         </div>
 
-        <div class="cv-body">
-            <div class="cv-section">
-                <h3>■ 職務要約</h3>
-                <p>
-                    2017年よりインストラクター・講師としてのキャリアを開始し、計9年間の指導経験を有します。
-                    フィットネス、音楽、ビジネス研修（リクルート）と多様な領域での指導実績があり、
-                    特に「伝える力」「モチベーション管理」「ロジカルシンキング」を組み合わせた実践的な指導を得意としています。
-                    現在はフリーランスのナレーターとしても活動しており、声の表現力を活かした独自の研修スタイルを確立しています。
-                </p>
-            </div>
-
-            <div class="cv-section">
-                <h3>■ 主な職務経歴</h3>
-
-                <table class="history-table">
-                    <tr style="background-color: #eee;">
-                        <th style="width: 100px;">期間</th>
-                        <th>企業・組織名 / 業務内容</th>
-                    </tr>
-                    <tr>
-                        <td class="center-text">2023.11<br>～<br>2025.04</td>
-                        <td>
-                            <div class="u-bold">株式会社リクルート（業務委託）</div>
-                            <div>役職：研修講師</div>
-                            <ul style="margin-left: 20px; font-size: 9.5pt;">
-                                <li>新入社員・中堅社員向け「ビジネスコミュニケーション研修」講師</li>
-                                <li>「プレゼンテーション研修」講師</li>
-                                <li>講義、ワークショップのファシリテーション、個別フィードバック</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center-text">2019.11<br>～<br>現在</td>
-                        <td>
-                            <div class="u-bold">シアーミュージック / 個人教室（業務委託・自営）</div>
-                            <div>役職：ボイストレーナー・話し方講師</div>
-                            <ul style="margin-left: 20px; font-size: 9.5pt;">
-                                <li>ピアノ、ボーカル、話し方の個人・グループレッスン（延べ数百名）</li>
-                                <li>生徒一人ひとりの目標設定と進捗管理、メンタルサポート</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center-text">2020.01<br>～<br>現在</td>
-                        <td>
-                            <div class="u-bold">フリーランス・ナレーター</div>
-                            <ul style="margin-left: 20px; font-size: 9.5pt;">
-                                <li>TVCM、Web動画、企業VP等のナレーション制作</li>
-                                <li>コンセプト設計、構成作家としてのディレクション業務</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center-text">2021.04<br>～<br>2023.11</td>
-                        <td>
-                            <div class="u-bold">スターバックスコーヒー ジャパン</div>
-                            <div>役職：バリスタトレーナー（新人教育担当）</div>
-                            <ul style="margin-left: 20px; font-size: 9.5pt;">
-                                <li>新人バリスタの育成計画作成と実地指導（OJT）</li>
-                                <li>時間帯責任者としての店舗マネジメント</li>
-                            </ul>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="cv-section">
-                <h3>■ 活かせるスキル・強み</h3>
-                <div style="margin-bottom: 10px;">
-                    <span class="u-bold">【1】言語化・伝達能力</span><br>
-                    プロナレーターとしての「声の表現」と、講師としての「論理的な解説」を融合し、抽象的な概念を分かりやすく伝えることができます。
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <span class="u-bold">【2】場作り・ファシリテーション</span><br>
-                    フィットネスインストラクター時代に培った、集団の熱量を高めるパフォーマンス力で、受講者が主体的に参加できる研修空間を作ります。
-                </div>
-                <div>
-                    <span class="u-bold">【3】多様なバックグラウンドへの対応力</span><br>
-                    幼児から経営者まで幅広い層への指導経験があり、相手の属性や理解度に合わせた柔軟なコミュニケーションが可能です。
-                </div>
-            </div>
-
+        <!-- Final Education Section -->
+        <div class="wh-section-title">■ 最終学歴</div>
+        <div style="font-size: 11pt; margin-bottom: 20px;">
+            広島文化学園大学学芸学部音楽学科 クラシックピアノ専攻<br>
+            2017年3月 卒業
         </div>
+
+        <!-- Summary Section -->
+        <div class="wh-section-title">■ 職務経歴概要</div>
+        <div class="wh-text">
+            広島文化学園大学学芸学部音楽学科でクラシックピアノを専攻し、2017年3月に中学校・高等学校の教員免許および音楽療法士資格を取得した上で卒業しました。株式会社FEELCONNECTIONでフィットネスインストラクターとして従事したのち、2020年7月より個人事業主としてナレーター業を始めました。テレビ、ラジオ、Web広告などさまざまなメディアでナレーションを担当したり、リポーターとしての活動や広告モデルとしての経験も重ねております。また同時にシアーミュージック広島校でピアノ・ボーカル・DTM（デスクトップミュージック）の指導を行い、広島FM放送でナレーションや番組制作業務にも携わっています。<br>
+            2023年10月からは株式会社リクルートでビジネスコミュニケーション研修の講師として活動しており、2024年5月からはカフェ事業を展開、自身の成長とビジネスの幅を広げる取り組みを始めています。<br>
+            メディア、音楽、コミュニケーション、ビジネスの分野で多角的に幅広い経験を積んでいます。
+        </div>
+
+        <!-- Work History Table -->
+        <table class="wh-table">
+            <tr>
+                <th class="wh-col-company">会社名 / 組織名</th>
+                <th class="wh-col-role">職種</th>
+                <th class="wh-col-period">在籍期間</th>
+                <th class="wh-col-content">業務内容</th>
+            </tr>
+            <tr>
+                <td class="wh-col-company">Nyct Studio</td>
+                <td class="wh-col-role">ナレーター</td>
+                <td class="wh-col-period">2020年7月～<br>現在</td>
+                <td class="wh-col-content">
+                    - テレビやラジオ、Web広告、社員研修動画・企業ブランドムービーなどのナレーションを担当<br>
+                    - 合計で20社以上のプロジェクトに関与<br>
+                    - テレビ番組にリポーターとして出演した経験が20件以上
+                </td>
+            </tr>
+            <tr>
+                <td class="wh-col-company">株式会社<br>FEELCONNECTION</td>
+                <td class="wh-col-role">フィットネス<br>インストラクター</td>
+                <td class="wh-col-period">2017年4月～<br>2019年10月</td>
+                <td class="wh-col-content">
+                    - 暗闇バイクエクササイズ「FEELCYCLE」のインストラクターとして従事<br>
+                    - 銀座店と広島店のオープンに携わる
+                </td>
+            </tr>
+            <tr>
+                <td class="wh-col-company">シアーミュージック<br>広島校</td>
+                <td class="wh-col-role">講師</td>
+                <td class="wh-col-period">2019年11月～<br>現在</td>
+                <td class="wh-col-content">
+                    - ピアノ、ボーカル、話し方、DTMの指導を担当
+                </td>
+            </tr>
+            <tr>
+                <td class="wh-col-company">広島FM放送</td>
+                <td class="wh-col-role">番組制作</td>
+                <td class="wh-col-period">2019年11月～<br>2023年3月</td>
+                <td class="wh-col-content">
+                    - 番組の企画、取材、収録および編集など制作業務全般<br>
+                    - 出演、ナレーションを担当
+                </td>
+            </tr>
+            <tr>
+                <td class="wh-col-company">スターバックスコーヒー<br>紙屋町シャレオ店</td>
+                <td class="wh-col-role">SSV<br>（シフトスーパーバイザー）</td>
+                <td class="wh-col-period">2021年4月～<br>2023年10月</td>
+                <td class="wh-col-content">
+                    - 店舗運営責任者として店長の代理を務める<br>
+                    - 新人研修担当<br>
+                    - オペレーション管理<br>
+                    - 店舗の運営全般
+                </td>
+            </tr>
+            <tr>
+                <td class="wh-col-company">株式会社リクルート</td>
+                <td class="wh-col-role">研修講師</td>
+                <td class="wh-col-period">2023年10月～<br>現在</td>
+                <td class="wh-col-content">
+                    - 相手に伝わりやすい話し方や人前で堂々と話せるスキルを指導<br>
+                    - 過去のレッスン本数は200件以上
+                </td>
+            </tr>
+            <tr>
+                <td class="wh-col-company">ニスト珈琲</td>
+                <td class="wh-col-role">店主</td>
+                <td class="wh-col-period">2024年5月～<br>現在</td>
+                <td class="wh-col-content">
+                    - 週に1度のコーヒーセミナーを開催<br>
+                    - 炭火で自家焙煎したコーヒーを提供
+                </td>
+            </tr>
+        </table>
+
+        <!-- Qualifications Section -->
+        <div class="wh-section-title">■ 保有資格</div>
+        <ul class="qual-list">
+            <li>中学校・高等学校教諭一種免許状（音楽）</li>
+            <li>全国音楽療法士養成協議会認定音楽療法士1種</li>
+            <li>普通自動車免許</li>
+            <li>大型自動二輪車免許</li>
+            <li>J.C.Q.A.認定コーヒーインストラクター検定2級</li>
+        </ul>
+
     </div>
 
 </body>
