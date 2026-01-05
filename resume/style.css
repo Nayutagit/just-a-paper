@@ -8,161 +8,219 @@
 }
 
 body {
-    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-    color: #333;
+    font-family: "MS Mincho", "Hiragino Mincho ProN", serif;
+    /* Mincho is standard for JP Resumes */
+    color: #000;
     background-color: #f0f0f0;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 11pt;
+    line-height: 1.3;
     -webkit-print-color-adjust: exact;
 }
 
-/* A4 Paper Layout */
+/* Print Layout */
 .page {
     width: 210mm;
-    min-height: 297mm;
-    padding: 20mm;
+    height: 297mm;
+    /* A4 Height */
+    padding: 15mm;
     margin: 20px auto;
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    overflow: hidden;
+    /* Ensure consistent A4 look */
 }
 
-/* Header Section */
-header {
+/* JIS Resume Style Specifics */
+table.jis-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #000;
+    margin-bottom: 20px;
+}
+
+.jis-table th,
+.jis-table td {
+    border: 1px solid #000;
+    padding: 4px 6px;
+    vertical-align: middle;
+}
+
+.jis-table th {
+    background-color: #f0f0f0;
+    /* Optional: slight gray for headers if desired, usually white in strict JIS but helpful for reading */
+    background: none;
+    /* Keeping strict white usually */
+    text-align: center;
+    font-weight: normal;
+}
+
+/* Header Area */
+.resume-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #333;
-    padding-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.header-info h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    letter-spacing: 0.1em;
+.resume-title {
+    font-size: 24pt;
+    font-weight: bold;
+    letter-spacing: 0.5em;
+    margin-right: auto;
 }
 
-.name-furigana {
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 4px;
+.date-now {
+    text-align: right;
+    font-size: 10pt;
+    align-self: flex-end;
 }
 
-.contact-info {
-    font-size: 13px;
-    margin-top: 10px;
+/* Name/Photo Block */
+.name-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
 }
 
-.contact-item {
-    margin-right: 15px;
-    display: inline-block;
+.name-table td {
+    border: 1px solid #000;
 }
 
-.photo-area {
-    width: 30mm;
-    height: 40mm;
-    background-color: #ddd;
-    border: 1px solid #ccc;
-    overflow: hidden;
-    margin-left: 20px;
+.photo-cell {
+    width: 40mm;
+    height: 50mm;
+    border: 1px solid #000;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    position: absolute;
+    top: 15mm;
+    right: 15mm;
 }
 
-.photo-area img {
+.photo-cell img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Section Common */
-section {
-    margin-bottom: 25px;
+/* Profile Inputs */
+.input-field {
+    min-height: 1.5em;
 }
 
-h2 {
-    font-size: 16px;
-    border-left: 5px solid #333;
-    padding-left: 10px;
-    margin-bottom: 15px;
-    background-color: #f9f9f9;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.furigana {
+    font-size: 9pt;
+    margin-bottom: 2px;
 }
 
-/* Table Style for History */
-table {
+.name-display {
+    font-size: 20pt;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.label {
+    font-size: 10pt;
+}
+
+/* Education/Work History Table */
+.history-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 13px;
+    border: 2px solid #000;
+    margin-top: 10px;
 }
 
-th,
-td {
-    padding: 8px 10px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-    vertical-align: top;
+.history-table th,
+.history-table td {
+    border: 1px solid #000;
+    padding: 2px 5px;
 }
 
-th.year-col {
-    width: 60px;
-    font-weight: normal;
-    color: #666;
+.col-year {
+    width: 50px;
+    text-align: center;
 }
 
-th.month-col {
+.col-month {
     width: 30px;
-    font-weight: normal;
-    color: #666;
+    text-align: center;
+}
+
+.col-content {
+    text-align: left;
+}
+
+.center-text {
+    text-align: center;
+}
+
+/* Self PR Box */
+.pr-box {
+    border: 2px solid #000;
+    padding: 10px;
+    height: 150px;
+    /* Fixed height for consistent look */
+    font-size: 10pt;
+}
+
+/* Work History Sheet (Page 2) Styles */
+.cv-header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.cv-title {
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+.cv-section {
+    margin-bottom: 20px;
+}
+
+.cv-section h3 {
+    border-bottom: 1px solid #000;
+    margin-bottom: 10px;
+    font-size: 12pt;
+    padding-bottom: 3px;
+}
+
+.cv-body {
+    font-size: 10.5pt;
+}
+
+/* Helpers */
+.u-bold {
+    font-weight: bold;
+}
+
+.u-right {
     text-align: right;
-    padding-right: 15px;
 }
 
-td.content-col {
-    font-weight: bold;
-}
-
-.history-detail {
-    font-weight: normal;
-    font-size: 12px;
-    color: #555;
-    margin-top: 4px;
-    white-space: pre-wrap;
-}
-
-/* Self Promotion */
-.pr-block {
-    margin-bottom: 15px;
-}
-
-.pr-title {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.pr-text {
-    font-size: 13px;
-    text-align: justify;
+.u-mt-10 {
+    margin-top: 10px;
 }
 
 /* Print Settings */
 @media print {
     body {
         background: none;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
     }
 
     .page {
         margin: 0;
         box-shadow: none;
-        width: auto;
-        height: auto;
+        width: 100%;
+        height: 296mm;
+        /* Slight adjustment for print margins */
         page-break-after: always;
     }
 
-    /* Hide page break on last child if needed */
     .page:last-child {
         page-break-after: auto;
     }

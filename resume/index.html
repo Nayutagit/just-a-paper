@@ -4,143 +4,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>履歴書 - 秋山那由他</title>
+    <title>履歴書・職務経歴書</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
+    <!-- PAGE 1: JIS RESUME (履歴書) -->
     <div class="page">
-        <header>
-            <div class="header-info">
-                <p class="name-furigana">アキヤマ ナユタ</p>
-                <h1>秋山 那由他</h1>
-                <div class="contact-info">
-                    <div class="contact-item"><i class="fas fa-map-marker-alt"></i> 広島県広島市</div>
-                    <div class="contact-item"><i class="fas fa-envelope"></i> nayuta.pwd@gmail.com</div>
-                    <div class="contact-item"><i class="fas fa-birthday-cake"></i> 1994年生まれ</div>
-                </div>
-                <div style="margin-top: 15px; font-weight: bold;">
-                    人材育成・伝達のプロフェッショナル / ナレーター / 研修講師
-                </div>
-            </div>
-            <div class="photo-area">
-                <img src="./images/face_photo.png" alt="顔写真">
-            </div>
-        </header>
+        <div class="resume-header">
+            <div class="resume-title">履歴書</div>
+            <div class="date-now">2026年 1月 5日 現在</div>
+        </div>
 
-        <section>
-            <h2>自己PR・概要</h2>
-            <div class="pr-text">
+        <!-- Photo Position Absolute in CSS related to Page -->
+        <div class="photo-cell">
+            <img src="./images/face_photo.png" alt="写真">
+        </div>
+
+        <!-- Profile Area -->
+        <table class="jis-table" style="width: 78%; margin-top: 25px;"> <!-- Width adjusted for photo -->
+            <tr>
+                <td colspan="4" style="border-top: 2px solid #000; border-left: 2px solid #000;">
+                    <div class="furigana">ふりがな　あきやま　なゆた</div>
+                    <div class="name-display">氏　名　　秋山 那由他</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="font-size: 10pt; padding: 10px;">
+                    1994年 7月 8日生 （満 31 歳） <!-- 2026-1994 -->
+                </td>
+                <td style="width: 60px; text-align: center;">男</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="furigana">ふりがな　ひろしまけんひがしひろしましはちほんまついいだ</div>
+                    <div class="input-field">現住所　〒739-0146<br>
+                        広島県東広島市八本松飯田5丁目12-14</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="input-field">電話　080-5231-1060</div>
+                    <div class="input-field">Email　nayuta@nyct.jp</div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Education & Work History -->
+        <table class="history-table">
+            <tr style="background-color: #eee;">
+                <th class="col-year">年</th>
+                <th class="col-month">月</th>
+                <th class="col-content center-text">学歴・職歴</th>
+            </tr>
+            <!-- 学歴 -->
+            <tr>
+                <td class="center-text"></td>
+                <td class="center-text"></td>
+                <td class="center-text u-bold">学歴</td>
+            </tr>
+            <tr>
+                <td class="center-text">2013</td>
+                <td class="center-text">3</td>
+                <td>広島県立賀茂高等学校 卒業</td>
+            </tr>
+            <tr>
+                <td class="center-text">2013</td>
+                <td class="center-text">4</td>
+                <td>広島文化学園大学学芸学部音楽学科 入学</td>
+            </tr>
+            <tr>
+                <td class="center-text">2017</td>
+                <td class="center-text">3</td>
+                <td>広島文化学園大学学芸学部音楽学科 卒業</td>
+            </tr>
+            <tr>
+                <td class="center-text"></td>
+                <td class="center-text"></td>
+                <td></td>
+            </tr>
+
+            <!-- 職歴 -->
+            <tr>
+                <td class="center-text"></td>
+                <td class="center-text"></td>
+                <td class="center-text u-bold">職歴</td>
+            </tr>
+            <tr>
+                <td class="center-text">2017</td>
+                <td class="center-text">4</td>
+                <td>株式会社FEEL CONNECTION 入社</td>
+            </tr>
+            <tr>
+                <td class="center-text">2019</td>
+                <td class="center-text">10</td>
+                <td>株式会社FEEL CONNECTION 退職</td>
+            </tr>
+            <tr>
+                <td class="center-text">2019</td>
+                <td class="center-text">11</td>
+                <td>個人事業主として開業</td>
+            </tr>
+            <tr>
+                <td class="center-text"></td>
+                <td class="center-text"></td>
+                <td>（ナレーター・ボイストレーナーとして活動、現在に至る）</td>
+            </tr>
+            <tr>
+                <td class="center-text">2023</td>
+                <td class="center-text">11</td>
+                <td>株式会社リクルート 研修講師業務受託（～2025年4月）</td>
+            </tr>
+            <tr>
+                <td class="center-text"></td>
+                <td class="center-text"></td>
+                <td class="u-right">以下、別紙職務経歴書参照　</td>
+            </tr>
+
+            <!-- Filler rows to fill space if needed, JIS usually has strict lines -->
+            <tr>
+                <td class="center-text">&nbsp;</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="center-text">&nbsp;</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="center-text">&nbsp;</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- Licenses using same table structure for simplicity in HTML -->
+        <table class="history-table" style="margin-top: 0; border-top: none;">
+            <tr style="background-color: #eee;">
+                <th class="col-year">年</th>
+                <th class="col-month">月</th>
+                <th class="col-content center-text">免許・資格</th>
+            </tr>
+            <tr>
+                <td class="center-text">2013</td>
+                <td class="center-text">10</td>
+                <td>普通自動車免許</td>
+            </tr>
+            <tr>
+                <td class="center-text">2014</td>
+                <td class="center-text">7</td>
+                <td>大型自動二輪免許</td>
+            </tr>
+            <tr>
+                <td class="center-text">2017</td>
+                <td class="center-text">3</td>
+                <td>中学校・高等学校教諭一種免許状（音楽）</td>
+            </tr>
+            <tr>
+                <td class="center-text">2017</td>
+                <td class="center-text">3</td>
+                <td>全国音楽療法士養成協議会認定音楽療法士1種</td>
+            </tr>
+            <tr>
+                <td class="center-text">&nbsp;</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- Free Space / PR -->
+        <div style="margin-top: 10px; border: 2px solid #000; padding: 10px;">
+            <div class="u-bold" style="margin-bottom: 5px;">志望動機・特技・アピールポイントなど</div>
+            <div style="font-size: 10pt; line-height: 1.5;">
+                【志望動機：地域の人材育成への貢献】<br>
                 広島を拠点に「伝えるプロフェッショナル」として、企業研修から個人指導まで幅広く人材育成に携わってきました。
-                講師歴はトータルで9年になり、「ビジネスコミュニケーション」「プレゼンテーション」「メンタルマネジメント」の分野を得意としています。<br><br>
-                株式会社リクルートでの研修講師経験に加え、プロのナレーターとしての「信頼感を与える声・表現力」と、ラジオ制作・コンセプト設計で培った「ロジカルシンキング・構成力」を掛け合わせた指導が可能です。
-                単なる知識の伝達にとどまらず、受講者の心を動かし、行動変容を促す実践的なトレーニングを提供いたします。<br><br>
-                これまでの経験を活かし、地元広島・中国地方の企業様の人材育成に貢献したいと強く願っております。
+                貴社の「地域社会の発展・人材の成長に貢献する」という理念に共感し、自身の講師経験（リクルートでのビジネス研修や音楽講師歴9年）と、ナレーターとしての「伝える技術」を活かせると確信しております。<br>
+                <br>
+                【強み：論理と感性の両立】<br>
+                感覚的になりがちなコミュニケーションを、プロの技術と論理的思考（ロジカルシンキング）に基づいて言語化し、誰にでも再現可能な形として指導できることが私の強みです。
+                詳細な実績については別紙職務経歴書をご参照ください。
             </div>
-        </section>
+        </div>
 
-        <section>
-            <h2>講師として提供できる価値</h2>
-            <div class="pr-block">
-                <span class="pr-title">【1】コミュニケーション・ビジネスマナー</span>
-                <p class="pr-text">リクルートでの新人・中堅社員向け研修の実績に加え、ナレーターとして「信頼される声のトーン」「伝わる話し方」を論理的に言語化して指導できます。</p>
-            </div>
-            <div class="pr-block">
-                <span class="pr-title">【2】メンタル・モチベーション管理</span>
-                <p class="pr-text">
-                    「声と心は直結している」という観点から、発声を通じたメンタルコントロールや、自信醸成のアプローチが可能です。また、フィットネスインストラクターとしての経験から、受講者のエネルギーを高める場の作り方を得意としています。
+        <!-- Commute / Family Info Block (Standard JIS footer) -->
+        <table class="jis-table" style="margin-top: 10px;">
+            <tr>
+                <td width="50%">
+                    <div class="label">本人希望記入欄（特に給料・職種・勤務時間・勤務地・その他についての希望など）</div>
+                    <div style="height: 60px; font-size: 10pt;">
+                        勤務条件等は貴社の規定に従います。<br>
+                        広島県内、近隣県への出張対応も可能です。
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- PAGE 2: WORK HISTORY (職務経歴書) -->
+    <div class="page">
+        <div class="cv-header">
+            <div class="cv-title">職務経歴書</div>
+            <div class="date-now">2026年 1月 5日 現在</div>
+            <div class="u-right">氏名：秋山 那由他</div>
+        </div>
+
+        <div class="cv-body">
+            <div class="cv-section">
+                <h3>■ 職務要約</h3>
+                <p>
+                    2017年よりインストラクター・講師としてのキャリアを開始し、計9年間の指導経験を有します。
+                    フィットネス、音楽、ビジネス研修（リクルート）と多様な領域での指導実績があり、
+                    特に「伝える力」「モチベーション管理」「ロジカルシンキング」を組み合わせた実践的な指導を得意としています。
+                    現在はフリーランスのナレーターとしても活動しており、声の表現力を活かした独自の研修スタイルを確立しています。
                 </p>
             </div>
-            <div class="pr-block">
-                <span class="pr-title">【3】リーダーシップ・マネジメント</span>
-                <p class="pr-text">スターバックスでのバリスタトレーナー（新人教育・シフト管理）経験があり、現場リーダーとしての振る舞いや、OJTにおける指導法についても実体験に基づいた指導が可能です。
-                </p>
+
+            <div class="cv-section">
+                <h3>■ 主な職務経歴</h3>
+
+                <table class="history-table">
+                    <tr style="background-color: #eee;">
+                        <th style="width: 100px;">期間</th>
+                        <th>企業・組織名 / 業務内容</th>
+                    </tr>
+                    <tr>
+                        <td class="center-text">2023.11<br>～<br>2025.04</td>
+                        <td>
+                            <div class="u-bold">株式会社リクルート（業務委託）</div>
+                            <div>役職：研修講師</div>
+                            <ul style="margin-left: 20px; font-size: 9.5pt;">
+                                <li>新入社員・中堅社員向け「ビジネスコミュニケーション研修」講師</li>
+                                <li>「プレゼンテーション研修」講師</li>
+                                <li>講義、ワークショップのファシリテーション、個別フィードバック</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="center-text">2019.11<br>～<br>現在</td>
+                        <td>
+                            <div class="u-bold">シアーミュージック / 個人教室（業務委託・自営）</div>
+                            <div>役職：ボイストレーナー・話し方講師</div>
+                            <ul style="margin-left: 20px; font-size: 9.5pt;">
+                                <li>ピアノ、ボーカル、話し方の個人・グループレッスン（延べ数百名）</li>
+                                <li>生徒一人ひとりの目標設定と進捗管理、メンタルサポート</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="center-text">2020.01<br>～<br>現在</td>
+                        <td>
+                            <div class="u-bold">フリーランス・ナレーター</div>
+                            <ul style="margin-left: 20px; font-size: 9.5pt;">
+                                <li>TVCM、Web動画、企業VP等のナレーション制作</li>
+                                <li>コンセプト設計、構成作家としてのディレクション業務</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="center-text">2021.04<br>～<br>2023.11</td>
+                        <td>
+                            <div class="u-bold">スターバックスコーヒー ジャパン</div>
+                            <div>役職：バリスタトレーナー（新人教育担当）</div>
+                            <ul style="margin-left: 20px; font-size: 9.5pt;">
+                                <li>新人バリスタの育成計画作成と実地指導（OJT）</li>
+                                <li>時間帯責任者としての店舗マネジメント</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </section>
 
-        <section>
-            <h2>職務経歴</h2>
-            <table>
-                <tr>
-                    <th class="year-col">2017</th>
-                    <th class="month-col">04</th>
-                    <td class="content-col">
-                        株式会社FEEL CONNECTION 入社（正社員 / インストラクター）
-                        <div class="history-detail">
-                            業務内容：暗闇バイクエクササイズ(FEELCYCLE)のインストラクション。大勢の前でのパフォーマンス、モチベーション管理、店舗運営。（〜2019年9月）</div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="year-col">2019</th>
-                    <th class="month-col">10</th>
-                    <td class="content-col">
-                        株式会社広島エフエム放送（業務委託 / 番組AD）
-                        <div class="history-detail">業務内容：ラジオ番組の構成作成、取材、進行管理。情報を整理し、聴取者に分かりやすく届けるための構成力・企画力を養う。（〜2023年3月）
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="year-col">2019</th>
-                    <th class="month-col"></th>
-                    <td class="content-col">
-                        シアーミュージック（業務委託 / 講師）
-                        <div class="history-detail">
-                            業務内容：ピアノ・ボーカル・話し方講師。幼児からビジネスパーソンまで延べ数百名を指導。個々の課題に合わせた論理的なフィードバックを実施。（〜2025年10月）</div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="year-col">2020</th>
-                    <th class="month-col"></th>
-                    <td class="content-col">
-                        フリーランス・ナレーターとして活動開始（現職）
-                        <div class="history-detail">業務内容：TV/ラジオCM、Web動画、企業VPなどのナレーション制作・実演。</div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="year-col">2020</th>
-                    <th class="month-col">10</th>
-                    <td class="content-col">
-                        エニタイムフィットネス舟入店（業務委託 / トレーナー）
-                        <div class="history-detail">業務内容：マシントレーニング指導、会員様の目標達成サポート、施設管理。（〜2025年10月）</div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="year-col">2021</th>
-                    <th class="month-col">04</th>
-                    <td class="content-col">
-                        スターバックスコーヒー 紙屋町シャレオ店（アルバイト / バリスタトレーナー）
-                        <div class="history-detail">業務内容：接客に加え、新人バリスタの育成担当（バリスタトレーナー）としてOJT計画の作成・実施・評価を担当。（〜2023年11月）
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="year-col">2023</th>
-                    <th class="month-col">11</th>
-                    <td class="content-col">
-                        株式会社リクルート（業務委託 / 研修講師）
-                        <div class="history-detail">業務内容：新入社員・中堅社員向け「ビジネスコミュニケーション・プレゼンテーション研修」の登壇講師。（〜2025年4月）</div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="year-col">2024</th>
-                    <th class="month-col">05</th>
-                    <td class="content-col">
-                        ニスト珈琲（個人事業 / カフェ運営）
-                        <div class="history-detail">業務内容：間借り形式でのカフェ出店。コンセプト設計、メニュー開発、集客マーケティング。（〜2025年12月）</div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="year-col">現在</th>
-                    <th class="month-col"></th>
-                    <td class="content-col">
-                        個人事業主としてナレーター・ボイストレーナー・研修講師として活動中
-                    </td>
-                </tr>
-            </table>
-        </section>
+            <div class="cv-section">
+                <h3>■ 活かせるスキル・強み</h3>
+                <div style="margin-bottom: 10px;">
+                    <span class="u-bold">【1】言語化・伝達能力</span><br>
+                    プロナレーターとしての「声の表現」と、講師としての「論理的な解説」を融合し、抽象的な概念を分かりやすく伝えることができます。
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <span class="u-bold">【2】場作り・ファシリテーション</span><br>
+                    フィットネスインストラクター時代に培った、集団の熱量を高めるパフォーマンス力で、受講者が主体的に参加できる研修空間を作ります。
+                </div>
+                <div>
+                    <span class="u-bold">【3】多様なバックグラウンドへの対応力</span><br>
+                    幼児から経営者まで幅広い層への指導経験があり、相手の属性や理解度に合わせた柔軟なコミュニケーションが可能です。
+                </div>
+            </div>
 
+        </div>
     </div>
 
 </body>
