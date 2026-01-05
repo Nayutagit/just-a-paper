@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+/* Reset & Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    color: #333;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+}
+
+/* A4 Paper Layout */
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 20px auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Header Section */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+}
+
+.header-info h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+}
+
+.name-furigana {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.contact-info {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.contact-item {
+    margin-right: 15px;
+    display: inline-block;
+}
+
+.photo-area {
+    width: 30mm;
+    height: 40mm;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+.photo-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Section Common */
+section {
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 16px;
+    border-left: 5px solid #333;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* Table Style for History */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th,
+td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+
+th.year-col {
+    width: 60px;
+    font-weight: normal;
+    color: #666;
+}
+
+th.month-col {
+    width: 30px;
+    font-weight: normal;
+    color: #666;
+    text-align: right;
+    padding-right: 15px;
+}
+
+td.content-col {
+    font-weight: bold;
+}
+
+.history-detail {
+    font-weight: normal;
+    font-size: 12px;
+    color: #555;
+    margin-top: 4px;
+    white-space: pre-wrap;
+}
+
+/* Self Promotion */
+.pr-block {
+    margin-bottom: 15px;
+}
+
+.pr-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.pr-text {
+    font-size: 13px;
+    text-align: justify;
+}
+
+/* Print Settings */
+@media print {
+    body {
+        background: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .page {
+        margin: 0;
+        box-shadow: none;
+        width: auto;
+        height: auto;
+        page-break-after: always;
+    }
+
+    /* Hide page break on last child if needed */
+    .page:last-child {
+        page-break-after: auto;
+    }
+}
