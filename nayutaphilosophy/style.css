@@ -1,0 +1,185 @@
+@charset "UTF-8";
+
+/* Reset & Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "MS Mincho", "Hiragino Mincho ProN", serif;
+    color: #1a1a1a;
+    background-color: #f0f0f0;
+    font-size: 11pt;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    padding: 20px;
+}
+
+/* Paper Layout */
+.paper {
+    max-width: 210mm; /* A4 Width */
+    margin: 0 auto;
+    padding: 20mm;
+    background: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    min-height: 297mm;
+    position: relative;
+}
+
+/* Header */
+header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-size: 28pt;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 12pt;
+    color: #444;
+}
+
+/* Navigation / TOC */
+.toc {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+}
+
+.toc h2 {
+    font-size: 14pt;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.toc-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    list-style: none;
+}
+
+.toc-list li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 10pt;
+    border-bottom: 1px dotted #999;
+}
+
+.toc-list li a:hover {
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+
+/* Concept Block */
+.concept-block {
+    margin-bottom: 50px;
+    page-break-inside: avoid;
+}
+
+.concept-title {
+    font-size: 18pt;
+    font-weight: bold;
+    border-left: 5px solid #000;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.concept-id {
+    font-size: 9pt;
+    color: #999;
+    font-weight: normal;
+}
+
+/* Definition Box */
+.concept-definition {
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    border-left: 1px solid #ddd;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: #444;
+}
+
+.concept-definition::before {
+    content: "■ 定義";
+    display: block;
+    font-weight: bold;
+    font-style: normal;
+    margin-bottom: 5px;
+    font-size: 9pt;
+    color: #000;
+}
+
+/* Mindset Section */
+.concept-mindset h3 {
+    font-size: 12pt;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    display: inline-block;
+}
+
+.concept-mindset ul {
+    list-style: none;
+    padding-left: 10px;
+}
+
+.concept-mindset li {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.concept-mindset li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+}
+
+.concept-mindset strong {
+    font-weight: bold;
+    color: #000;
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 9pt;
+    color: #666;
+}
+
+/* Print Settings */
+@media print {
+    body {
+        background: none;
+        padding: 0;
+    }
+
+    .paper {
+        box-shadow: none;
+        margin: 0;
+        width: 100%;
+        max-width: none;
+    }
+    
+    .toc {
+        display: none; /* Hide TOC in print */
+    }
+}
