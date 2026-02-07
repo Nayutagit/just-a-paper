@@ -1,0 +1,402 @@
+@charset "UTF-8";
+
+/* Font Imports handled via HTML or local system if available. 
+   Prioritizing Tsukushi B Round Gothic as requested. */
+
+:root {
+    --bg-color: #e0e0e0;
+    --card-bg: #fff;
+    --text-main: #222;
+    --text-muted: #666;
+    --accent: #c5a065;
+    /* Elegant Gold */
+
+    --font-primary: "Tsukushi B Round Gothic", "筑紫B丸ゴシック", "Zen Maru Gothic", sans-serif;
+    --font-serif: "Playfair Display", serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    color: var(--text-main);
+    font-family: var(--font-primary);
+}
+
+.pop-card {
+    /* A5 Size */
+    width: 148mm;
+    height: 210mm;
+    background-color: var(--card-bg);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    /* Subtle Outer Frame */
+    border: 8px solid #fff;
+    outline: 1px solid #e0e0e0;
+}
+
+/* Inner Elegant Frame */
+.pop-card::after {
+    content: "";
+    position: absolute;
+    top: 5mm;
+    left: 5mm;
+    right: 5mm;
+    bottom: 5mm;
+    border: 1px solid #c5a065;
+    /* Gold Accent */
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 4;
+    /* Less than indicators (10) */
+}
+
+/* --- Top Indicators --- */
+.top-indicators {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 12mm;
+    display: flex;
+    align-items: center;
+    padding: 0 6mm;
+    background: linear-gradient(to right, #f8f8f8, #fff);
+    /* Subtle bg */
+    border-bottom: 1px solid #eee;
+    z-index: 10;
+}
+
+.indicator-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 6mm;
+    height: 100%;
+}
+
+.indicator-group.country {
+    border-right: 1px solid #ddd;
+    padding-right: 6mm;
+}
+
+.indicator-group .label {
+    font-family: var(--font-serif);
+    font-size: 0.6rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.05em;
+}
+
+.indicator-group .sub {
+    font-size: 0.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.indicator-group.type .icon {
+    font-size: 0.8rem;
+    margin-right: 2px;
+}
+
+.indicator-group.type {
+    flex-direction: row;
+    align-items: center;
+}
+
+.indicator-group.type .label {
+    font-size: 0.7rem;
+}
+
+
+/* --- Visual Layer (Bottle) --- */
+.visual-layer {
+    position: absolute;
+    top: 15mm;
+    /* Below indicators */
+    right: -10mm;
+    width: 65%;
+    /* Occupy right side */
+    height: 70%;
+    z-index: 1;
+}
+
+.bottle-wrapper {
+    width: 100%;
+    height: 100%;
+    /* Robust Masking: Diagonal gradient to fade top-left (for text) and bottom (for blend) */
+    -webkit-mask-image: linear-gradient(115deg, transparent 10%, black 40%, black 80%, transparent 98%);
+    mask-image: linear-gradient(115deg, transparent 10%, black 40%, black 80%, transparent 98%);
+}
+
+.bottle-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Soft shadow internal to the element works best if image is cut out, 
+       but if mostly rectangular, drop-shadow works better on the element itself. */
+    filter: drop-shadow(10px 5px 20px rgba(0, 0, 0, 0.15));
+    mix-blend-mode: multiply;
+    /* Blends white background of JPGs into the card */
+}
+
+
+/* --- Content Layer --- */
+.content-layer {
+    position: relative;
+    z-index: 5;
+    height: 100%;
+    width: 100%;
+    padding: 18mm 8mm 5mm 8mm;
+    /* Top padding clears indicators + spacing */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.pop-header {
+    width: 55%;
+    /* Avoid bottle */
+    margin-bottom: 4mm;
+}
+
+.brand {
+    font-family: var(--font-serif);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    margin-bottom: 2mm;
+    text-transform: uppercase;
+}
+
+.wine-title-en {
+    font-family: var(--font-serif);
+    font-size: 2.4rem;
+    /* Slightly smaller to fit indicators */
+    line-height: 0.9;
+    font-weight: 700;
+    margin-bottom: 2mm;
+    color: #000;
+}
+
+.wine-title-jp {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #444;
+}
+
+
+/* Taste Scale */
+.taste-profile {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 6mm;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+}
+
+.scale-label-left,
+.scale-label-right {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.scale-label-left .jp,
+.scale-label-right .jp {
+    font-size: 0.5rem;
+    margin-left: 2px;
+    font-weight: 400;
+}
+
+.scale-bar {
+    flex-grow: 1;
+    height: 2px;
+    background: #ddd;
+    margin: 0 4mm;
+    position: relative;
+}
+
+.scale-point {
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--text-main);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 2px #fff;
+}
+
+
+/* Description */
+.description-section {
+    width: 55%;
+    margin-bottom: 6mm;
+}
+
+.catch-copy {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 3mm;
+    border-left: 3px solid var(--accent);
+    padding-left: 3mm;
+}
+
+.body-text {
+    font-size: 0.7rem;
+    line-height: 1.7;
+    text-align: justify;
+    font-feature-settings: "palt";
+}
+
+
+/* Pairing Section - Ingredient + Context */
+.pairing-section {
+    width: 60%;
+    margin-bottom: auto;
+    /* Push remaining down */
+}
+
+.section-label {
+    font-family: var(--font-serif);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 3px;
+    margin-bottom: 3mm;
+    color: var(--text-muted);
+}
+
+.pairing-list {
+    list-style: none;
+}
+
+.pairing-list li {
+    margin-bottom: 3mm;
+}
+
+.pairing-list .ingredient {
+    display: block;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 1px;
+    color: #000;
+}
+
+.pairing-list .context {
+    display: block;
+    font-size: 0.65rem;
+    color: #666;
+    line-height: 1.3;
+}
+
+
+/* Sommelier & Price Footer Area */
+.sommelier-section {
+    position: absolute;
+    bottom: 25mm;
+    right: 8mm;
+    width: 50mm;
+    text-align: left;
+    /* Editorial alignment */
+}
+
+.kenken-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2mm;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 2px;
+}
+
+.kenken-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 2mm;
+    filter: grayscale(100%);
+    /* Stylish B&W */
+}
+
+.kenken-name {
+    font-family: var(--font-serif);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.kenken-quote {
+    font-size: 0.65rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+
+/* Price Tag - Floating or Fixed */
+.price-tag {
+    position: absolute;
+    bottom: 30mm;
+    /* Aligned roughly with Kenken top or above */
+    left: 8mm;
+    /* Left aligned */
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.price-tag .currency {
+    font-size: 1.2rem;
+    vertical-align: top;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.price-tag .unit {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: #999;
+    font-style: italic;
+    margin-left: 2px;
+}
+
+
+/* Footer Logo */
+.pop-footer {
+    position: absolute;
+    bottom: 6mm;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pop-footer img {
+    height: 5mm;
+    opacity: 0.4;
+    /* Very subtle */
+}
+
+@media print {
+    body {
+        background: none;
+    }
+
+    .pop-card {
+        box-shadow: none;
+        margin: 0;
+    }
+}

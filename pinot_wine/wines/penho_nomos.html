@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penhó Nomos POP</title>
+    <!-- Sharing the same stylesheet for consistent branding -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="pop-card">
+
+        <!-- Top Indicators -->
+        <div class="top-indicators">
+            <div class="indicator-group country">
+                <span class="label">PORTUGAL</span>
+                <span class="sub">ポルトガル / ミーニョ</span>
+            </div>
+            <div class="indicator-group variety">
+                <span class="label">ALVARINHO+</span>
+                <span class="sub">アルヴァリーニョ他</span>
+            </div>
+            <div class="indicator-group type">
+                <span class="icon">🟠</span>
+                <span class="label">ORANGE / 橙</span>
+            </div>
+            <div class="indicator-group body">
+                <span class="label">DRY / UMAMI</span>
+                <span class="sub">辛口・旨味</span>
+            </div>
+        </div>
+
+        <!-- Visual Layer API (Bottle) -->
+        <div class="visual-layer">
+            <div class="bottle-wrapper">
+                <img src="../assets/penho_nomos_bottle.jpg" alt="Penhó Nomos" class="bottle-img">
+            </div>
+        </div>
+
+        <!-- Content Layer -->
+        <div class="content-layer">
+
+            <!-- Header -->
+            <header class="pop-header">
+                <div class="brand">VINHO VERDE REGION</div>
+                <h1 class="wine-title-en">PENHÓ<br><span style="font-size: 0.8em">NOMOS</span></h1>
+                <h2 class="wine-title-jp">ペニョン<br>ノモス・ブレンド</h2>
+            </header>
+
+            <!-- Taste Profile Scale -->
+            <section class="taste-profile">
+                <div class="scale-label-left">Dry <span class="jp">辛口</span></div>
+                <div class="scale-bar">
+                    <div class="scale-line"></div>
+                    <div class="scale-point" style="left: 20%;"></div> <!-- Dry, distinct -->
+                </div>
+                <div class="scale-label-right">Sweet <span class="jp">甘口</span></div>
+            </section>
+
+            <!-- Description -->
+            <section class="description-section">
+                <p class="catch-copy">
+                    White or Orange?<br>
+                    Dashi-like Umami.
+                </p>
+                <p class="body-text">
+                    白ワイン表記ですが、味わいはほぼオレンジ。<br>
+                    出汁のような旨味が染み渡る、ドライで奥深い一本。<br>
+                    アルヴァリーニョ、トラジャドゥーラ、アリントのブレンド。
+                </p>
+            </section>
+
+            <!-- Pairing Section -->
+            <section class="pairing-section">
+                <h3 class="section-label">Best Ingredients</h3>
+                <ul class="pairing-list">
+                    <li>
+                        <span class="ingredient">貝類・海老</span>
+                        <span class="context">魚介の旨味と相乗</span>
+                    </li>
+                    <li>
+                        <span class="ingredient">豚肉・卵</span>
+                        <span class="context">木須肉（ムースーロー）など</span>
+                    </li>
+                    <li>
+                        <span class="ingredient">出汁料理</span>
+                        <span class="context">和食や中華の旨味系</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Sommelier Section -->
+            <section class="sommelier-section">
+                <div class="kenken-profile">
+                    <img src="../assets/kenken.png" alt="Kenken" class="kenken-img">
+                    <div class="kenken-name">Sommelier Kenken</div>
+                </div>
+                <div class="kenken-quote">
+                    白ワインですが、オレンジワインのようなニュアンス。出汁感のある旨味が最高です！中華の炒め物や、魚介料理と合わせてみてください。
+                </div>
+            </section>
+
+            <!-- Price -->
+            <div class="price-tag">
+                <span class="currency">¥</span>1,100 <span class="unit">/ Glass</span>
+            </div>
+
+            <!-- Footer Logo -->
+            <footer class="pop-footer">
+                <img src="../assets/logo_pinot_nagayama.png" alt="Pinot x Nagayama">
+            </footer>
+
+        </div>
+    </div>
+</body>
+
+</html>

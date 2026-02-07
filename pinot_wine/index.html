@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinot Wine Collection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap');
+
+        :root {
+            --primary-text: #333;
+            --accent-gold: #c5a065;
+            --bg-light: #f9f9f9;
+        }
+
+        body {
+            font-family: "Zen Kaku Gothic New", sans-serif;
+            background-color: var(--bg-light);
+            color: var(--primary-text);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        header h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 2.5rem;
+            color: var(--primary-text);
+            margin: 0;
+            letter-spacing: 0.05em;
+        }
+
+        header p {
+            color: #888;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .wine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .wine-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .wine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border-color: var(--accent-gold);
+        }
+
+        .card-image {
+            height: 300px;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .card-image img {
+            max-height: 100%;
+            max-width: 100%;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s;
+        }
+
+        .wine-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-tags {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+            line-height: 1.2;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .price {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.1rem;
+            color: var(--primary-text);
+        }
+
+        .view-btn {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Pinot Wine Collection</h1>
+        <p>Curated list of exceptional wines.</p>
+    </header>
+
+    <div class="container">
+        <div class="wine-grid">
+
+            <!-- Pedestal -->
+            <a href="wines/pedestal_chardonnay.html" class="wine-card">
+                <div class="card-image">
+                    <img src="assets/pedestal_chardonnay_bottle_clean.png" alt="Pedestal">
+                </div>
+                <div class="card-content">
+                    <div class="card-tags">Australia | White | Full Body</div>
+                    <h3 class="card-title">PEDESTAL</h3>
+                    <div class="card-subtitle">Pedestal Margaret River Chardonnay</div>
+                    <div class="card-footer">
+                        <div class="price">¥1,000 / Glass</div>
+                        <div class="view-btn">View Detail →</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Montdomaine Sparkling -->
+            <a href="wines/montdomaine_sparkling.html" class="wine-card">
+                <div class="card-image">
+                    <img src="assets/montdomaine_bottle.png" alt="Montdomaine Sparkling">
+                </div>
+                <div class="card-content">
+                    <div class="card-tags">France | Sparkling | Dry</div>
+                    <h3 class="card-title">MONTDOMAINE</h3>
+                    <div class="card-subtitle">Touraine Tradition</div>
+                    <div class="card-footer">
+                        <div class="price">¥1,200 / Glass</div>
+                        <div class="view-btn">View Detail →</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Montdomaine SB -->
+            <a href="wines/montdomaine_sb.html" class="wine-card">
+                <div class="card-image">
+                    <img src="assets/montdomaine_sb_bottle.png" alt="Montdomaine SB">
+                </div>
+                <div class="card-content">
+                    <div class="card-tags">France | White | Dry</div>
+                    <h3 class="card-title">MONTDOMAINE</h3>
+                    <div class="card-subtitle">Touraine Blanc "Callipyge"</div>
+                    <div class="card-footer">
+                        <div class="price">¥1,000 / Glass</div>
+                        <div class="view-btn">View Detail →</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Penhó Nomos (New) -->
+            <a href="wines/penho_nomos.html" class="wine-card">
+                <div class="card-image">
+                    <img src="assets/penho_nomos_bottle.jpg" alt="Penhó Nomos">
+                </div>
+                <div class="card-content">
+                    <div class="card-tags">Portugal | Orange-ish | Umami</div>
+                    <h3 class="card-title">PENHÓ</h3>
+                    <div class="card-subtitle">Nomos Blend (Vinho Verde)</div>
+                    <div class="card-footer">
+                        <div class="price">¥1,100 / Glass</div>
+                        <div class="view-btn">View Detail →</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Engel Orange (New) -->
+            <a href="wines/engel_orange.html" class="wine-card">
+                <div class="card-image">
+                    <img src="assets/engel_orange_bottle.png" alt="Engel Orange">
+                </div>
+                <div class="card-content">
+                    <div class="card-tags">France | Orange | Floral</div>
+                    <h3 class="card-title">FRANGINS ENGEL</h3>
+                    <div class="card-subtitle">Orange in Alsace</div>
+                    <div class="card-footer">
+                        <div class="price">¥1,200 / Glass</div>
+                        <div class="view-btn">View Detail →</div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
