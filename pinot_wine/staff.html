@@ -67,15 +67,31 @@
                 <div class="input-group">
                     <button onclick="downloadCSV()" class="save-btn" style="background: #27ae60;">Download CSV
                         (Excel)</button>
-                    <button onclick="showHistory()" class="save-btn" style="background: #2c3e50; margin-top:10px;">View
-                        History (履歴表示)</button>
+                    <button onclick="openEditor()" class="save-btn" style="background: #2980b9; margin-top:10px;">Edit
+                        Records (修正・管理)</button>
                     <button onclick="clearData()" class="save-btn" style="background: #c0392b; margin-top:10px;">Clear
                         Data (全消去)</button>
                 </div>
-                <div id="historyArea" style="margin-top:20px; font-size:0.8rem; display:none;">
-                    <ul id="historyList" style="list-style:none; text-align:left;"></ul>
-                </div>
             </details>
+        </div>
+    </div>
+
+    <!-- Editor Modal -->
+    <div id="editorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>勤怠管理・修正</h2>
+                <button onclick="closeEditor()" style="background:none; border:none; font-size:1.5rem;">&times;</button>
+            </div>
+
+            <div id="editorList" class="editor-container">
+                <!-- Rows will be injected here -->
+            </div>
+
+            <div style="display:flex; justify-content: flex-end; gap: 10px;">
+                <button onclick="closeEditor()" class="btn-close">Cancel</button>
+                <button onclick="saveAllChanges()" class="btn-save">Save Changes</button>
+            </div>
         </div>
     </div>
 
@@ -104,8 +120,8 @@
             const record = {
                 id: Date.now(), // unique ID
                 timestamp: now.toISOString(),
-                date: now.toLocaleDateString('ja-JP'),
-                time: now.toLocaleTimeString('ja-JP'),
+                date: now.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/'),
+                time: now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }),
                 staff: staffName,
                 action: action
             };
@@ -148,22 +164,74 @@
             document.body.removeChild(link);
         }
 
-        // Show History
-        function showHistory() {
-            const list = document.getElementById('historyList');
-            const area = document.getElementById('historyArea');
-            const data = JSON.parse(localStorage.getItem('pinot_attendance_v1') || '[]');
+        // --- Editor Logic ---
+        let editingData = [];
 
-            list.innerHTML = '';
-            // Show last 10 records
-            data.slice().reverse().slice(0, 10).forEach(row => {
-                const li = document.createElement('li');
-                li.style.borderBottom = '1px solid #eee';
-                li.style.padding = '4px 0';
-                li.textContent = `${row.date} ${row.time} - ${row.staff} (${row.action})`;
-                list.appendChild(li);
+        function openEditor() {
+            editingData = JSON.parse(localStorage.getItem('pinot_attendance_v1') || '[]');
+            renderEditor();
+            document.getElementById('editorModal').classList.add('active');
+        }
+
+        function closeEditor() {
+            document.getElementById('editorModal').classList.remove('active');
+        }
+
+        function renderEditor() {
+            const container = document.getElementById('editorList');
+            container.innerHTML = '';
+
+            // Sort by ID desc (newest first)
+            editingData.sort((a, b) => b.id - a.id);
+
+            editingData.forEach((row, index) => {
+                const div = document.createElement('div');
+                div.className = 'edit-row';
+
+                div.innerHTML = `
+                    <input type="text" class="edit-date" value="${row.date}" onchange="updateRow(${index}, 'date', this.value)">
+                    <input type="text" class="edit-time" value="${row.time}" onchange="updateRow(${index}, 'time', this.value)">
+                    <select class="edit-staff" onchange="updateRow(${index}, 'staff', this.value)">
+                        ${getStaffOptions(row.staff)}
+                    </select>
+                    <select class="edit-action" onchange="updateRow(${index}, 'action', this.value)">
+                        <option value="出勤" ${row.action === '出勤' ? 'selected' : ''}>出勤</option>
+                        <option value="退勤" ${row.action === '退勤' ? 'selected' : ''}>退勤</option>
+                        <option value="休憩入" ${row.action === '休憩入' ? 'selected' : ''}>休入</option>
+                        <option value="休憩戻" ${row.action === '休憩戻' ? 'selected' : ''}>休戻</option>
+                    </select>
+                    <button class="btn-delete" onclick="deleteRow(${index})">🗑</button>
+                `;
+                container.appendChild(div);
             });
-            area.style.display = 'block';
+        }
+
+        function getStaffOptions(selectedName) {
+            const staffs = ["なゆた", "よういちろう", "まなみん", "あき", "はやと", "ひとみ", "ケンケン", "りゅうくん"];
+            return staffs.map(name =>
+                `<option value="${name}" ${name === selectedName ? 'selected' : ''}>${name}</option>`
+            ).join('');
+        }
+
+        function updateRow(index, field, value) {
+            editingData[index][field] = value;
+        }
+
+        function deleteRow(index) {
+            if (confirm('削除しますか？')) {
+                editingData.splice(index, 1);
+                renderEditor();
+            }
+        }
+
+        function saveAllChanges() {
+            // Sort back by ID asc for storage if preferred, or keep as is. 
+            // Usually chronological is better for CSV. Let's resort by ID (timestamp) roughly
+            editingData.sort((a, b) => a.id - b.id);
+
+            localStorage.setItem('pinot_attendance_v1', JSON.stringify(editingData));
+            alert('修正を保存しました！');
+            closeEditor();
         }
 
         // Clear Data
@@ -171,7 +239,8 @@
             if (confirm('全てのデータを消去しますか？\n(CSVバックアップを取ってから行うことを推奨します)')) {
                 localStorage.removeItem('pinot_attendance_v1');
                 alert('データを消去しました');
-                document.getElementById('historyList').innerHTML = '';
+                // The historyList element is removed from HTML, so this line is no longer needed.
+                // document.getElementById('historyList').innerHTML = ''; 
             }
         }
     </script>
