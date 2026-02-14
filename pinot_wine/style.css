@@ -400,3 +400,107 @@ body {
         margin: 0;
     }
 }
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 600px) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+        /* Allow scrolling from top */
+    }
+
+    .pop-card {
+        width: 100%;
+        height: auto;
+        /* Allow content to expand */
+        min-height: 100vh;
+        border: none;
+        /* Maximize space */
+        outline: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Adjust Top Indicators */
+    .top-indicators {
+        position: relative;
+        /* Stack normally */
+        height: auto;
+        padding: 10px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .indicator-group {
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
+
+    /* Move Bottle Image to Top/Center */
+    .visual-layer {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 300px;
+        /* Fixed height for bottle display */
+        margin-bottom: -50px;
+        /* Overlap slightly with content */
+        z-index: 1;
+    }
+
+    .bottle-wrapper {
+        -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    }
+
+    /* Content flows naturally */
+    .content-layer {
+        position: relative;
+        padding: 20px;
+        z-index: 5;
+    }
+
+    .pop-header,
+    .description-section,
+    .pairing-section,
+    .taste-profile {
+        width: 100%;
+        /* Use full width */
+    }
+
+    .wine-title-en {
+        font-size: 2rem;
+    }
+
+    /* Place sommelier comment and price at bottom relative to flow */
+    .sommelier-section {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        width: 100%;
+        margin-top: 30px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .price-tag {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    .pop-footer {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin-top: 40px;
+        text-align: center;
+        width: 100%;
+    }
+}
