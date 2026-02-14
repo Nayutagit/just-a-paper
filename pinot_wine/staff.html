@@ -63,13 +63,18 @@
 
         <div class="settings-area">
             <details>
-                <summary>System Settings</summary>
+                <summary>Manager Menu (管理者メニュー)</summary>
                 <div class="input-group">
-                    <label>Google Script URL (GAS)</label>
-                    <input type="text" id="gasUrl" placeholder="Paste your Web App URL here">
-                    <button onclick="saveSettings()" class="save-btn">Save URL</button>
+                    <button onclick="downloadCSV()" class="save-btn" style="background: #27ae60;">Download CSV
+                        (Excel)</button>
+                    <button onclick="showHistory()" class="save-btn" style="background: #2c3e50; margin-top:10px;">View
+                        History (履歴表示)</button>
+                    <button onclick="clearData()" class="save-btn" style="background: #c0392b; margin-top:10px;">Clear
+                        Data (全消去)</button>
                 </div>
-                <p class="note">※初回のみ設定が必要です。<br>URLは保存されます。</p>
+                <div id="historyArea" style="margin-top:20px; font-size:0.8rem; display:none;">
+                    <ul id="historyList" style="list-style:none; text-align:left;"></ul>
+                </div>
             </details>
         </div>
     </div>
@@ -84,32 +89,9 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Load Settings
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedUrl = localStorage.getItem('pinot_gas_url');
-            if (savedUrl) {
-                document.getElementById('gasUrl').value = savedUrl;
-            }
-
-            const savedName = localStorage.getItem('pinot_staff_name');
-            if (savedName) {
-                document.getElementById('staffName').value = savedName;
-            }
-        });
-
-        // Save Settings
-        function saveSettings() {
-            const url = document.getElementById('gasUrl').value;
-            if (url) {
-                localStorage.setItem('pinot_gas_url', url);
-                alert('URLを保存しました！');
-            }
-        }
-
-        // Record Time Function
-        async function recordTime(action) {
+        // Record Time Function (Local Storage)
+        function recordTime(action) {
             const staffName = document.getElementById('staffName').value;
-            const gasUrl = document.getElementById('gasUrl').value;
             const statusDiv = document.getElementById('statusMessage');
 
             if (!staffName) {
@@ -118,47 +100,78 @@
                 return;
             }
 
-            if (!gasUrl) {
-                statusDiv.textContent = '❌ システム設定からURLを設定してください';
-                statusDiv.className = 'status-message error';
-                return;
-            }
-
-            // Save name for next time
-            localStorage.setItem('pinot_staff_name', staffName);
-
-            statusDiv.textContent = '⏳ 送信中...';
-            statusDiv.className = 'status-message sending';
-
-            const payload = {
-                timestamp: new Date().toISOString(),
+            const now = new Date();
+            const record = {
+                id: Date.now(), // unique ID
+                timestamp: now.toISOString(),
+                date: now.toLocaleDateString('ja-JP'),
+                time: now.toLocaleTimeString('ja-JP'),
                 staff: staffName,
                 action: action
             };
 
-            // Use 'no-cors' mode for simple submission to GAS without preflight bloat
-            // Note: We won't get a readable response in no-cors, but it sends the data.
-            // Converting to form data for better GAS handling usually, but JSON plain is fine with correct GAS setup.
+            // Save to LocalStorage
+            let data = JSON.parse(localStorage.getItem('pinot_attendance_v1') || '[]');
+            data.push(record);
+            localStorage.setItem('pinot_attendance_v1', JSON.stringify(data));
 
-            try {
-                await fetch(gasUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
+            // Feedback
+            statusDiv.innerHTML = `✅ <strong>${record.time}</strong><br>${staffName}: ${action} 記録しました`;
+            statusDiv.className = 'status-message success';
+        }
 
-                // Since we used no-cors, we assume success if no network error thrown
-                const time = new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
-                statusDiv.innerHTML = `✅ <strong>${time}</strong><br>${staffName}: ${action} 完了`;
-                statusDiv.className = 'status-message success';
+        // Export to CSV
+        function downloadCSV() {
+            const data = JSON.parse(localStorage.getItem('pinot_attendance_v1') || '[]');
+            if (data.length === 0) {
+                alert('データがありません');
+                return;
+            }
 
-            } catch (error) {
-                console.error(error);
-                statusDiv.textContent = '❌ 送信エラーが発生しました。ネット接続を確認してください。';
-                statusDiv.className = 'status-message error';
+            // CSV Header
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Date,Time,Staff,Action\n";
+
+            // CSV Body
+            data.forEach(row => {
+                csvContent += `${row.date},${row.time},${row.staff},${row.action}\n`;
+            });
+
+            // Download Link
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            const dateStr = new Date().toISOString().slice(0, 10);
+            link.setAttribute("download", `pinot_attendance_${dateStr}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Show History
+        function showHistory() {
+            const list = document.getElementById('historyList');
+            const area = document.getElementById('historyArea');
+            const data = JSON.parse(localStorage.getItem('pinot_attendance_v1') || '[]');
+
+            list.innerHTML = '';
+            // Show last 10 records
+            data.slice().reverse().slice(0, 10).forEach(row => {
+                const li = document.createElement('li');
+                li.style.borderBottom = '1px solid #eee';
+                li.style.padding = '4px 0';
+                li.textContent = `${row.date} ${row.time} - ${row.staff} (${row.action})`;
+                list.appendChild(li);
+            });
+            area.style.display = 'block';
+        }
+
+        // Clear Data
+        function clearData() {
+            if (confirm('全てのデータを消去しますか？\n(CSVバックアップを取ってから行うことを推奨します)')) {
+                localStorage.removeItem('pinot_attendance_v1');
+                alert('データを消去しました');
+                document.getElementById('historyList').innerHTML = '';
             }
         }
     </script>
