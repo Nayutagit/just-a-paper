@@ -1,0 +1,264 @@
+:root {
+    --bg-color: #f4f6f8;
+    --card-bg: #ffffff;
+    --primary: #c5a065;
+    --text-dark: #333333;
+    --text-muted: #888888;
+    --in-color: #eb7d16;
+    /* Sun Orange */
+    --out-color: #2c3e50;
+    /* Night Blue */
+    --break-color: #27ae60;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.clock-container {
+    width: 100%;
+    max-width: 400px;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.header p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.current-time {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+}
+
+.current-date {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+}
+
+.staff-selector {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.staff-selector label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+
+.staff-selector select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    appearance: none;
+    /* simple styling */
+    outline: none;
+}
+
+.action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.action-btn {
+    border: none;
+    border-radius: 12px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.action-btn:active {
+    transform: scale(0.98);
+}
+
+.action-btn.in {
+    background: rgba(235, 125, 22, 0.1);
+    color: var(--in-color);
+}
+
+.action-btn.in .icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.action-btn.in .label {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.action-btn.in .sub {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.action-btn.out {
+    background: rgba(44, 62, 80, 0.1);
+    color: var(--out-color);
+}
+
+.action-btn.out .icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.action-btn.out .label {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.action-btn.out .sub {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.action-btn.break {
+    background: #f8f8f8;
+    color: #666;
+    padding: 15px;
+}
+
+.action-btn.break .icon {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.action-btn.break .label {
+    font-size: 0.8rem;
+}
+
+
+.status-message {
+    width: 100%;
+    min-height: 60px;
+    background: #fafafa;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    /* Allow multiline */
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 24px;
+    padding: 10px;
+    text-align: center;
+}
+
+.status-message.success {
+    background: #e6ffed;
+    color: #27ae60;
+    border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+    background: #ffe6e6;
+    color: #d63031;
+    border: 1px solid #ffbaba;
+}
+
+.status-message.sending {
+    background: #fff8e1;
+    color: #f1c40f;
+    border: 1px solid #ffeeba;
+}
+
+
+.settings-area {
+    width: 100%;
+    margin-top: auto;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+details summary {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-align: center;
+    list-style: none;
+    /* cleaner */
+}
+
+.input-group {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.input-group input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.save-btn {
+    background: var(--text-dark);
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.note {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-top: 8px;
+    line-height: 1.4;
+    text-align: center;
+}

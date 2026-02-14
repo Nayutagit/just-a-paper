@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinot Staff Time Clock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="staff.css">
+</head>
+
+<body>
+
+    <div class="clock-container">
+        <header class="header">
+            <h1>PINOT WINE</h1>
+            <p>Staff Attendance</p>
+        </header>
+
+        <div class="current-time" id="clock">--:--:--</div>
+        <div class="current-date" id="date">----/--/--</div>
+
+        <div class="staff-selector">
+            <label for="staffName">Staff Name</label>
+            <select id="staffName">
+                <option value="" disabled selected>名前を選択してください</option>
+                <option value="Kenken">Kenken</option>
+                <option value="Yoku">Yoku</option>
+                <option value="Staff">Guest Staff</option>
+            </select>
+        </div>
+
+        <div class="action-grid">
+            <button class="action-btn in" onclick="recordTime('出勤')">
+                <span class="icon">☀️</span>
+                <span class="label">出勤</span>
+                <span class="sub">Clock In</span>
+            </button>
+            <button class="action-btn out" onclick="recordTime('退勤')">
+                <span class="icon">🌙</span>
+                <span class="label">退勤</span>
+                <span class="sub">Clock Out</span>
+            </button>
+            <button class="action-btn break" onclick="recordTime('休憩入')">
+                <span class="icon">☕️</span>
+                <span class="label">休憩入り</span>
+            </button>
+            <button class="action-btn break" onclick="recordTime('休憩戻')">
+                <span class="icon">🔙</span>
+                <span class="label">休憩戻り</span>
+            </button>
+        </div>
+
+        <div id="statusMessage" class="status-message"></div>
+
+        <div class="settings-area">
+            <details>
+                <summary>System Settings</summary>
+                <div class="input-group">
+                    <label>Google Script URL (GAS)</label>
+                    <input type="text" id="gasUrl" placeholder="Paste your Web App URL here">
+                    <button onclick="saveSettings()" class="save-btn">Save URL</button>
+                </div>
+                <p class="note">※初回のみ設定が必要です。<br>URLは保存されます。</p>
+            </details>
+        </div>
+    </div>
+
+    <script>
+        // Clock Update
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('ja-JP');
+            document.getElementById('date').textContent = now.toLocaleDateString('ja-JP', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Load Settings
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedUrl = localStorage.getItem('pinot_gas_url');
+            if (savedUrl) {
+                document.getElementById('gasUrl').value = savedUrl;
+            }
+
+            const savedName = localStorage.getItem('pinot_staff_name');
+            if (savedName) {
+                document.getElementById('staffName').value = savedName;
+            }
+        });
+
+        // Save Settings
+        function saveSettings() {
+            const url = document.getElementById('gasUrl').value;
+            if (url) {
+                localStorage.setItem('pinot_gas_url', url);
+                alert('URLを保存しました！');
+            }
+        }
+
+        // Record Time Function
+        async function recordTime(action) {
+            const staffName = document.getElementById('staffName').value;
+            const gasUrl = document.getElementById('gasUrl').value;
+            const statusDiv = document.getElementById('statusMessage');
+
+            if (!staffName) {
+                statusDiv.textContent = '❌ 名前を選択してください';
+                statusDiv.className = 'status-message error';
+                return;
+            }
+
+            if (!gasUrl) {
+                statusDiv.textContent = '❌ システム設定からURLを設定してください';
+                statusDiv.className = 'status-message error';
+                return;
+            }
+
+            // Save name for next time
+            localStorage.setItem('pinot_staff_name', staffName);
+
+            statusDiv.textContent = '⏳ 送信中...';
+            statusDiv.className = 'status-message sending';
+
+            const payload = {
+                timestamp: new Date().toISOString(),
+                staff: staffName,
+                action: action
+            };
+
+            // Use 'no-cors' mode for simple submission to GAS without preflight bloat
+            // Note: We won't get a readable response in no-cors, but it sends the data.
+            // Converting to form data for better GAS handling usually, but JSON plain is fine with correct GAS setup.
+
+            try {
+                await fetch(gasUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                // Since we used no-cors, we assume success if no network error thrown
+                const time = new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+                statusDiv.innerHTML = `✅ <strong>${time}</strong><br>${staffName}: ${action} 完了`;
+                statusDiv.className = 'status-message success';
+
+            } catch (error) {
+                console.error(error);
+                statusDiv.textContent = '❌ 送信エラーが発生しました。ネット接続を確認してください。';
+                statusDiv.className = 'status-message error';
+            }
+        }
+    </script>
+</body>
+
+</html>

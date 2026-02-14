@@ -1,0 +1,33 @@
+function doPost(e) {
+  // 1. Check if the spreadsheet is linked
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  // 2. Parse the incoming JSON data
+  var data = JSON.parse(e.postData.contents);
+  var staffName = data.staff;
+  var action = data.action;
+  var clientTimestamp = data.timestamp; // Time from the device
+  
+  // 3. Get current server time (more reliable)
+  var now = new Date();
+  var dateStr = Utilities.formatDate(now, 'Asia/Tokyo', 'yyyy/MM/dd');
+  var timeStr = Utilities.formatDate(now, 'Asia/Tokyo', 'HH:mm:ss');
+  
+  // 4. Append to the sheet
+  // Columns: [Date, Time, Staff Name, Action, Device Timestamp]
+  sheet.appendRow([dateStr, timeStr, staffName, action, clientTimestamp]);
+  
+  // 5. Return success result
+  var output = ContentService.createTextOutput(JSON.stringify({result: 'success'}));
+  output.setMimeType(ContentService.MimeType.JSON);
+  return output;
+}
+
+function setupSheet() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  // Set header row if empty
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['日付', '時刻', 'スタッフ名', 'アクション', '端末時刻']);
+    sheet.getRange(1, 1, 1, 5).setFontWeight('bold');
+  }
+}
