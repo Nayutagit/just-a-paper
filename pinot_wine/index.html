@@ -143,6 +143,64 @@
             color: var(--accent-gold);
             font-weight: 500;
         }
+
+        /* --- Search Section Styles --- */
+        .search-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-text);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .search-group {
+            margin-bottom: 20px;
+        }
+
+        .group-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            background: #f4f4f4;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: "Zen Kaku Gothic New", sans-serif;
+        }
+
+        .filter-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .filter-btn.active {
+            background: var(--accent-gold);
+            color: #fff;
+            border-color: var(--accent-gold);
+        }
     </style>
 </head>
 
@@ -154,10 +212,48 @@
     </header>
 
     <div class="container">
+        <!-- Search Section -->
+        <section class="search-section">
+            <h2 class="section-title">🍷 Pairing Search / 料理で選ぶ</h2>
+
+            <div class="search-group">
+                <h3 class="group-label">Category / カテゴリ</h3>
+                <div class="tag-container">
+                    <button class="filter-btn" data-filter="all">All / 全て</button>
+                    <button class="filter-btn" data-filter="海鮮">Seafood / 海鮮</button>
+                    <button class="filter-btn" data-filter="中華">Chinese / 中華</button>
+                    <button class="filter-btn" data-filter="和風出汁">Dashi / 和風出汁</button>
+                    <button class="filter-btn" data-filter="肉料理">Meat / 肉料理</button>
+                    <button class="filter-btn" data-filter="前菜">Appetizer / 前菜</button>
+                    <button class="filter-btn" data-filter="デザート">Dessert / 甘味</button>
+                </div>
+            </div>
+
+            <div class="search-group">
+                <h3 class="group-label">Dish / メニュー</h3>
+                <div class="tag-container">
+                    <!-- Specific Dishes -->
+                    <button class="filter-btn" data-filter="エビチリ">エビチリ</button>
+                    <button class="filter-btn" data-filter="よだれ鶏">よだれ鶏</button>
+                    <button class="filter-btn" data-filter="トマ玉">トマ玉・トマト卵</button>
+                    <button class="filter-btn" data-filter="豚キムチ">豚キムチ</button>
+                    <button class="filter-btn" data-filter="ホッキ貝">ホッキ貝ポテサラ</button>
+                    <button class="filter-btn" data-filter="バイ貝">バイ貝甘煮</button>
+                    <button class="filter-btn" data-filter="ホタルイカ">ホタルイカ菜の花</button>
+                    <button class="filter-btn" data-filter="牛すじ">牛すじ煮込み</button>
+                    <button class="filter-btn" data-filter="新じゃが">新じゃがバター塩辛</button>
+                    <button class="filter-btn" data-filter="キノコ">キノコバター醤油</button>
+                    <button class="filter-btn" data-filter="せせりポン酢">せせりポン酢</button>
+                    <button class="filter-btn" data-filter="ぬか漬け">ぬか漬け・らっきょ</button>
+                    <button class="filter-btn" data-filter="スイーツ">チーズケーキ・チョコ</button>
+                </div>
+            </div>
+        </section>
+
         <div class="wine-grid">
 
             <!-- Pedestal -->
-            <a href="wines/pedestal_chardonnay.html" class="wine-card">
+            <a href="wines/pedestal_chardonnay.html" class="wine-card" data-pairing="海鮮 キノコ 新じゃが バター クリーム エッグタルト 白">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/pedestal_chardonnay_bottle_clean.png" alt="Pedestal">
                 </div>
@@ -173,7 +269,7 @@
             </a>
 
             <!-- Montdomaine Sparkling -->
-            <a href="wines/montdomaine_sparkling.html" class="wine-card">
+            <a href="wines/montdomaine_sparkling.html" class="wine-card" data-pairing="海鮮 前菜 せせりポン酢 ぬか漬け らっきょ ホッキ貝 泡">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/montdomaine_bottle.png" alt="Montdomaine Sparkling">
                 </div>
@@ -189,7 +285,7 @@
             </a>
 
             <!-- Montdomaine SB -->
-            <a href="wines/montdomaine_sb.html" class="wine-card">
+            <a href="wines/montdomaine_sb.html" class="wine-card" data-pairing="海鮮 前菜 せせりポン酢 ぬか漬け らっきょ ホッキ貝 エリンギ 白">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/montdomaine_sb_bottle.png" alt="Montdomaine SB">
                 </div>
@@ -205,7 +301,8 @@
             </a>
 
             <!-- Penhó Nomos (New) -->
-            <a href="wines/penho_nomos.html" class="wine-card">
+            <a href="wines/penho_nomos.html" class="wine-card"
+                data-pairing="中華 海鮮 和風出汁 エビチリ ホタルイカ バイ貝 ホッキ貝 豚キムチ ムースーロー 橙">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/penho_nomos_bottle.jpg" alt="Penhó Nomos">
                 </div>
@@ -221,7 +318,7 @@
             </a>
 
             <!-- Engel Orange (New) -->
-            <a href="wines/engel_orange.html" class="wine-card">
+            <a href="wines/engel_orange.html" class="wine-card" data-pairing="中華 台湾風 ザーサイ エビチリ よだれ鶏 トマ玉 香草 橙">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/engel_orange_bottle.png" alt="Engel Orange">
                 </div>
@@ -237,7 +334,7 @@
             </a>
 
             <!-- Lafage Taronja -->
-            <a href="wines/lafage_taronja.html" class="wine-card">
+            <a href="wines/lafage_taronja.html" class="wine-card" data-pairing="中華 エビチリ よだれ鶏 トマ玉 豚キムチ 焼売 橙">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Lafage Taronja"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -254,7 +351,7 @@
             </a>
 
             <!-- Chignin Bergeron -->
-            <a href="wines/chignin_bergeron.html" class="wine-card">
+            <a href="wines/chignin_bergeron.html" class="wine-card" data-pairing="肉料理 豚キムチ 焼売 チーズケーキ キノコ 白">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Chignin Bergeron"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -271,7 +368,7 @@
             </a>
 
             <!-- Tras La Yesca -->
-            <a href="wines/tras_la_yesca.html" class="wine-card">
+            <a href="wines/tras_la_yesca.html" class="wine-card" data-pairing="肉料理 牛すじ ガトーショコラ 豚キムチ 甘辛だれ 赤">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Tras La Yesca"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -288,7 +385,7 @@
             </a>
 
             <!-- Vinello Blanco -->
-            <a href="wines/vinello_blanco.html" class="wine-card">
+            <a href="wines/vinello_blanco.html" class="wine-card" data-pairing="海鮮 中華 和風出汁 エビチリ ホタルイカ バイ貝 ホッキ貝 橙">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Vinello Blanco"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -305,7 +402,7 @@
             </a>
 
             <!-- Parellada Brisada -->
-            <a href="wines/parellada_brisada.html" class="wine-card">
+            <a href="wines/parellada_brisada.html" class="wine-card" data-pairing="海鮮 和風出汁 新じゃが 塩辛 バイ貝 ホタルイカ せせりポン酢 橙">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Parellada Brisada"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -322,7 +419,7 @@
             </a>
 
             <!-- Fins Als Kullons -->
-            <a href="wines/fins_als_kullons.html" class="wine-card">
+            <a href="wines/fins_als_kullons.html" class="wine-card" data-pairing="中華 トマ玉 鯖大葉 よだれ鶏 前菜 豚キムチ 赤">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Fins Als Kullons"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -339,7 +436,7 @@
             </a>
 
             <!-- Olivares Tinto -->
-            <a href="wines/olivares_tinto.html" class="wine-card">
+            <a href="wines/olivares_tinto.html" class="wine-card" data-pairing="中華 肉料理 豚キムチ 台湾風 ザーサイ ガトーショコラ 赤">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Olivares Tinto"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -356,7 +453,7 @@
             </a>
 
             <!-- Cocu 2022 -->
-            <a href="wines/cocu_2022.html" class="wine-card">
+            <a href="wines/cocu_2022.html" class="wine-card" data-pairing="和風出汁 前菜 天ぷら フルーツ エッグタルト チーズケーキ 泡">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Cocu 2022"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -373,7 +470,7 @@
             </a>
 
             <!-- Dancing Queen -->
-            <a href="wines/dancing_queen.html" class="wine-card">
+            <a href="wines/dancing_queen.html" class="wine-card" data-pairing="中華 台湾風 フルーツ エッグタルト よだれ鶏 前菜 橙">
                 <div class="card-image">
                     <img src="/pinot_wine/assets/wine_placeholder.png" alt="Dancing Queen"
                         style="filter: grayscale(100%) opacity(0.5);">
@@ -391,6 +488,37 @@
 
         </div>
     </div>
+
+    <!-- Filter Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const wines = document.querySelectorAll('.wine-card');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Active State
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    wines.forEach(wine => {
+                        const pairings = wine.getAttribute('data-pairing');
+                        if (filter === 'all') {
+                            wine.style.display = 'flex';
+                        } else {
+                            if (pairings && pairings.includes(filter)) {
+                                wine.style.display = 'flex';
+                            } else {
+                                wine.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
 </body>
 
