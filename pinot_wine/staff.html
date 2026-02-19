@@ -55,18 +55,6 @@
                 <span class="label">退勤</span>
                 <span class="sub">Clock Out</span>
             </button>
-            <!-- 
-            <button class="action-btn break-in" onclick="recordTime('休憩入')">
-                <span class="icon">☕️</span>
-                <span class="label">休憩入</span>
-                <span class="sub">Break Start</span>
-            </button>
-            <button class="action-btn break-out" onclick="recordTime('休憩戻')">
-                <span class="icon">🔙</span>
-                <span class="label">休憩戻</span>
-                <span class="sub">Break End</span>
-            </button>
-            -->
         </div>
 
         <div id="statusMessage" class="status-message"></div>
@@ -81,8 +69,6 @@
                         style="background: #27ae60; margin-top:10px;">Download CSV (Excel)</button>
                     <button onclick="openEditor()" class="save-btn" style="background: #2980b9; margin-top:10px;">Edit
                         Records (修正・管理)</button>
-                    <!-- Clear Data removed -->
-                    <!-- <button onclick="clearData()" class="save-btn" style="background: #c0392b; margin-top:10px;">Clear Data (全消去)</button> -->
                 </div>
             </details>
         </div>
@@ -133,9 +119,9 @@
         const SUPABASE_URL = 'https://xoqdhhpvzaseooohpeid.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_xIS-gPvdyqGZx8nc71muUQ_aD6UxrWa';
 
-        let supabase;
+        let sb; // Renamed to 'sb' to avoid conflict with global 'supabase'
         try {
-            supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         } catch (e) {
             console.error("Supabase Init Error:", e);
         }
@@ -187,7 +173,7 @@
                 action: action
             };
 
-            const { data, error } = await supabase
+            const { data, error } = await sb
                 .from('attendance')
                 .insert([record])
                 .select();
@@ -208,7 +194,7 @@
 
         // Subscribe to database changes
         function subscribeToChanges() {
-            supabase
+            sb
                 .channel('attendance_changes')
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'attendance' }, payload => {
                     console.log('Change received!', payload);
@@ -219,7 +205,7 @@
 
         // Fetch data to calculate current status
         async function fetchStatusBoard() {
-            const { data, error } = await supabase
+            const { data, error } = await sb
                 .from('attendance')
                 .select('*')
                 .order('id', { ascending: false })
@@ -285,7 +271,7 @@
 
             // Fetch records for the selected month
             // format: date starts with YYYY-MM
-            const { data, error } = await supabase
+            const { data, error } = await sb
                 .from('attendance')
                 .select('*')
                 .like('date', `${monthInput}%`)
@@ -357,7 +343,7 @@
         // --- Manager / Editor Logic ---
 
         async function downloadCSV() {
-            const { data, error } = await supabase
+            const { data, error } = await sb
                 .from('attendance')
                 .select('*')
                 .order('date', { ascending: true })
@@ -390,7 +376,7 @@
             document.getElementById('editorModal').classList.add('active');
             renderEditorLoading();
 
-            const { data, error } = await supabase
+            const { data, error } = await sb
                 .from('attendance')
                 .select('*')
                 .order('created_at', { ascending: false })
@@ -475,7 +461,7 @@
             const record = editingData[index];
 
             if (record.id) {
-                const { error } = await supabase
+                const { error } = await sb
                     .from('attendance')
                     .delete()
                     .eq('id', record.id);
@@ -504,7 +490,7 @@
                 let error = null;
 
                 if (r.id) {
-                    const { error: updateError } = await supabase
+                    const { error: updateError } = await sb
                         .from('attendance')
                         .update({
                             date: r.date,
@@ -515,7 +501,7 @@
                         .eq('id', r.id);
                     error = updateError;
                 } else {
-                    const { error: insertError } = await supabase
+                    const { error: insertError } = await sb
                         .from('attendance')
                         .insert([{
                             date: r.date,
