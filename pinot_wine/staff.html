@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="staff.css">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -53,6 +55,18 @@
                 <span class="label">退勤</span>
                 <span class="sub">Clock Out</span>
             </button>
+            <!-- 
+            <button class="action-btn break-in" onclick="recordTime('休憩入')">
+                <span class="icon">☕️</span>
+                <span class="label">休憩入</span>
+                <span class="sub">Break Start</span>
+            </button>
+            <button class="action-btn break-out" onclick="recordTime('休憩戻')">
+                <span class="icon">🔙</span>
+                <span class="label">休憩戻</span>
+                <span class="sub">Break End</span>
+            </button>
+            -->
         </div>
 
         <div id="statusMessage" class="status-message"></div>
@@ -67,8 +81,8 @@
                         style="background: #27ae60; margin-top:10px;">Download CSV (Excel)</button>
                     <button onclick="openEditor()" class="save-btn" style="background: #2980b9; margin-top:10px;">Edit
                         Records (修正・管理)</button>
-                    <button onclick="clearData()" class="save-btn" style="background: #c0392b; margin-top:10px;">Clear
-                        Data (全消去)</button>
+                    <!-- Clear Data removed -->
+                    <!-- <button onclick="clearData()" class="save-btn" style="background: #c0392b; margin-top:10px;">Clear Data (全消去)</button> -->
                 </div>
             </details>
         </div>
@@ -98,6 +112,11 @@
                 <button onclick="closeEditor()" style="background:none; border:none; font-size:1.5rem;">&times;</button>
             </div>
 
+            <div style="margin-bottom: 10px;">
+                <button onclick="addNewRow()" class="save-btn"
+                    style="background: #e67e22; width:auto; padding: 5px 15px;">＋ 新規追加 (Add New)</button>
+            </div>
+
             <div id="editorList" class="editor-container">
                 <!-- Rows will be injected here -->
             </div>
@@ -110,6 +129,17 @@
     </div>
 
     <script>
+        // --- Configuration ---
+        const SUPABASE_URL = 'https://xoqdhhpvzaseooohpeid.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_xIS-gPvdyqGZx8nc71muUQ_aD6UxrWa';
+
+        let supabase;
+        try {
+            supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch (e) {
+            console.error("Supabase Init Error:", e);
+        }
+
         // Clock Update
         function updateClock() {
             const now = new Date();
@@ -121,7 +151,9 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            updateStatusBoard();
+            fetchStatusBoard(); // Initial fetch
+            subscribeToChanges(); // Listen for realtime updates
+
             // Set default month for report
             const now = new Date();
             const yyyy = now.getFullYear();
@@ -129,19 +161,10 @@
             document.getElementById('reportMonth').value = `${yyyy}-${mm}`;
         });
 
-        // --- Core Logic ---
-
-        function getData() {
-            return JSON.parse(localStorage.getItem('pinot_attendance_v1') || '[]');
-        }
-
-        function saveData(data) {
-            localStorage.setItem('pinot_attendance_v1', JSON.stringify(data));
-            updateStatusBoard();
-        }
+        // --- Core Logic (Supabase) ---
 
         // Record Time Function
-        function recordTime(action) {
+        async function recordTime(action) {
             const staffName = document.getElementById('staffName').value;
             const statusDiv = document.getElementById('statusMessage');
 
@@ -151,53 +174,91 @@
                 return;
             }
 
+            statusDiv.textContent = '⏳ 送信中...';
+            statusDiv.className = 'status-message sending';
+
             const now = new Date();
             const record = {
-                id: Date.now(),
-                // Standardize Internal ID
+                // created_at is auto
                 timestamp: now.toISOString(),
-                // Display/ CSV friendly formats
-                date: now.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-'),
-                time: now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }),
+                date: now.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-'), // YYYY-MM-DD
+                time: now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }), // HH:MM
                 staff: staffName,
                 action: action
             };
 
-            const data = getData();
-            data.push(record);
-            saveData(data);
+            const { data, error } = await supabase
+                .from('attendance')
+                .insert([record])
+                .select();
 
-            const emoji = action === '出勤' ? '☀️' : '🌙';
-            statusDiv.innerHTML = `✅ <strong>${record.time}</strong><br>${staffName}: ${action} 完了しました ${emoji}`;
-            statusDiv.className = 'status-message success';
+            if (error) {
+                console.error("Insert Error:", error);
+                statusDiv.innerHTML = `❌ エラーが発生しました: <br>${error.message}`;
+                statusDiv.className = 'status-message error';
+            } else {
+                const emoji = action === '出勤' ? '☀️' : '🌙';
+                statusDiv.innerHTML = `✅ <strong>${record.time}</strong><br>${staffName}: ${action} 完了しました ${emoji}`;
+                statusDiv.className = 'status-message success';
+                // Note: Status board will update automatically via subscription
+            }
         }
 
-        // Status Board Logic
-        function updateStatusBoard() {
-            const data = getData();
-            // Sort Chronologically
-            data.sort((a, b) => a.id - b.id);
+        // --- Realtime & Status Board ---
 
-            const statusMap = {}; // { StaffName: 'in' | 'out' }
+        // Subscribe to database changes
+        function subscribeToChanges() {
+            supabase
+                .channel('attendance_changes')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'attendance' }, payload => {
+                    console.log('Change received!', payload);
+                    fetchStatusBoard(); // Refresh board on any change
+                })
+                .subscribe();
+        }
 
-            data.forEach(row => {
+        // Fetch data to calculate current status
+        async function fetchStatusBoard() {
+            const { data, error } = await supabase
+                .from('attendance')
+                .select('*')
+                .order('id', { ascending: false })
+                .limit(200); // Fetch last 200 checks
+
+            if (error) {
+                console.error("Fetch Error:", error);
+                return;
+            }
+
+            // Logic: Process from oldest to newest to determine state
+            // But we fetched newest first. Let's reverse for processing.
+            const records = data.reverse();
+            const statusMap = {};
+
+            records.forEach(row => {
                 if (row.action === '出勤') statusMap[row.staff] = 'in';
                 if (row.action === '退勤') statusMap[row.staff] = 'out';
             });
 
+            renderStatusBoard(statusMap);
+        }
+
+        function renderStatusBoard(statusMap) {
             const board = document.getElementById('workingStatus');
             board.innerHTML = '';
 
             let activeCount = 0;
-            for (const [staff, status] of Object.entries(statusMap)) {
-                if (status === 'in') {
+            const staffs = ["なゆた", "よういちろう", "まなみん", "あき", "はやと", "ひとみ", "ケンケン", "りゅうくん", "まみ"];
+
+            staffs.forEach(staff => {
+                if (statusMap[staff] === 'in') {
                     const badge = document.createElement('span');
                     badge.className = 'status-badge in';
                     badge.textContent = staff;
                     board.appendChild(badge);
                     activeCount++;
                 }
-            }
+            });
 
             if (activeCount === 0) {
                 board.innerHTML = '<span class="status-placeholder">誰も出勤していません</span>';
@@ -215,27 +276,30 @@
             document.getElementById('reportModal').classList.remove('active');
         }
 
-        function renderReport() {
+        async function renderReport() {
             const monthInput = document.getElementById('reportMonth').value; // YYYY-MM
             if (!monthInput) return;
 
-            const [year, month] = monthInput.split('-');
             const container = document.getElementById('reportContainer');
-            container.innerHTML = '';
+            container.innerHTML = '<p style="text-align:center;">読み込み中...</p>';
 
-            const data = getData();
-            // Sort by time roughly
-            data.sort((a, b) => a.id - b.id);
+            // Fetch records for the selected month
+            // format: date starts with YYYY-MM
+            const { data, error } = await supabase
+                .from('attendance')
+                .select('*')
+                .like('date', `${monthInput}%`)
+                .order('date', { ascending: true })
+                .order('time', { ascending: true });
 
-            // Filter by selected month
-            const filtered = data.filter(row => {
-                // row.date is YYYY-MM-DD
-                return row.date.startsWith(`${year}-${month}`);
-            });
+            if (error) {
+                container.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+                return;
+            }
 
             // Group by Staff
             const staffRecords = {};
-            filtered.forEach(row => {
+            data.forEach(row => {
                 if (!staffRecords[row.staff]) staffRecords[row.staff] = [];
                 staffRecords[row.staff].push(row);
             });
@@ -269,16 +333,12 @@
         }
 
         function calculateMinutes(records) {
-            // records is sorted by time for one staff in one month
-            // We assume pairs of In -> Out.
-            // If multiple 'In's occur without 'Out', we ignore the earlier 'In's or treat as user error.
-            // Let's iterate linearly.
-
             let totalMinutes = 0;
             let lastInTime = null;
 
             records.forEach(row => {
-                const dt = new Date(`${row.date.replace(/-/g, '/')} ${row.time}`); // Date Object
+                let dt;
+                dt = new Date(`${row.date.replace(/-/g, '/')} ${row.time}`);
 
                 if (row.action === '出勤') {
                     lastInTime = dt;
@@ -296,34 +356,29 @@
 
         // --- Manager / Editor Logic ---
 
-        // Export to CSV
-        function downloadCSV() {
-            let data = getData();
+        async function downloadCSV() {
+            const { data, error } = await supabase
+                .from('attendance')
+                .select('*')
+                .order('date', { ascending: true })
+                .order('time', { ascending: true });
+
+            if (error) { alert('DB Error: ' + error.message); return; }
             if (data.length === 0) { alert('データがありません'); return; }
 
-            // Sort Chronologically
-            data.sort((a, b) => {
-                const dateA = a.date.replace(/\//g, '-') + ' ' + a.time;
-                const dateB = b.date.replace(/\//g, '-') + ' ' + b.time;
-                return new Date(dateA) - new Date(dateB);
-            });
-
-            // CSV Header
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "Date,Time,Staff,Action\n";
 
-            // CSV Body
             data.forEach(row => {
                 const dateFixed = row.date.replace(/-/g, '/');
                 csvContent += `${dateFixed},${row.time},${row.staff},${row.action}\n`;
             });
 
-            // Download Link
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
             const dateStr = new Date().toISOString().slice(0, 10);
-            link.setAttribute("download", `pinot_attendance_${dateStr}.csv`);
+            link.setAttribute("download", `pinot_attendance_cloud_${dateStr}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -331,31 +386,44 @@
 
         let editingData = [];
 
-        function openEditor() {
-            editingData = getData();
-            renderEditor();
+        async function openEditor() {
             document.getElementById('editorModal').classList.add('active');
+            renderEditorLoading();
+
+            const { data, error } = await supabase
+                .from('attendance')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .limit(100);
+
+            if (error) {
+                alert("Error fetching data: " + error.message);
+                return;
+            }
+
+            editingData = data;
+            renderEditor();
         }
 
         function closeEditor() {
             document.getElementById('editorModal').classList.remove('active');
         }
 
+        function renderEditorLoading() {
+            document.getElementById('editorList').innerHTML = '<p style="text-align:center; padding:20px;">読み込み中...</p>';
+        }
+
         function renderEditor() {
             const container = document.getElementById('editorList');
             container.innerHTML = '';
-
-            // Sort by Date Descending (Newest first) for Editor
-            editingData.sort((a, b) => {
-                const dateA = a.date.replace(/\//g, '-') + ' ' + a.time;
-                const dateB = b.date.replace(/\//g, '-') + ' ' + b.time;
-                return new Date(dateB) - new Date(dateA);
-            });
 
             editingData.forEach((row, index) => {
                 const div = document.createElement('div');
                 div.className = 'edit-row';
                 const dateValue = row.date.replace(/\//g, '-');
+
+                const isNew = !row.id;
+                div.style.backgroundColor = isNew ? '#fff9c4' : 'transparent';
 
                 div.innerHTML = `
                     <input type="date" class="edit-date" value="${dateValue}" onchange="updateRow(${index}, 'date', this.value)">
@@ -368,9 +436,25 @@
                         <option value="退勤" ${row.action === '退勤' ? 'selected' : ''}>退勤</option>
                     </select>
                     <button class="btn-delete" onclick="deleteRow(${index})">🗑</button>
+                    <!-- Track changes -->
+                    <input type="hidden" id="changed_${index}" value="false">
                 `;
                 container.appendChild(div);
             });
+        }
+
+        function addNewRow() {
+            const now = new Date();
+            const newRow = {
+                id: null,
+                date: now.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-'),
+                time: now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }),
+                staff: 'なゆた',
+                action: '出勤',
+                _isChanged: true
+            };
+            editingData.unshift(newRow); // Add to top
+            renderEditor();
         }
 
         function getStaffOptions(selectedName) {
@@ -382,27 +466,80 @@
 
         function updateRow(index, field, value) {
             editingData[index][field] = value;
+            editingData[index]._isChanged = true;
         }
 
-        function deleteRow(index) {
-            if (confirm('削除しますか？')) {
-                editingData.splice(index, 1);
-                renderEditor();
+        async function deleteRow(index) {
+            if (!confirm('本当に削除しますか？\n（この操作は取り消せません）')) return;
+
+            const record = editingData[index];
+
+            if (record.id) {
+                const { error } = await supabase
+                    .from('attendance')
+                    .delete()
+                    .eq('id', record.id);
+
+                if (error) {
+                    alert("削除エラー: " + error.message);
+                    return;
+                }
             }
+
+            editingData.splice(index, 1);
+            renderEditor();
         }
 
-        function saveAllChanges() {
-            saveData(editingData);
-            alert('修正を保存しました！');
-            closeEditor();
-        }
+        async function saveAllChanges() {
+            const changedRecords = editingData.filter(r => r._isChanged);
 
-        // Clear Data
-        function clearData() {
-            if (confirm('全てのデータを消去しますか？\n(CSVバックアップを取ってから行うことを推奨します)')) {
-                localStorage.removeItem('pinot_attendance_v1');
-                alert('データを消去しました');
-                updateStatusBoard();
+            if (changedRecords.length === 0) {
+                alert('変更点はありません');
+                return;
+            }
+
+            let errorCount = 0;
+
+            for (const r of changedRecords) {
+                let error = null;
+
+                if (r.id) {
+                    const { error: updateError } = await supabase
+                        .from('attendance')
+                        .update({
+                            date: r.date,
+                            time: r.time,
+                            staff: r.staff,
+                            action: r.action
+                        })
+                        .eq('id', r.id);
+                    error = updateError;
+                } else {
+                    const { error: insertError } = await supabase
+                        .from('attendance')
+                        .insert([{
+                            date: r.date,
+                            time: r.time,
+                            staff: r.staff,
+                            action: r.action
+                        }]);
+                    error = insertError;
+                }
+
+                if (error) {
+                    console.error("Save failed for", r, error);
+                    errorCount++;
+                } else {
+                    r._isChanged = false;
+                }
+            }
+
+            if (errorCount > 0) {
+                alert(`${errorCount}件の保存に失敗しました。`);
+            } else {
+                alert('修正・追加を保存しました！');
+                closeEditor();
+                fetchStatusBoard();
             }
         }
     </script>
