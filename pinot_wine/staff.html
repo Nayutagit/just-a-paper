@@ -38,6 +38,7 @@
                 <option value="ひとみ">ひとみ</option>
                 <option value="ケンケン">ケンケン</option>
                 <option value="りゅうくん">りゅうくん</option>
+                <option value="まみ">まみ</option>
             </select>
         </div>
 
@@ -270,7 +271,6 @@
         function calculateMinutes(records) {
             // records is sorted by time for one staff in one month
             // We assume pairs of In -> Out.
-            // Simplified logic: Find 'In', look for next 'Out'.
             // If multiple 'In's occur without 'Out', we ignore the earlier 'In's or treat as user error.
             // Let's iterate linearly.
 
@@ -374,7 +374,7 @@
         }
 
         function getStaffOptions(selectedName) {
-            const staffs = ["なゆた", "よういちろう", "まなみん", "あき", "はやと", "ひとみ", "ケンケン", "りゅうくん"];
+            const staffs = ["なゆた", "よういちろう", "まなみん", "あき", "はやと", "ひとみ", "ケンケン", "りゅうくん", "まみ"];
             return staffs.map(name =>
                 `<option value="${name}" ${name === selectedName ? 'selected' : ''}>${name}</option>`
             ).join('');
