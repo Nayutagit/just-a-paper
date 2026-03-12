@@ -84,7 +84,7 @@
 
         <div class="staff-section" data-staff="品川まみ">
             <h2>
-                <span>2026年2月勤務実績　品川まみ <button class="btn-print" onclick="printStaff(品川まみ)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span>2026年2月勤務実績　品川まみ <button class="btn-print" onclick="printStaff('品川まみ')">📄 この人の表だけPDF保存(印刷)</button></span>
                 <span class="staff-month-total">0.00 h</span>
             </h2>
             <table>
@@ -333,7 +333,7 @@
 
         <div class="staff-section" data-staff="國原亜希">
             <h2>
-                <span>2026年2月勤務実績　國原亜希 <button class="btn-print" onclick="printStaff(國原亜希)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span>2026年2月勤務実績　國原亜希 <button class="btn-print" onclick="printStaff('國原亜希')">📄 この人の表だけPDF保存(印刷)</button></span>
                 <span class="staff-month-total">0.00 h</span>
             </h2>
             <table>
@@ -582,7 +582,7 @@
 
         <div class="staff-section" data-staff="永山愛美">
             <h2>
-                <span>2026年2月勤務実績　永山愛美 <button class="btn-print" onclick="printStaff(永山愛美)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span>2026年2月勤務実績　永山愛美 <button class="btn-print" onclick="printStaff('永山愛美')">📄 この人の表だけPDF保存(印刷)</button></span>
                 <span class="staff-month-total">0.00 h</span>
             </h2>
             <table>
@@ -831,7 +831,7 @@
 
         <div class="staff-section" data-staff="永山鷹一郎">
             <h2>
-                <span>2026年2月勤務実績　永山鷹一郎 <button class="btn-print" onclick="printStaff(永山鷹一郎)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span>2026年2月勤務実績　永山鷹一郎 <button class="btn-print" onclick="printStaff('永山鷹一郎')">📄 この人の表だけPDF保存(印刷)</button></span>
                 <span class="staff-month-total">0.00 h</span>
             </h2>
             <table>
@@ -1112,7 +1112,7 @@
 
         <div class="staff-section" data-staff="秋山 那由他">
             <h2>
-                <span>2026年2月勤務実績　秋山 那由他 <button class="btn-print" onclick="printStaff(秋山 那由他)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span>2026年2月勤務実績　秋山 那由他 <button class="btn-print" onclick="printStaff('秋山 那由他')">📄 この人の表だけPDF保存(印刷)</button></span>
                 <span class="staff-month-total">0.00 h</span>
             </h2>
             <table>
@@ -1372,7 +1372,7 @@
     <div id="toast" class="toast">自動保存しました</div>
     
     <script>
-        const STORAGE_KEY = attendance_feb2026_autosave_v2; 
+        const STORAGE_KEY = 'attendance_feb2026_autosave_v2'; 
         let saveTimeout = null;
 
         function showToast(msg) {
@@ -1396,39 +1396,45 @@
             const originalTitle = document.title;
             document.title = "2026年2月_勤務実績_" + staffName;
             
-            window.print();
-            
-            document.title = originalTitle;
-            document.body.classList.remove("print-single");
-            sections.forEach(sec => sec.classList.remove("print-active"));
+            setTimeout(() => {
+                window.print();
+                
+                document.title = originalTitle;
+                document.body.classList.remove("print-single");
+                sections.forEach(sec => sec.classList.remove("print-active"));
+            }, 100);
         }
 
         function saveToStorage() {
-            const dataToSave = {};
-            const staffSections = document.querySelectorAll(".staff-section");
-            
-            staffSections.forEach(section => {
-                const staff = section.getAttribute("data-staff");
-                dataToSave[staff] = [];
-                const rows = section.querySelectorAll(".shift-row");
+            try {
+                const dataToSave = {};
+                const staffSections = document.querySelectorAll(".staff-section");
                 
-                rows.forEach(row => {
-                    const obj = {
-                        start: row.querySelector(".start-time").value,
-                        end: row.querySelector(".end-time").value,
-                        breakValue: row.querySelector(".break-input").value
-                    };
-                    dataToSave[staff].push(obj);
+                staffSections.forEach(section => {
+                    const staff = section.getAttribute("data-staff");
+                    dataToSave[staff] = [];
+                    const rows = section.querySelectorAll(".shift-row");
+                    
+                    rows.forEach(row => {
+                        const obj = {
+                            start: row.querySelector(".start-time").value,
+                            end: row.querySelector(".end-time").value,
+                            breakValue: row.querySelector(".break-input").value
+                        };
+                        dataToSave[staff].push(obj);
+                    });
                 });
-            });
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
-            showToast("自動保存しました ✅");
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+                showToast("自動保存しました ✅");
+            } catch (e) {
+                console.warn("localStorage setItem failed:", e);
+            }
         }
 
         function loadFromStorage() {
-            const savedDataStr = localStorage.getItem(STORAGE_KEY);
-            if (!savedDataStr) return false;
             try {
+                const savedDataStr = localStorage.getItem(STORAGE_KEY);
+                if (!savedDataStr) return false;
                 const savedData = JSON.parse(savedDataStr);
                 const staffSections = document.querySelectorAll(".staff-section");
                 
@@ -1448,20 +1454,22 @@
                 });
                 return true;
             } catch(e) {
-                console.error("Local storage load error", e);
+                console.warn("Local storage load error", e);
                 return false;
             }
         }
 
         function resetData() {
             if(confirm("すべて初期状態に戻しますか？")) {
-                localStorage.removeItem(STORAGE_KEY);
+                try {
+                    localStorage.removeItem(STORAGE_KEY);
+                } catch(e) {}
                 location.reload();
             }
         }
 
         function parseTime(tStr) {
-            if(!tStr || tStr.trim() === "") return null;
+            if(!tStr || typeof tStr !== "string" || tStr.trim() === "") return null;
             let parts = tStr.split(":");
             if(parts.length < 2) return null;
             let h = parseInt(parts[0], 10);
@@ -1535,43 +1543,14 @@
              }
         });
 
-        function downloadCSV() {
-            let csvContent = "日付,スタッフ,開始時間,終了時間,休憩時間(分),合計時間(h)\n";
-            const staffSections = document.querySelectorAll(".staff-section");
-            
-            staffSections.forEach(section => {
-                const staff = section.getAttribute("data-staff");
-                const rows = section.querySelectorAll(".shift-row");
-                
-                rows.forEach(row => {
-                    const date = row.querySelector(".date-cell").getAttribute("data-date");
-                    const start = row.querySelector(".start-time").value.trim();
-                    const end = row.querySelector(".end-time").value.trim();
-                    const breakVal = row.querySelector(".break-input").value;
-                    const breakMin = breakVal === "" ? "0" : breakVal;
-                    const total = row.querySelector(".total-cell").textContent;
-                    
-                    if(start !== "" && end !== "") {
-                        csvContent += `${date},${staff},${start},${end},${breakMin},${total}\n`;
-                    }
-                });
-            });
-            
-            const BOM = "\uFEFF";
-            const blob = new Blob([BOM + csvContent], { type: "text/csv;charset=utf-8;" });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", "2026年2月_勤怠修正版_最終保存.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        window.onload = function() {
-            loadFromStorage();
-            calculateHours();
-        };
+        // Initialize on load
+        document.addEventListener("DOMContentLoaded", function() {
+            // Short delay to ensure browser rendering is ready
+            setTimeout(function() {
+                loadFromStorage();
+                calculateHours();
+            }, 100);
+        });
     </script>
 </body>
 </html>
