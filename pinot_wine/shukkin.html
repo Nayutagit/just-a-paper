@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>2026年2月 勤務実績表</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: "Helvetica Neue", Arial, sans-serif; padding: 20px; color: #333; background-color: #f9f9f9; }
         .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
@@ -84,6 +85,7 @@
 
         <div class="toolbar">
             <button class="btn btn-reset" onclick="resetData()">↺ 全て初期状態に戻す</button>
+            <button class="btn btn-dl" onclick="saveToSupabase()" style="background-color: #f39c12; margin-right: -400px;">☁️ クラウド(Supabase)に上書き保存</button>
             <button class="btn btn-dl" onclick="downloadCSV()">CSV形式でダウンロード(全データ)</button>
         </div>
 
@@ -1377,6 +1379,15 @@
     <div id="toast" class="toast">自動保存しました</div>
     
     <script>
+        const SUPABASE_URL = 'https://xoqdhhpvzaseooohpeid.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_xIS-gPvdyqGZx8nc71muUQ_aD6UxrWa';
+        let sb;
+        try {
+            sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch (e) {
+            console.error("Supabase Init Error:", e);
+        }
+
         const STORAGE_KEY = 'attendance_feb2026_autosave_v2'; 
         let saveTimeout = null;
 
@@ -1433,6 +1444,69 @@
                 showToast("自動保存しました ✅");
             } catch (e) {
                 console.warn("localStorage setItem failed:", e);
+            }
+        }
+
+        async function saveToSupabase() {
+            if (!confirm("現在画面に入力されている全員のデータで、クラウドのデータを上書き保存します。よろしいですか？")) return;
+            
+            showToast("クラウドへ保存中... ⏳");
+            const staffSections = document.querySelectorAll(".staff-section");
+            const recordsToInsert = [];
+            
+            staffSections.forEach(section => {
+                const staff = section.getAttribute("data-staff");
+                const rows = section.querySelectorAll(".shift-row");
+                
+                rows.forEach(row => {
+                    const dateStr = row.querySelector(".date-cell").getAttribute("data-date");
+                    const startRaw = row.querySelector(".start-time").value;
+                    const endRaw = row.querySelector(".end-time").value;
+                    
+                    if (startRaw && endRaw) {
+                        // Create 出勤 record
+                        recordsToInsert.push({
+                            date: "2026-02-" + dateStr.replace("2月", "").replace("日", "").padStart(2, '0'),
+                            time: startRaw,
+                            staff: staff,
+                            action: "出勤"
+                        });
+                        // Create 退勤 record
+                        recordsToInsert.push({
+                            date: "2026-02-" + dateStr.replace("2月", "").replace("日", "").padStart(2, '0'),
+                            time: endRaw,
+                            staff: staff,
+                            action: "退勤"
+                        });
+                    }
+                });
+            });
+            
+            if (recordsToInsert.length === 0) {
+                alert("保存するデータがありません。");
+                return;
+            }
+
+            try {
+                // Delete existing Feb 2026 records so we don't have duplicates
+                const { error: delError } = await sb
+                    .from('attendance')
+                    .delete()
+                    .like('date', '2026-02-%');
+                    
+                if (delError) throw delError;
+
+                const { error: insertError } = await sb
+                    .from('attendance')
+                    .insert(recordsToInsert);
+                    
+                if (insertError) throw insertError;
+                
+                alert("データベースへの上書き保存が完了しました！🎉");
+                showToast("クラウド保存完了 ✨");
+            } catch (e) {
+                console.error("Supabase Save Error:", e);
+                alert("エラーが発生しました: " + e.message);
             }
         }
 
