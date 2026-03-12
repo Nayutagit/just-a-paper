@@ -51,15 +51,20 @@
         .toast.show { visibility: visible; opacity: 1; }
 
         @media print {
+            @page { margin: 10mm; }
             body { background: #fff; padding: 0; color: #000; }
             .container { box-shadow: none; padding: 0; max-width: 100%; margin: 0; }
             .toolbar, .notice, .toast, .btn-print, h1 { display: none !important; }
-            .staff-section { page-break-after: always; margin-bottom: 30px; }
+            .staff-section { page-break-after: always; margin-bottom: 0px; }
             .staff-section:last-child { page-break-after: auto; }
-            h2 { font-size: 18px; border-bottom: 2px solid #000; color: #000; display: block; }
+            h2 { font-size: 16px; border-bottom: 2px solid #000; color: #000; display: block; margin: 0 0 5px 0; padding-bottom: 3px; }
             h2 span:last-child { float: right; }
-            th { background-color: #eee; color: #000; border: 1px solid #000; }
-            td { border: 1px solid #000; }
+            table { margin-top: 5px; }
+            th, td { border: 1px solid #000; height: 26px !important; padding: 0px; font-size: 12px; }
+            th { background-color: #eee; color: #000; padding: 2px 0px; }
+            input.time-input, input.break-input { font-size: 13px; padding: 0; height: 24px; }
+            .total-cell { font-size: 13px; }
+            .total-row td { font-size: 13px; padding: 2px; height: 28px !important; }
             
             body.print-single .staff-section { display: none !important; }
             body.print-single .staff-section.print-active { display: block !important; page-break-after: auto; }
