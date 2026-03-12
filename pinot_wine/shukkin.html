@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>2026年2月 勤務実績表</title>
+    <style>
+        body { font-family: "Helvetica Neue", Arial, sans-serif; padding: 20px; color: #333; background-color: #f9f9f9; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 20px; }
+        .toolbar { display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center;}
+        .btn { padding: 10px 20px; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 15px; font-weight: bold; }
+        .btn-dl { background-color: #27ae60; }
+        .btn-dl:hover { background-color: #2ecc71; }
+        .btn-reset { background-color: #e74c3c; font-size: 13px; padding: 6px 12px; }
+        .btn-reset:hover { background-color: #c0392b; }
+        
+        .staff-section { margin-bottom: 50px; page-break-inside: avoid; }
+        h2 { border-bottom: 2px solid #3498db; padding-bottom: 5px; color: #2980b9; display: flex; justify-content: space-between; align-items: center; font-size: 20px;}
+        .btn-print { background-color: #3498db; color: white; padding: 5px 12px; font-size: 13px; margin-left: 15px; border-radius: 4px; border: none; cursor: pointer; font-weight: bold;}
+        .btn-print:hover { background-color: #2980b9; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; table-layout: fixed; }
+        th, td { border: 1px solid #ddd; padding: 0; text-align: center; vertical-align: middle; height: 35px; }
+        th { background-color: #f2f6f8; color: #333; font-weight: bold; padding: 8px; }
+        tr:nth-child(even) { background-color: #fafbfc; }
+        
+        input.time-input, input.break-input {
+            width: 100%; height: 100%; border: none; background: transparent;
+            text-align: center; font-size: 15px; font-family: inherit; color: inherit;
+            padding: 8px 0; box-sizing: border-box; outline: none; cursor: text;
+        }
+        input.time-input:focus, input.break-input:focus {
+            background-color: #eaf2f8; 
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; margin: 0; 
+        }
+        input[type=number] { -moz-appearance: textfield; }
+        
+        .total-cell { font-weight: bold; color: #d35400; font-size: 15px; }
+        .total-row { font-weight: bold; background-color: #eaf2f8 !important; }
+        .total-row td { color: #d35400; font-size: 1.1em; padding: 8px; }
+        .notice { font-size: 14px; background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #ffeeba; line-height: 1.5; position: relative;}
+        
+        .toast {
+            visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center;
+            border-radius: 4px; padding: 12px; position: fixed; z-index: 1000; left: 50%;
+            bottom: 30px; transform: translateX(-50%); font-size: 14px; opacity: 0; transition: opacity 0.5s;
+        }
+        .toast.show { visibility: visible; opacity: 1; }
+
+        @media print {
+            body { background: #fff; padding: 0; color: #000; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; margin: 0; }
+            .toolbar, .notice, .toast, .btn-print, h1 { display: none !important; }
+            .staff-section { page-break-after: always; margin-bottom: 30px; }
+            .staff-section:last-child { page-break-after: auto; }
+            h2 { font-size: 18px; border-bottom: 2px solid #000; color: #000; display: block; }
+            h2 span:last-child { float: right; }
+            th { background-color: #eee; color: #000; border: 1px solid #000; }
+            td { border: 1px solid #000; }
+            
+            body.print-single .staff-section { display: none !important; }
+            body.print-single .staff-section.print-active { display: block !important; page-break-after: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2026年2月 勤務実績表</h1>
+        
+        <div class="notice">
+            💡 <strong>ブラウザ上で直接時間を編集でき、自動で保存されます！</strong><br>
+            ・名前の横にある「📄この人の表だけPDF保存(印刷)」ボタンを押すと、その人の表だけが印刷画面になります。<br>
+            ・Macの場合は印刷画面で「PDFとして保存」を選択すればOKです！<br>
+            ・永山鷹一郎さんの修正指示分はすでに反映されています。
+        </div>
+
+        <div class="toolbar">
+            <button class="btn btn-reset" onclick="resetData()">↺ 全て初期状態に戻す</button>
+            <button class="btn btn-dl" onclick="downloadCSV()">CSV形式でダウンロード(全データ)</button>
+        </div>
+
+        <div class="staff-section" data-staff="品川まみ">
+            <h2>
+                <span>2026年2月勤務実績　品川まみ <button class="btn-print" onclick="printStaff(品川まみ)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span class="staff-month-total">0.00 h</span>
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">日付</th>
+                        <th style="width: 20%;">開始時間</th>
+                        <th style="width: 20%;">終了時間</th>
+                        <th style="width: 25%;">休憩時間(分)</th>
+                        <th style="width: 20%;">合計時間(h)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月1日" style="color:#aaa;">2月1日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月2日" style="color:#aaa;">2月2日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月3日" style="color:#aaa;">2月3日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月4日" style="color:#aaa;">2月4日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月5日" style="color:#aaa;">2月5日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月6日" style="color:#aaa;">2月6日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月7日" style="color:#aaa;">2月7日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月8日" style="color:#aaa;">2月8日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月9日" style="color:#aaa;">2月9日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月10日" style="color:#aaa;">2月10日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月11日" style="color:#aaa;">2月11日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月12日" style="color:#aaa;">2月12日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月13日" style="color:#aaa;">2月13日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月14日" style="color:#aaa;">2月14日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月15日" style="color:#aaa;">2月15日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月16日" style="color:#aaa;">2月16日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月17日">2月17日</td>
+                        <td><input type="text" class="time-input start-time" value="18:00"></td>
+                        <td><input type="text" class="time-input end-time" value="0:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月18日" style="color:#aaa;">2月18日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月19日" style="color:#aaa;">2月19日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月20日" style="color:#aaa;">2月20日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月21日" style="color:#aaa;">2月21日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月22日" style="color:#aaa;">2月22日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月23日" style="color:#aaa;">2月23日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月24日" style="color:#aaa;">2月24日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月25日" style="color:#aaa;">2月25日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月26日" style="color:#aaa;">2月26日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月27日" style="color:#aaa;">2月27日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月28日">2月28日</td>
+                        <td><input type="text" class="time-input start-time" value="18:00"></td>
+                        <td><input type="text" class="time-input end-time" value="21:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="total-row">
+                        <td colspan="4">当月合計</td>
+                        <td class="staff-month-total-td">0.00 h</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="staff-section" data-staff="國原亜希">
+            <h2>
+                <span>2026年2月勤務実績　國原亜希 <button class="btn-print" onclick="printStaff(國原亜希)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span class="staff-month-total">0.00 h</span>
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">日付</th>
+                        <th style="width: 20%;">開始時間</th>
+                        <th style="width: 20%;">終了時間</th>
+                        <th style="width: 25%;">休憩時間(分)</th>
+                        <th style="width: 20%;">合計時間(h)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月1日" style="color:#aaa;">2月1日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月2日">2月2日</td>
+                        <td><input type="text" class="time-input start-time" value="15:30"></td>
+                        <td><input type="text" class="time-input end-time" value="18:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月3日" style="color:#aaa;">2月3日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月4日" style="color:#aaa;">2月4日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月5日" style="color:#aaa;">2月5日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月6日">2月6日</td>
+                        <td><input type="text" class="time-input start-time" value="15:30"></td>
+                        <td><input type="text" class="time-input end-time" value="20:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月7日" style="color:#aaa;">2月7日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月8日" style="color:#aaa;">2月8日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月9日" style="color:#aaa;">2月9日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月10日">2月10日</td>
+                        <td><input type="text" class="time-input start-time" value="15:30"></td>
+                        <td><input type="text" class="time-input end-time" value="18:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月11日" style="color:#aaa;">2月11日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月12日" style="color:#aaa;">2月12日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月13日" style="color:#aaa;">2月13日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月14日" style="color:#aaa;">2月14日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月15日" style="color:#aaa;">2月15日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月16日" style="color:#aaa;">2月16日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月17日" style="color:#aaa;">2月17日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月18日" style="color:#aaa;">2月18日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月19日">2月19日</td>
+                        <td><input type="text" class="time-input start-time" value="15:30"></td>
+                        <td><input type="text" class="time-input end-time" value="19:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月20日">2月20日</td>
+                        <td><input type="text" class="time-input start-time" value="15:30"></td>
+                        <td><input type="text" class="time-input end-time" value="20:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月21日" style="color:#aaa;">2月21日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月22日" style="color:#aaa;">2月22日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月23日" style="color:#aaa;">2月23日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月24日">2月24日</td>
+                        <td><input type="text" class="time-input start-time" value="15:30"></td>
+                        <td><input type="text" class="time-input end-time" value="18:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月25日" style="color:#aaa;">2月25日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月26日">2月26日</td>
+                        <td><input type="text" class="time-input start-time" value="15:30"></td>
+                        <td><input type="text" class="time-input end-time" value="20:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月27日" style="color:#aaa;">2月27日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月28日" style="color:#aaa;">2月28日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="total-row">
+                        <td colspan="4">当月合計</td>
+                        <td class="staff-month-total-td">0.00 h</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="staff-section" data-staff="永山愛美">
+            <h2>
+                <span>2026年2月勤務実績　永山愛美 <button class="btn-print" onclick="printStaff(永山愛美)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span class="staff-month-total">0.00 h</span>
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">日付</th>
+                        <th style="width: 20%;">開始時間</th>
+                        <th style="width: 20%;">終了時間</th>
+                        <th style="width: 25%;">休憩時間(分)</th>
+                        <th style="width: 20%;">合計時間(h)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月1日" style="color:#aaa;">2月1日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月2日" style="color:#aaa;">2月2日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月3日" style="color:#aaa;">2月3日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月4日" style="color:#aaa;">2月4日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月5日" style="color:#aaa;">2月5日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月6日" style="color:#aaa;">2月6日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月7日" style="color:#aaa;">2月7日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月8日" style="color:#aaa;">2月8日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月9日" style="color:#aaa;">2月9日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月10日" style="color:#aaa;">2月10日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月11日" style="color:#aaa;">2月11日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月12日" style="color:#aaa;">2月12日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月13日" style="color:#aaa;">2月13日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月14日" style="color:#aaa;">2月14日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月15日" style="color:#aaa;">2月15日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月16日" style="color:#aaa;">2月16日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月17日" style="color:#aaa;">2月17日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月18日">2月18日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="15:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月19日">2月19日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="15:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月20日">2月20日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="15:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月21日" style="color:#aaa;">2月21日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月22日" style="color:#aaa;">2月22日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月23日" style="color:#aaa;">2月23日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月24日" style="color:#aaa;">2月24日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月25日" style="color:#aaa;">2月25日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月26日" style="color:#aaa;">2月26日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月27日" style="color:#aaa;">2月27日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月28日" style="color:#aaa;">2月28日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="total-row">
+                        <td colspan="4">当月合計</td>
+                        <td class="staff-month-total-td">0.00 h</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="staff-section" data-staff="永山鷹一郎">
+            <h2>
+                <span>2026年2月勤務実績　永山鷹一郎 <button class="btn-print" onclick="printStaff(永山鷹一郎)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span class="staff-month-total">0.00 h</span>
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">日付</th>
+                        <th style="width: 20%;">開始時間</th>
+                        <th style="width: 20%;">終了時間</th>
+                        <th style="width: 25%;">休憩時間(分)</th>
+                        <th style="width: 20%;">合計時間(h)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月1日">2月1日</td>
+                        <td><input type="text" class="time-input start-time" value="16:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月2日">2月2日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="25:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月3日">2月3日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="24:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月4日">2月4日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月5日">2月5日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="18:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月5日"></td>
+                        <td><input type="text" class="time-input start-time" value="21:00"></td>
+                        <td><input type="text" class="time-input end-time" value="24:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月6日">2月6日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="18:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月6日"></td>
+                        <td><input type="text" class="time-input start-time" value="20:30"></td>
+                        <td><input type="text" class="time-input end-time" value="25:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月7日">2月7日</td>
+                        <td><input type="text" class="time-input start-time" value="13:15"></td>
+                        <td><input type="text" class="time-input end-time" value="25:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月8日" style="color:#aaa;">2月8日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月9日" style="color:#aaa;">2月9日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月10日">2月10日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="0:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月11日">2月11日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="24:15"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月12日">2月12日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月13日">2月13日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:45"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月14日">2月14日</td>
+                        <td><input type="text" class="time-input start-time" value="13:00"></td>
+                        <td><input type="text" class="time-input end-time" value="18:15"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月14日"></td>
+                        <td><input type="text" class="time-input start-time" value="20:30"></td>
+                        <td><input type="text" class="time-input end-time" value="0:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月15日" style="color:#aaa;">2月15日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月16日" style="color:#aaa;">2月16日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月17日">2月17日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="0:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月18日">2月18日</td>
+                        <td><input type="text" class="time-input start-time" value="15:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:15"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月19日">2月19日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="0:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月20日">2月20日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:45"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月21日">2月21日</td>
+                        <td><input type="text" class="time-input start-time" value="18:00"></td>
+                        <td><input type="text" class="time-input end-time" value="24:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月22日" style="color:#aaa;">2月22日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月23日" style="color:#aaa;">2月23日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月24日">2月24日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月25日">2月25日</td>
+                        <td><input type="text" class="time-input start-time" value="15:00"></td>
+                        <td><input type="text" class="time-input end-time" value="24:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月26日">2月26日</td>
+                        <td><input type="text" class="time-input start-time" value="15:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月27日">2月27日</td>
+                        <td><input type="text" class="time-input start-time" value="15:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月28日">2月28日</td>
+                        <td><input type="text" class="time-input start-time" value="13:00"></td>
+                        <td><input type="text" class="time-input end-time" value="18:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月28日"></td>
+                        <td><input type="text" class="time-input start-time" value="18:30"></td>
+                        <td><input type="text" class="time-input end-time" value="23:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="total-row">
+                        <td colspan="4">当月合計</td>
+                        <td class="staff-month-total-td">0.00 h</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="staff-section" data-staff="秋山 那由他">
+            <h2>
+                <span>2026年2月勤務実績　秋山 那由他 <button class="btn-print" onclick="printStaff(秋山 那由他)">📄 この人の表だけPDF保存(印刷)</button></span>
+                <span class="staff-month-total">0.00 h</span>
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">日付</th>
+                        <th style="width: 20%;">開始時間</th>
+                        <th style="width: 20%;">終了時間</th>
+                        <th style="width: 25%;">休憩時間(分)</th>
+                        <th style="width: 20%;">合計時間(h)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月1日" style="color:#aaa;">2月1日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月2日" style="color:#aaa;">2月2日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月3日">2月3日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月4日">2月4日</td>
+                        <td><input type="text" class="time-input start-time" value="18:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月5日">2月5日</td>
+                        <td><input type="text" class="time-input start-time" value="20:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月6日" style="color:#aaa;">2月6日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月7日">2月7日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月8日" style="color:#aaa;">2月8日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月9日" style="color:#aaa;">2月9日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月10日">2月10日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月11日">2月11日</td>
+                        <td><input type="text" class="time-input start-time" value="18:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月12日">2月12日</td>
+                        <td><input type="text" class="time-input start-time" value="18:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月13日" style="color:#aaa;">2月13日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月14日">2月14日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月15日" style="color:#aaa;">2月15日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月16日" style="color:#aaa;">2月16日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月17日">2月17日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="16:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月17日"></td>
+                        <td><input type="text" class="time-input start-time" value="20:00"></td>
+                        <td><input type="text" class="time-input end-time" value="0:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月18日" style="color:#aaa;">2月18日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月19日" style="color:#aaa;">2月19日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月20日" style="color:#aaa;">2月20日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月21日">2月21日</td>
+                        <td><input type="text" class="time-input start-time" value="13:30"></td>
+                        <td><input type="text" class="time-input end-time" value="0:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月22日" style="color:#aaa;">2月22日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月23日" style="color:#aaa;">2月23日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月24日">2月24日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月25日">2月25日</td>
+                        <td><input type="text" class="time-input start-time" value="14:00"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row empty-row">
+                        <td class="date-cell" data-date="2月26日" style="color:#aaa;">2月26日</td>
+                        <td><input type="text" class="time-input start-time" value=""></td>
+                        <td><input type="text" class="time-input end-time" value=""></td>
+                        <td><input type="number" class="break-input" value="" min="0" step="15"></td>
+                        <td class="total-cell"></td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月27日">2月27日</td>
+                        <td><input type="text" class="time-input start-time" value="20:00"></td>
+                        <td><input type="text" class="time-input end-time" value="23:30"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="shift-row">
+                        <td class="date-cell" data-date="2月28日">2月28日</td>
+                        <td><input type="text" class="time-input start-time" value="13:30"></td>
+                        <td><input type="text" class="time-input end-time" value="22:00"></td>
+                        <td><input type="number" class="break-input" value="0" min="0" step="15"></td>
+                        <td class="total-cell">0.00</td>
+                    </tr>
+
+                    <tr class="total-row">
+                        <td colspan="4">当月合計</td>
+                        <td class="staff-month-total-td">0.00 h</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    
+    <div id="toast" class="toast">自動保存しました</div>
+    
+    <script>
+        const STORAGE_KEY = attendance_feb2026_autosave_v2; 
+        let saveTimeout = null;
+
+        function showToast(msg) {
+            const t = document.getElementById("toast");
+            t.textContent = msg;
+            t.classList.add("show");
+            setTimeout(() => { t.classList.remove("show"); }, 2000);
+        }
+        
+        function printStaff(staffName) {
+            document.body.classList.add("print-single");
+            const sections = document.querySelectorAll(".staff-section");
+            sections.forEach(sec => {
+                if (sec.getAttribute("data-staff") === staffName) {
+                    sec.classList.add("print-active");
+                } else {
+                    sec.classList.remove("print-active");
+                }
+            });
+            
+            const originalTitle = document.title;
+            document.title = "2026年2月_勤務実績_" + staffName;
+            
+            window.print();
+            
+            document.title = originalTitle;
+            document.body.classList.remove("print-single");
+            sections.forEach(sec => sec.classList.remove("print-active"));
+        }
+
+        function saveToStorage() {
+            const dataToSave = {};
+            const staffSections = document.querySelectorAll(".staff-section");
+            
+            staffSections.forEach(section => {
+                const staff = section.getAttribute("data-staff");
+                dataToSave[staff] = [];
+                const rows = section.querySelectorAll(".shift-row");
+                
+                rows.forEach(row => {
+                    const obj = {
+                        start: row.querySelector(".start-time").value,
+                        end: row.querySelector(".end-time").value,
+                        breakValue: row.querySelector(".break-input").value
+                    };
+                    dataToSave[staff].push(obj);
+                });
+            });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+            showToast("自動保存しました ✅");
+        }
+
+        function loadFromStorage() {
+            const savedDataStr = localStorage.getItem(STORAGE_KEY);
+            if (!savedDataStr) return false;
+            try {
+                const savedData = JSON.parse(savedDataStr);
+                const staffSections = document.querySelectorAll(".staff-section");
+                
+                staffSections.forEach(section => {
+                    const staff = section.getAttribute("data-staff");
+                    if(savedData[staff]) {
+                        const rows = section.querySelectorAll(".shift-row");
+                        rows.forEach((row, index) => {
+                            if(savedData[staff][index]) {
+                                const st = savedData[staff][index];
+                                row.querySelector(".start-time").value = st.start || "";
+                                row.querySelector(".end-time").value = st.end || "";
+                                row.querySelector(".break-input").value = st.breakValue || "";
+                            }
+                        });
+                    }
+                });
+                return true;
+            } catch(e) {
+                console.error("Local storage load error", e);
+                return false;
+            }
+        }
+
+        function resetData() {
+            if(confirm("すべて初期状態に戻しますか？")) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        function parseTime(tStr) {
+            if(!tStr || tStr.trim() === "") return null;
+            let parts = tStr.split(":");
+            if(parts.length < 2) return null;
+            let h = parseInt(parts[0], 10);
+            let m = parseInt(parts[1], 10);
+            if(isNaN(h) || isNaN(m)) return null;
+            return h + (m / 60.0);
+        }
+
+        function calculateHours() {
+            const staffSections = document.querySelectorAll(".staff-section");
+            
+            staffSections.forEach(section => {
+                let monthTotal = 0;
+                const rows = section.querySelectorAll(".shift-row");
+                
+                rows.forEach(row => {
+                    const startStr = row.querySelector(".start-time").value;
+                    const endStr = row.querySelector(".end-time").value;
+                    const breakInput = row.querySelector(".break-input").value;
+                    const breakMin = parseFloat(breakInput) || 0;
+                    const totalCell = row.querySelector(".total-cell");
+                    const dateCell = row.querySelector(".date-cell");
+                    
+                    const startH = parseTime(startStr);
+                    const endH = parseTime(endStr);
+                    
+                    if(startH !== null && endH !== null) {
+                        row.classList.remove("empty-row");
+                        dateCell.style.color = "#333";
+                        
+                        let e = endH;
+                        if(e <= startH || e === 0) e += 24;
+                        let diff = e - startH - (breakMin / 60.0);
+                        if(diff < 0) diff = 0;
+                        totalCell.textContent = diff.toFixed(2);
+                        monthTotal += diff;
+                    } else {
+                        totalCell.textContent = "";
+                        if(startStr === "" && endStr === "") {
+                            row.classList.add("empty-row");
+                            dateCell.style.color = "#aaa";
+                        }
+                    }
+                });
+                
+                section.querySelector(".staff-month-total").textContent = "合計出勤時間: " + monthTotal.toFixed(2) + " h";
+                section.querySelector(".staff-month-total-td").textContent = monthTotal.toFixed(2) + " h";
+            });
+        }
+
+        document.body.addEventListener("input", function(e) {
+            if(e.target.classList.contains("time-input") || e.target.classList.contains("break-input")) {
+                calculateHours();
+                clearTimeout(saveTimeout);
+                saveTimeout = setTimeout(saveToStorage, 800);
+            }
+        });
+
+        document.body.addEventListener("change", function(e) {
+             if(e.target.classList.contains("time-input")) {
+                 let val = e.target.value.trim();
+                 val = val.replace("：", ":"); 
+                 
+                 if(!val.includes(":") && !isNaN(val) && val.length > 0) {
+                     if(val.length === 3) val = "0" + val[0] + ":" + val.substring(1);
+                     if(val.length === 4) val = val.substring(0,2) + ":" + val.substring(2);
+                 }
+                 e.target.value = val;
+                 calculateHours();
+                 saveToStorage(); 
+             }
+        });
+
+        function downloadCSV() {
+            let csvContent = "日付,スタッフ,開始時間,終了時間,休憩時間(分),合計時間(h)\n";
+            const staffSections = document.querySelectorAll(".staff-section");
+            
+            staffSections.forEach(section => {
+                const staff = section.getAttribute("data-staff");
+                const rows = section.querySelectorAll(".shift-row");
+                
+                rows.forEach(row => {
+                    const date = row.querySelector(".date-cell").getAttribute("data-date");
+                    const start = row.querySelector(".start-time").value.trim();
+                    const end = row.querySelector(".end-time").value.trim();
+                    const breakVal = row.querySelector(".break-input").value;
+                    const breakMin = breakVal === "" ? "0" : breakVal;
+                    const total = row.querySelector(".total-cell").textContent;
+                    
+                    if(start !== "" && end !== "") {
+                        csvContent += `${date},${staff},${start},${end},${breakMin},${total}\n`;
+                    }
+                });
+            });
+            
+            const BOM = "\uFEFF";
+            const blob = new Blob([BOM + csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", "2026年2月_勤怠修正版_最終保存.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        window.onload = function() {
+            loadFromStorage();
+            calculateHours();
+        };
+    </script>
+</body>
+</html>
