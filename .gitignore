@@ -1,0 +1,5 @@
+gyakubari_note/config/gemini_key.php
+gyakubari_note/gyakubari_data/state.json
+gyakubari_note/gyakubari_data/archive/
+gyakubari_note/gyakubari_data/automation_log.txt
+.DS_Store
