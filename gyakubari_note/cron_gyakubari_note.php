@@ -30,7 +30,17 @@ write_log("Starting automated note generation process...", $logFile);
 try {
     // 1. 各種ファイルの存在チェック
     if (!file_exists($stateFile)) {
-        throw new Exception("State file missing: $stateFile");
+        // state.json が存在しない場合は初期値で自動作成する
+        $initialState = [
+            "current_episode" => "#1-1ブランディングとは.md",
+            "history" => [],
+            "reset_at" => date('Y-m-d H:i:s')
+        ];
+        if (!file_exists($dataDir)) {
+            mkdir($dataDir, 0755, true);
+        }
+        file_put_contents($stateFile, json_encode($initialState, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        write_log("Created initial state file.", $logFile);
     }
     if (!file_exists($instructionsFile)) {
         throw new Exception("Instructions file missing: $instructionsFile");
