@@ -9,9 +9,21 @@ $archiveDir = $dataDir . 'archive/';
 
 $ep = $_GET['ep'] ?? '';
 
-// ep の指定がない場合は、state.json の最新履歴から取得
-if (empty($ep) && file_exists($stateFile)) {
+// state.json の読み込みと次のエピソードの取得
+$nextEp = '';
+$state = null;
+if (file_exists($stateFile)) {
     $state = json_decode(file_get_contents($stateFile), true);
+    if (is_array($state)) {
+        $nextEp = preg_replace('/\.md$/i', '', $state['current_episode'] ?? '');
+    }
+}
+if (empty($nextEp)) {
+    $nextEp = '#1-1ブランディングとは';
+}
+
+// ep の指定がない場合は、state.json の最新履歴から取得
+if (empty($ep) && $state !== null) {
     if (!empty($state['history'])) {
         $last = end($state['history']);
         // #1-1ブランディングとは.md からプレフィックスを取得
@@ -271,9 +283,15 @@ if (empty($ep)) {
 
     <div class="card">
         <?php if (!empty($error)): ?>
-            <div class="error-message">
+            <div class="error-message" style="margin-bottom: 25px;">
                 <i class="fas fa-exclamation-triangle"></i><br><br>
                 <?= $error ?>
+            </div>
+            
+            <div class="btn-container" style="margin-top: 20px;">
+                <button class="btn" id="generateBtn" onclick="generateNextArticle()">
+                    <i class="fas fa-magic"></i> 最初の記事を生成する (<?= htmlspecialchars($nextEp) ?>)
+                </button>
             </div>
         <?php else: ?>
             <div style="margin-bottom: 20px; text-align: center;">
@@ -286,6 +304,9 @@ if (empty($ep)) {
             <div class="btn-container">
                 <button class="btn" id="copyBtn" onclick="copyRichText()">
                     <i class="far fa-copy"></i> Note用にコピーする
+                </button>
+                <button class="btn btn-secondary" id="generateBtn" onclick="generateNextArticle()">
+                    <i class="fas fa-magic"></i> 次の記事を生成 (<?= htmlspecialchars($nextEp) ?>)
                 </button>
                 <a href="https://just-a-paper.com/" class="btn btn-secondary">
                     <i class="fas fa-globe"></i> Just a Paper Top
@@ -352,7 +373,47 @@ function showToast(msg, isError) {
     
     setTimeout(() => {
         toast.classList.remove('show');
-    }, 3000);
+    }, 4000);
+}
+
+function generateNextArticle() {
+    const btn = document.getElementById('generateBtn');
+    if (!btn) return;
+
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 記事を生成中（約1分かかります）...';
+    showToast('記事の自動生成を開始しました。しばらくお待ちください...', false);
+
+    fetch('cron_gyakubari_note.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('HTTP error ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                showToast('記事の生成が完了しました！画面を更新します。', false);
+                setTimeout(() => {
+                    const epName = data.episode.replace(/\.md$/i, '');
+                    window.location.href = '?ep=' + encodeURIComponent(epName);
+                }, 1500);
+            } else {
+                showToast('エラー: ' + data.message, true);
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.innerHTML = originalText;
+            }
+        })
+        .catch(err => {
+            console.error('Generation failed:', err);
+            showToast('通信エラーまたはサーバー混雑が発生しました。しばらく置いて再試行してください。', true);
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.innerHTML = originalText;
+        });
 }
 </script>
 
