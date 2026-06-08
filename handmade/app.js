@@ -5,19 +5,7 @@
 let currentLang = 'ja';
 const cart = [];
 
-// Single Creator Data (Pseudonym: Akimi)
-const creator = {
-  id: "akimi",
-  name: { ja: "Akimiさん", en: "Akimi-san" },
-  age: { ja: "78歳", en: "78 years old" },
-  avatar: "./assets/products/001-1.jpg", // Using a piece of patchwork as a representative avatar
-  bio: {
-    ja: "タンスの奥に眠っていた古い着物の端切れや、思い出の詰まったお気に入りの服の残り布などを使い、丁寧にパッチワークを仕立てています。一針一針縫い進める時間が、日々の心穏やかなひとときです。昔ながらの布をアップサイクルし、新しい命を吹き込んでいます。",
-    en: "Stitches elegant patchwork quilts and crafts using vintage kimono fragments and memorable textile scraps. The quiet flow of needlework brings calm to her daily routine. She loves upcycling historical fabrics, breathing warm new life into them."
-  }
-};
-
-// 3 Products with multiple images (001-1 to 003-3)
+// 3 Products (All are pouches around 20cm)
 const products = [
   {
     id: "001",
@@ -26,15 +14,13 @@ const products = [
       "./assets/products/001-2.jpg",
       "./assets/products/001-3.jpg"
     ],
-    category: "quilt",
-    creatorId: "akimi",
-    price: 36000,
-    title: { ja: "伝統和柄の藍染キルトマット", en: "Indigo Traditional Wagara Quilt" },
-    size: { ja: "90cm × 120cm", en: "35.4 x 47.2 inches" },
-    materials: { ja: "和柄古布（綿・麻）、藍染め生地、キルト芯", en: "Vintage Cotton & Hemp, Indigo Dye, Batting" },
+    price: 3800,
+    title: { ja: "パッチワークポーチ 001", en: "Patchwork Pouch 001" },
+    size: { ja: "約 幅20cm × 高さ14cm × マチ4cm", en: "Approx. W7.8 x H5.5 x D1.5 inches" },
+    materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
     story: {
-      ja: "深みのある藍染の古布を組み合わせたマルチキルトマット。長い年月を経て柔らかくなった布地が、独特の優しい肌触りを提供します。壁掛けタペストリーやラグ、ベッドやこたつの上にかけるマルチカバーとして年中お使いいただけます。",
-      en: "A gorgeous multipurpose quilt made from aged indigo textiles. The soft, weathered fabrics from old wrapping cloths offer a gentle touch. Perfect as a wall tapestry, accent rug, or cozy lap blanket."
+      ja: "祖母が手仕事で一つ一つ仕立てた、世界にひとつだけのパッチワークポーチです。手縫いならではの温かみのある風合いをお楽しみください。化粧品や小物の整理に使いやすいサイズです。",
+      en: "A one-of-a-kind patchwork pouch hand-sewn by a grandmother. Enjoy the warm, unique texture of manual handiwork. Perfect size for cosmetics and everyday essentials."
     }
   },
   {
@@ -44,15 +30,13 @@ const products = [
       "./assets/products/002-2.jpg",
       "./assets/products/002-3.jpg"
     ],
-    category: "bag",
-    creatorId: "akimi",
-    price: 6800,
-    title: { ja: "花咲くハギレの丸底トートバッグ", en: "Blossoming Scraps Round Tote Bag" },
-    size: { ja: "幅30cm × 高さ25cm × マチ10cm", en: "W11.8 x H9.8 x D3.9 inches" },
-    materials: { ja: "綿（和柄・洋柄ミックス）、リネンキャンバス", en: "Cotton (Mixed patterns), Linen Canvas" },
+    price: 3500,
+    title: { ja: "パッチワークポーチ 002", en: "Patchwork Pouch 002" },
+    size: { ja: "約 幅18cm × 高さ13cm × マチ5cm", en: "Approx. W7.0 x H5.1 x D1.9 inches" },
+    materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
     story: {
-      ja: "洋服の残り布や和柄の端切れをパズルのように配置し、温かみのあるトートバッグに仕上げました。丸い底がかわいらしく、お財布やポーチを入れてちょっとしたお出かけに最適です。型崩れしにくいよう内側もしっかり補強しています。",
-      en: "Piecemeal patchwork matching Western florals with Japanese motifs. Features a charming rounded base, ideal for holding your essentials on casual strolls. Sturdily lined for daily durability."
+      ja: "様々なハギレを組み合わせて手縫いされたポーチです。底にマチがあるため、小さく見えて収納力があります。日常使いにちょうど良い、温もりあるデザインです。",
+      en: "Stitched together from various beautiful scrap fabrics. Features a gusseted bottom for extra capacity. A simple, warm addition to your daily essentials."
     }
   },
   {
@@ -62,15 +46,13 @@ const products = [
       "./assets/products/003-2.jpg",
       "./assets/products/003-3.jpg"
     ],
-    category: "quilt",
-    creatorId: "akimi",
-    price: 11000,
-    title: { ja: "幾何学模様のパッチワーククッションカバー", en: "Geometric Mosaic Cushion Cover" },
-    size: { ja: "45cm × 45cm", en: "17.7 x 17.7 inches" },
-    materials: { ja: "着物シルク、正絹、ウール、裏地綿", en: "Kimono Silk, Pure Silk, Wool, Cotton lining" },
+    price: 4200,
+    title: { ja: "パッチワークポーチ 003", en: "Patchwork Pouch 003" },
+    size: { ja: "約 幅22cm × 高さ15cm × マチ3cm", en: "Approx. W8.6 x H5.9 x D1.1 inches" },
+    materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
     story: {
-      ja: "絹糸が織りなす独特の艶感がある着物地を使用し、モダンな幾何学模様に仕立てました。手仕事の精密さが際立つ作品で、お部屋をパッと華やかに演出してくれます。ジッパー開閉式で、カバーのみ手洗い可能です。",
-      en: "Crafted from lustrous kimono silks to create a modern geometric design. Its outstanding precision showcases grandma's expertise, adding heritage style to any room. Hidden zipper enclosure."
+      ja: "ハギレの組み合わせと丁寧な針目が特徴のパッチワークポーチです。少し幅広のサイズ感で、ステーショナリーやガジェット小物の収納にも便利です。",
+      en: "Characterized by unique textile harmony and delicate stitches. Slightly wider silhouette, convenient for organizing pens, stationery, or mobile accessories."
     }
   }
 ];
@@ -81,40 +63,29 @@ const translations = {
     // Navigation
     "nav-about": "紡ぐについて",
     "nav-gallery": "作品一覧",
-    "nav-creators": "作り手について",
     "nav-contact": "お問い合わせ",
     
     // Hero
-    "hero-subtitle": "おばあちゃんの手が縫い合わせる、ぬくもりの物語",
-    "hero-title": "時を紡ぎ、想いを繋ぐ パッチワーク",
-    "hero-desc": "日本の温かいおばあちゃんの手から、海を越えてあなたの元へ。ひとつひとつ異なる布が織りなす、世界にたった一つの手仕事をお届けします。",
+    "hero-subtitle": "祖母の手仕事、ぬくもりのパッチワーク",
+    "hero-title": "手縫いで仕立てた、パッチワークポーチ",
+    "hero-desc": "日本の祖母がハギレを一枚一枚丁寧に縫い合わせたポーチです。ひとつとして同じものはない、手仕事のぬくもりをお届けします。",
     "hero-cta-view": "作品を見る",
-    "hero-cta-story": "私たちの想い",
+    "hero-cta-story": "紡ぐについて",
     
     // About
-    "about-tag": "CONCEPT",
-    "about-title": "おばあちゃんの針仕事に、新しい光を",
-    "about-p1": "「タンスの奥に眠っていた着物の端切れ、お気に入りの洋服の残り布。」それらを一枚一枚、丁寧に縫い合わせるパッチワーク。日本の「もったいない」の精神と、家族を想う温かさから生まれる手仕事です。",
-    "about-p2": "私たちの祖母は、時間を忘れて一針一針に想いを込めてきました。しかし、年齢を重ねるにつれ、その素晴らしい作品たちが人目に触れず、そのままになってしまうことも少なくありません。",
-    "about-p3": "「紡ぐ (Tsumugu)」は、そんなおばあちゃんの温かい作品を世に広め、次の世代へ、そして世界中の人々の手に届けるプロジェクトです。作品が購入されることで、おばあちゃんのお小遣いとやりがいに繋がり、ご家族にとっては大切な遺品や思い出を誇らしく整理するきっかけになります。",
+    "about-tag": "ABOUT",
+    "about-title": "ものを大切にする心から生まれたポーチ",
+    "about-p1": "タンスに眠っていた古い着物の端切れや、お気に入りの服の残り布などをパッチワークポーチとしてアップサイクルしました。日本の「もったいない」の精神と、家族を想う温かさから生まれる手仕事です。",
+    "about-p2": "作品はすべて1点限りです。実用に耐えるよう丁寧に仕立てられており、普段使いや贈り物、また海外の方へのお土産にも最適です。作品が購入されることで、祖母のやりがいやお小遣い作りに繋がります。",
     
     // Gallery
     "gallery-tag": "COLLECTION",
-    "gallery-title": "ぬくもりを纏う作品たち",
-    "gallery-subtitle": "すべてが世界にひとつだけ。おばあちゃんが選んだ布地とデザインのハーモニーをお楽しみください。",
-    "filter-all": "すべて",
-    "filter-bag": "バッグ・ポーチ",
-    "filter-quilt": "キルト・インテリア",
-    "filter-kitchen": "キッチン・小物",
-    
-    // Creators
-    "creators-tag": "CREATOR",
-    "creators-title": "作り手について",
-    "creators-subtitle": "作品の背景にある、作り手の温かい人生をご紹介します。",
+    "gallery-title": "パッチワークポーチ",
+    "gallery-subtitle": "すべて手縫いの1点ものです。ひとつひとつ異なる表情とデザインをお楽しみください。",
     
     // Contact
-    "contact-title": "想いを伝える・お問い合わせ",
-    "contact-desc": "作品に関する質問や、おばあちゃんへの温かいメッセージ、また「自分の家にも祖母の作品がたくさんあるので広めてほしい」といったご相談も大歓迎です。お気軽にお問い合わせください。",
+    "contact-title": "お問い合わせ",
+    "contact-desc": "作品に関するご質問や、温かいメッセージがございましたら、こちらからお気軽にお問い合わせください。",
     "form-label-name": "お名前 / Name",
     "form-label-email": "メールアドレス / Email",
     "form-label-msg": "メッセージ / Message",
@@ -127,7 +98,7 @@ const translations = {
     // Modals
     "modal-size": "サイズ:",
     "modal-materials": "素材:",
-    "modal-story-title": "この作品のストーリー",
+    "modal-story-title": "この作品について",
     "btn-buy-shopify": "Shopifyで購入する",
     "btn-add-cart": "カートに入れる",
     
@@ -141,42 +112,31 @@ const translations = {
   },
   en: {
     // Navigation
-    "nav-about": "Story",
-    "nav-gallery": "Gallery",
-    "nav-creators": "Creator",
+    "nav-about": "About",
+    "nav-gallery": "Creations",
     "nav-contact": "Contact",
     
     // Hero
     "hero-subtitle": "Warm stories stitched by grandmother's gentle hands",
-    "hero-title": "Spinning Time, Stitched with Love",
-    "hero-desc": "Handcrafted patchwork from sweet Japanese grandma, delivered across the ocean to you. One-of-a-kind treasures composed of historical textile pieces.",
-    "hero-cta-view": "View Creations",
-    "hero-cta-story": "Read Our Story",
+    "hero-title": "Handmade Patchwork Pouches",
+    "hero-desc": "Handcrafted pouches sewn by a Japanese grandmother using scrap fabrics. Delivering the warm, simple texture of true handwork.",
+    "hero-cta-view": "View Pouches",
+    "hero-cta-story": "About Tsumugu",
     
     // About
-    "about-tag": "OUR MISSION",
-    "about-title": "Giving New Life to Grandma's Needlework",
-    "about-p1": "\"A sleeve scrap from a vintage kimono hidden in a drawer, a cut off from a favorite dress.\" These distinct fabrics are woven together, patch by patch. Born from the Japanese spirit of 'Mottainai' (to value and not waste) and family love.",
-    "about-p2": "Our grandmother spent hours lost in quiet focus, infusing warmth into every stitch. Yet, as she ages, many of these masterpieces remain tucked away, unseen by the world.",
-    "about-p3": "\"Tsumugu\" (meaning 'to spin thread' or 'weave together') is a project dedicated to sharing these beautiful works globally. Every sale directly supports grandma's livelihood and pride, while offering families a proud way to organize and pass down cherished heirlooms.",
+    "about-tag": "ABOUT",
+    "about-title": "Upcycled with Care and Mottainai Spirit",
+    "about-p1": "Upcycled into functional pouches using forgotten kimono cuts and clothing scraps. Born from the Japanese tradition of 'Mottainai' (to value and not waste) and genuine family care.",
+    "about-p2": "Every item is a unique, one-of-a-kind piece crafted for daily use. Perfect as a cozy gift or souvenir. Purchases support grandma's hobby and sense of purpose.",
     
     // Gallery
     "gallery-tag": "COLLECTION",
-    "gallery-title": "Warmth In Every Patch",
-    "gallery-subtitle": "Every creation is unique. Appreciate the harmony of textiles and designs chosen by the grandmother.",
-    "filter-all": "All Items",
-    "filter-bag": "Bags & Pouches",
-    "filter-quilt": "Quilts & Interiors",
-    "filter-kitchen": "Kitchenware & Accents",
-    
-    // Creators
-    "creators-tag": "THE CREATOR",
-    "creators-title": "About the Creator",
-    "creators-subtitle": "Introducing the gentle hands and rich life behind the needlework.",
+    "gallery-title": "Patchwork Pouches",
+    "gallery-subtitle": "Every creation is unique. Appreciate the rustic harmony of patterns hand-sewn by a grandmother.",
     
     // Contact
-    "contact-title": "Send a Message / Inquire",
-    "contact-desc": "Feel free to ask questions about our items, send warm messages to the grandmother, or contact us if you are interested in sharing your own grandmother's work.",
+    "contact-title": "Inquiries",
+    "contact-desc": "Feel free to ask questions about our pouches or send warm messages here.",
     "form-label-name": "Name",
     "form-label-email": "Email Address",
     "form-label-msg": "Message",
@@ -189,7 +149,7 @@ const translations = {
     // Modals
     "modal-size": "Size:",
     "modal-materials": "Materials:",
-    "modal-story-title": "The Story of this Piece",
+    "modal-story-title": "About this Piece",
     "btn-buy-shopify": "Buy on Shopify",
     "btn-add-cart": "Add to Cart",
     
@@ -209,8 +169,7 @@ const translations = {
 
 document.addEventListener("DOMContentLoaded", () => {
   initTranslations();
-  renderProducts("all");
-  renderCreator();
+  renderProducts();
   bindEvents();
 });
 
@@ -222,8 +181,7 @@ function initTranslations() {
     switchBtn.querySelector(".lang-text").textContent = currentLang === 'ja' ? 'EN' : 'JP';
     document.documentElement.lang = currentLang;
     updateDOMTranslation();
-    renderProducts(document.querySelector(".filter-btn.active").dataset.filter);
-    renderCreator();
+    renderProducts();
   });
   updateDOMTranslation();
 }
@@ -253,31 +211,26 @@ function formatPrice(amount) {
 }
 
 // ==========================================================================
-// Gallery Rendering
+// Gallery Rendering (Simply renders all 3 pouches)
 // ==========================================================================
 
-function renderProducts(filter = "all") {
+function renderProducts() {
   const grid = document.getElementById("product-grid");
   grid.innerHTML = "";
   
-  const filtered = products.filter(p => filter === "all" || p.category === filter);
-  
-  filtered.forEach(p => {
+  products.forEach(p => {
     const card = document.createElement("div");
     card.className = "product-card";
     card.setAttribute("data-id", p.id);
     
-    // Main image is the first index in the images array
-    const mainImg = p.images[0];
-    
     card.innerHTML = `
       <div class="product-img-wrapper">
-        <img src="${mainImg}" alt="${p.title[currentLang]}" class="product-img" loading="lazy">
-        <span class="product-creator-badge">${creator.name[currentLang]}</span>
+        <img src="${p.images[0]}" alt="${p.title[currentLang]}" class="product-img" loading="lazy">
+        <span class="product-creator-badge">Handmade</span>
       </div>
       <div class="product-info">
         <div class="product-meta-row">
-          <span class="product-category" data-i18n="filter-${p.category}">${translations[currentLang][`filter-${p.category}`]}</span>
+          <span class="product-category">Pouch</span>
           <span class="product-price">${formatPrice(p.price)}</span>
         </div>
         <h3 class="product-card-title">${p.title[currentLang]}</h3>
@@ -302,31 +255,6 @@ function renderProducts(filter = "all") {
 }
 
 // ==========================================================================
-// Creator Single Rendering
-// ==========================================================================
-
-function renderCreator() {
-  const container = document.getElementById("creator-single-container");
-  container.innerHTML = "";
-  
-  const card = document.createElement("div");
-  card.className = "creator-single-card";
-  
-  card.innerHTML = `
-    <div class="creator-avatar-wrapper">
-      <img src="${creator.avatar}" alt="${creator.name[currentLang]}" class="creator-avatar">
-      <div class="creator-avatar-accent"></div>
-    </div>
-    <div class="creator-info-content">
-      <h3 class="creator-name">${creator.name[currentLang]}</h3>
-      <span class="creator-age">${creator.age[currentLang]}</span>
-      <p class="creator-bio">${creator.bio[currentLang]}</p>
-    </div>
-  `;
-  container.appendChild(card);
-}
-
-// ==========================================================================
 // Modal Control (Product Detail with Multi-image thumbnails)
 // ==========================================================================
 
@@ -340,7 +268,6 @@ function openModal(productId) {
   
   // Set basic data
   mainImgElem.src = p.images[0];
-  document.getElementById("modal-creator-tag").textContent = `${creator.name[currentLang]} (${creator.age[currentLang]})`;
   document.getElementById("modal-title").textContent = p.title[currentLang];
   document.getElementById("modal-price").textContent = formatPrice(p.price);
   document.getElementById("modal-size-val").textContent = p.size[currentLang];
@@ -355,11 +282,8 @@ function openModal(productId) {
     thumb.alt = `${p.title[currentLang]} sub ${idx + 1}`;
     thumb.className = `modal-thumb ${idx === 0 ? 'active' : ''}`;
     
-    // Thumbnail Click Event to Switch Main Image
     thumb.addEventListener("click", () => {
       mainImgElem.src = imgUrl;
-      
-      // Update active state class
       thumbsContainer.querySelectorAll(".modal-thumb").forEach(t => t.classList.remove("active"));
       thumb.classList.add("active");
     });
@@ -374,7 +298,7 @@ function openModal(productId) {
   cartBtn.dataset.id = p.id;
   
   modal.classList.add("open");
-  document.body.style.overflow = "hidden"; // Prevent background scroll
+  document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
@@ -439,7 +363,7 @@ function updateCartUI() {
       <img src="${p.images[0]}" alt="${p.title[currentLang]}" class="cart-item-img">
       <div class="cart-item-info">
         <h4 class="cart-item-title">${p.title[currentLang]}</h4>
-        <span class="cart-item-creator">${creator.name[currentLang]}</span>
+        <span class="cart-item-creator">Handmade</span>
         <span class="cart-item-price">${formatPrice(p.price)}</span>
       </div>
       <button class="cart-item-remove" data-id="${p.id}" aria-label="Remove item">
@@ -496,15 +420,6 @@ function triggerShopifyCheckout(checkoutItems) {
 // ==========================================================================
 
 function bindEvents() {
-  // Gallery Filters
-  document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelector(".filter-btn.active").classList.remove("active");
-      btn.classList.add("active");
-      renderProducts(btn.dataset.filter);
-    });
-  });
-  
   // Modal Closes
   document.getElementById("modal-close").addEventListener("click", closeModal);
   document.getElementById("product-modal").addEventListener("click", (e) => {
@@ -548,8 +463,8 @@ function bindEvents() {
     const name = document.getElementById("form-name").value;
     
     const successMsg = currentLang === 'ja'
-      ? `メッセージを送信しました！\nありがとうございました、${name}様。おばあちゃんへ温かい想いをお届けします。`
-      : `Thank you, ${name}! Your message has been sent successfully. We will share your kind words with the grandmother.`;
+      ? `メッセージを送信しました！\nありがとうございました、${name}様。`
+      : `Thank you, ${name}! Your message has been sent successfully.`;
       
     alert(successMsg);
     document.getElementById("contact-form").reset();
