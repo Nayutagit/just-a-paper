@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>紡ぐ (Tsumugu) - Grandma's Handcrafted Patchwork</title>
+  <meta name="description" content="日本のおばあちゃんたちが心を込めて作った手作りパッチワーク作品を世界へ。手仕事の温もりとストーリーを届けるデジタルアーカイブ＆マーケットプレイス。">
+  <meta name="keywords" content="パッチワーク, 手作り, おばあちゃん, ハンドメイド, キルト, アップサイクル, 日本の伝統, patchwork, handmade, crafts, grandma, upcycle, japanese traditional">
+  
+  <!-- OG Tags -->
+  <meta property="og:title" content="紡ぐ (Tsumugu) - Grandma's Handcrafted Patchwork">
+  <meta property="og:description" content="日本のおばあちゃんたちが心を込めて作った手作りパッチワーク作品を世界へ。手仕事の温もりとストーリーを届けるデジタルアーカイブ＆マーケットプレイス。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./assets/products/IMG_8579.jpg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome / Lucide Icons Alternative (using SVG directly in JS/HTML but adding standard icons via CSS/Unicode if needed, or inline SVGs for maximum reliability) -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="#" class="logo" id="logo-text">
+        <span class="logo-kanji">紡ぐ</span>
+        <span class="logo-sub">TSUMUGU</span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="#about" class="nav-link" data-i18n="nav-about">紡ぐについて</a>
+        <a href="#gallery" class="nav-link" data-i18n="nav-gallery">作品一覧</a>
+        <a href="#creators" class="nav-link" data-i18n="nav-creators">作り手たち</a>
+        <a href="#contact" class="nav-link" data-i18n="nav-contact">お問い合わせ</a>
+      </nav>
+      
+      <div class="header-actions">
+        <!-- Language Selector -->
+        <button id="lang-switch" class="lang-btn" aria-label="Switch Language">
+          <span class="lang-text">EN</span>
+        </button>
+        
+        <!-- Cart Trigger -->
+        <button id="cart-trigger" class="cart-btn" aria-label="Open Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-subtitle" data-i18n="hero-subtitle">おばあちゃんの手が縫い合わせる、ぬくもりの物語</span>
+      <h1 class="hero-title" data-i18n="hero-title">時を紡ぎ、想いを繋ぐ パッチワーク</h1>
+      <p class="hero-desc" data-i18n="hero-desc">日本の温かいおばあちゃんの手から、海を越えてあなたの元へ。ひとつひとつ異なる布が織りなす、世界にたった一つの手仕事をお届けします。</p>
+      <div class="hero-actions">
+        <a href="#gallery" class="btn btn-primary" data-i18n="hero-cta-view">作品を見る</a>
+        <a href="#about" class="btn btn-secondary" data-i18n="hero-cta-story">私たちの想い</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span class="scroll-line"></span>
+    </div>
+  </section>
+
+  <!-- Concept / About Section -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-wrapper">
+          <img src="./assets/products/IMG_8579.jpg" alt="Grandma's hands sewing patchwork" class="about-img main-about-img">
+          <div class="about-img-accent"></div>
+        </div>
+        <div class="about-text-content">
+          <span class="section-tag" data-i18n="about-tag">CONCEPT</span>
+          <h2 class="section-title" data-i18n="about-title">おばあちゃんの針仕事に、新しい光を</h2>
+          <div class="section-desc">
+            <p data-i18n="about-p1">「タンスの奥に眠っていた着物の端切れ、お気に入りの洋服の残り布。」それらを一枚一枚、丁寧に縫い合わせるパッチワーク。日本の「もったいない」の精神と、家族を想う温かさから生まれる手仕事です。</p>
+            <p data-i18n="about-p2">私たちの祖母たちは、時間を忘れて一針一針に想いを込めてきました。しかし、年齢を重ねるにつれ、その素晴らしい作品たちが人目に触れず、そのままになってしまうことも少なくありません。</p>
+            <p data-i18n="about-p3">「紡ぐ (Tsumugu)」は、そんなおばあちゃんたちの温かい作品を世に広め、次の世代へ、そして世界中の人々の手に届けるプロジェクトです。作品が購入されることで、おばあちゃんたちのお小遣いとやりがいに繋がり、ご家族にとっては大切な遺品や思い出を誇らしく整理するきっかけになります。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="gallery-section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="section-tag" data-i18n="gallery-tag">COLLECTION</span>
+        <h2 class="section-title-center" data-i18n="gallery-title">ぬくもりを纏う作品たち</h2>
+        <p class="section-subtitle-center" data-i18n="gallery-subtitle">すべてが世界にひとつだけ。おばあちゃんたちが選んだ布地とデザインのハーモニーをお楽しみください。</p>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-controls">
+        <button class="filter-btn active" data-filter="all" data-i18n="filter-all">すべて</button>
+        <button class="filter-btn" data-filter="bag" data-i18n="filter-bag">バッグ・ポーチ</button>
+        <button class="filter-btn" data-filter="quilt" data-i18n="filter-quilt">キルト・インテリア</button>
+        <button class="filter-btn" data-filter="kitchen" data-i18n="filter-kitchen">キッチン・小物</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid" id="product-grid">
+        <!-- Dynanically populated by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Creators Section -->
+  <section id="creators" class="creators-section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="section-tag" data-i18n="creators-tag">CREATORS</span>
+        <h2 class="section-title-center" data-i18n="creators-title">作り手のおばあちゃんたち</h2>
+        <p class="section-subtitle-center" data-i18n="creators-subtitle">作品の背景にある、それぞれの人生とあたたかい手元をご紹介します。</p>
+      </div>
+
+      <div class="creators-grid" id="creators-grid">
+        <!-- Dynamically populated by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="contact-box">
+        <div class="contact-info">
+          <h2 data-i18n="contact-title">想いを伝える・お問い合わせ</h2>
+          <p data-i18n="contact-desc">作品に関する質問や、おばあちゃんたちへの温かいメッセージ、また「自分の家にも祖母の作品がたくさんあるので広めてほしい」といったご相談も大歓迎です。お気軽にお問い合わせください。</p>
+          <div class="contact-meta">
+            <div class="contact-meta-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+81 (0) 90-XXXX-XXXX</span>
+            </div>
+            <div class="contact-meta-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>tsumugu.handmade@example.com</span>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label for="form-name" data-i18n="form-label-name">お名前 / Name</label>
+            <input type="text" id="form-name" required placeholder="山田 花子 / Hanako Yamada">
+          </div>
+          <div class="form-group">
+            <label for="form-email" data-i18n="form-label-email">メールアドレス / Email</label>
+            <input type="email" id="form-email" required placeholder="your.email@example.com">
+          </div>
+          <div class="form-group">
+            <label for="form-msg" data-i18n="form-label-msg">メッセージ / Message</label>
+            <textarea id="form-msg" rows="5" required placeholder="作品へのご質問や、おばあちゃんへの温かいメッセージをご記入ください。"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="form-submit">送信する</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-kanji">紡ぐ</span>
+          <span class="logo-sub">TSUMUGU</span>
+        </a>
+        <p class="footer-tagline" data-i18n="footer-tagline">日本の優しい手が紡いだ、ぬくもりの物語を世界へ。</p>
+      </div>
+      <div class="footer-links">
+        <h4 data-i18n="footer-menu-title">メニュー</h4>
+        <a href="#about" data-i18n="nav-about">紡ぐについて</a>
+        <a href="#gallery" data-i18n="nav-gallery">作品一覧</a>
+        <a href="#creators" data-i18n="nav-creators">作り手たち</a>
+      </div>
+      <div class="footer-copy">
+        <p>&copy; 2026 紡ぐ (Tsumugu) Project. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Product Detail Modal -->
+  <div class="modal-backdrop" id="product-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="modal-grid">
+        <div class="modal-image-wrapper">
+          <img id="modal-img" src="" alt="Product view" class="modal-img">
+        </div>
+        <div class="modal-info">
+          <span class="modal-creator-tag" id="modal-creator-tag"></span>
+          <h2 class="modal-title" id="modal-title"></h2>
+          <div class="modal-price" id="modal-price"></div>
+          
+          <div class="modal-details">
+            <div class="modal-detail-item">
+              <span class="detail-label" data-i18n="modal-size">サイズ:</span>
+              <span class="detail-val" id="modal-size-val"></span>
+            </div>
+            <div class="modal-detail-item">
+              <span class="detail-label" data-i18n="modal-materials">素材:</span>
+              <span class="detail-val" id="modal-materials-val"></span>
+            </div>
+          </div>
+          
+          <div class="modal-story">
+            <h4 data-i18n="modal-story-title">この作品のストーリー</h4>
+            <p id="modal-story-val"></p>
+          </div>
+          
+          <div class="modal-actions">
+            <!-- Shopify Buy Button (Mocked) -->
+            <button class="btn btn-primary btn-block" id="modal-buy-btn">
+              <span data-i18n="btn-buy-shopify">Shopifyで購入する</span>
+            </button>
+            <button class="btn btn-secondary btn-block" id="modal-cart-btn">
+              <span data-i18n="btn-add-cart">カートに入れる</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-backdrop" id="cart-drawer">
+    <div class="cart-panel">
+      <div class="cart-header">
+        <h3 data-i18n="cart-title-your">あなたのカート</h3>
+        <button class="cart-close" id="cart-close" aria-label="Close cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      
+      <div class="cart-items" id="cart-items-container">
+        <!-- Dynamically populated -->
+      </div>
+      
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span data-i18n="cart-subtotal">小計:</span>
+          <span id="cart-total-price">¥0</span>
+        </div>
+        <p class="cart-shipping-notice" data-i18n="cart-shipping-notice">※ 送料は購入手続き時に計算されます。</p>
+        <button class="btn btn-primary btn-block" id="checkout-btn" data-i18n="cart-checkout">購入手続きへ (Shopify)</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
