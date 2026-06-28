@@ -92,6 +92,84 @@ const assets = {
     shell: new Image()
 };
 
+// 画像の背景透過処理（Flood Fillアルゴリズム）
+// 端から繋がっている白またはグレー（市松模様背景）を透明にする
+function removeBackground(image) {
+    const canvas = document.createElement('canvas');
+    canvas.width = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0);
+
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imgData.data;
+    const width = canvas.width;
+    const height = canvas.height;
+
+    const visited = new Uint8Array(width * height);
+    const queue = [];
+
+    // 背景色と判定する基準（R,G,Bが近い＆高輝度）
+    function isBgPixel(r, g, b, a) {
+        if (a === 0) return true;
+        // 白背景 (#fff)
+        const isWhite = (r > 235 && g > 235 && b > 235);
+        // 市松模様（チェッカーボード）の薄いグレー
+        const isGray = (r > 200 && g > 200 && b > 200 && Math.abs(r - g) < 15 && Math.abs(g - b) < 15);
+        return isWhite || isGray;
+    }
+
+    // 四辺をシードとしてキューに追加
+    for (let x = 0; x < width; x++) {
+        queue.push({x, y: 0});
+        queue.push({x, y: height - 1});
+        visited[x] = 1;
+        visited[x + (height - 1) * width] = 1;
+    }
+    for (let y = 1; y < height - 1; y++) {
+        queue.push({x: 0, y});
+        queue.push({x: width - 1, y});
+        visited[y * width] = 1;
+        visited[(width - 1) + y * width] = 1;
+    }
+
+    // BFSで背景塗りつぶし透過
+    while (queue.length > 0) {
+        const curr = queue.shift();
+        const idx = (curr.x + curr.y * width) * 4;
+        const r = data[idx];
+        const g = data[idx+1];
+        const b = data[idx+2];
+        const a = data[idx+3];
+
+        if (isBgPixel(r, g, b, a)) {
+            data[idx+3] = 0; // アルファを0（透明）に
+
+            const neighbors = [
+                {x: curr.x + 1, y: curr.y},
+                {x: curr.x - 1, y: curr.y},
+                {x: curr.x, y: curr.y + 1},
+                {x: curr.x, y: curr.y - 1}
+            ];
+
+            neighbors.forEach(n => {
+                if (n.x >= 0 && n.x < width && n.y >= 0 && n.y < height) {
+                    const nIdx = n.x + n.y * width;
+                    if (visited[nIdx] === 0) {
+                        visited[nIdx] = 1;
+                        queue.push(n);
+                    }
+                }
+            });
+        }
+    }
+
+    ctx.putImageData(imgData, 0, 0);
+    const newImg = new Image();
+    newImg.src = canvas.toDataURL();
+    return newImg;
+}
+
 // 画像ソース設定
 assets.grass.src = 'assets/grass.png';
 assets.player.src = 'assets/player.png';
@@ -104,11 +182,25 @@ assets.shell.src = 'assets/shell.png';
 // 全てのアセット読み込み完了チェック
 let assetsLoaded = 0;
 const totalAssets = Object.keys(assets).length;
-Object.values(assets).forEach(img => {
+
+Object.keys(assets).forEach(key => {
+    const img = assets[key];
     img.onload = () => {
-        assetsLoaded++;
-        if (assetsLoaded === totalAssets) {
-            console.log("All assets loaded successfully.");
+        // grass以外の画像に対して背景除去（透過処理）を実行
+        if (key !== 'grass') {
+            const processedImg = removeBackground(img);
+            processedImg.onload = () => {
+                assets[key] = processedImg; // 透過画像に差し替え
+                assetsLoaded++;
+                if (assetsLoaded === totalAssets) {
+                    console.log("All assets loaded and transparency processed.");
+                }
+            };
+        } else {
+            assetsLoaded++;
+            if (assetsLoaded === totalAssets) {
+                console.log("All assets loaded.");
+            }
         }
     };
 });
@@ -128,6 +220,7 @@ const state = {
             id: 'cat',
             name: 'ミケ',
             species: 'ねこ',
+            suffix: 'ニャ',
             img: assets.cat,
             met: false,
             love: 0,
@@ -149,6 +242,7 @@ const state = {
             id: 'rabbit',
             name: 'モモ',
             species: 'うさぎ',
+            suffix: 'ぴょん',
             img: assets.rabbit,
             met: false,
             love: 0,
@@ -170,6 +264,7 @@ const state = {
             id: 'dog',
             name: 'ポチ',
             species: 'いぬ',
+            suffix: 'ワン',
             img: assets.dog,
             met: false,
             love: 0,
@@ -177,7 +272,7 @@ const state = {
                 target: 'apple_and_shell', // 特殊クエスト
                 count: 2, // リンゴ2個、貝殻2個
                 text: 'リンゴを2こと、かいがらを2こ ほしいワン！',
-                clearedText: 'どっちも大すきなんだワン！ありがとう！キャンプの仲間にしてほしいワン！'
+                clearedText: 'どっちも大すきんだワン！ありがとう！キャンプの仲間にしてほしいワン！'
             },
             questCleared: false,
             inCamp: false,
@@ -491,6 +586,7 @@ function startDialogue(animal) {
 function updateDialogue() {
     dialogueSpeaker.textContent = currentSpeaker.name;
     const a = currentSpeaker;
+    const suffix = a.suffix || 'ワン';
     
     let text = "";
     questActionBtn.classList.add('hidden');
@@ -499,7 +595,7 @@ function updateDialogue() {
     if (a.love >= 100 && !a.inCamp) {
         // なかよし度MAXでまだキャンプにいない
         if (dialogueStep === 0) {
-            text = `${state.playerName}ちゃん！ キャンプに誘ってくれてうれしいワン/ニャ/ぴょん！`;
+            text = `${state.playerName}ちゃん！ キャンプに誘ってくれてうれしい${suffix}！`;
         } else if (dialogueStep === 1) {
             text = `さっそく キャンプ場にいくね！これからは ずっといっしょだよ✨`;
             dialogueNextBtn.textContent = "ともだちになる！ ✨";
@@ -515,7 +611,7 @@ function updateDialogue() {
         const lines = {
             day: [
                 `キャンプ場、とってもいごこちがいいよ〜。`,
-                `${state.playerName}ちゃん、いっしょにのんびりしようニャ/ぴょん/ワン。`
+                `${state.playerName}ちゃん、いっしょにのんびりしよう${suffix}。`
             ],
             sunset: [
                 `夕焼けがキレイだねぇ。`,
@@ -532,6 +628,7 @@ function updateDialogue() {
         if (dialogueStep > 0) {
             closeDialogue();
             return;
+        }
         }
     } else if (a.questCleared) {
         // クエストは完了しているが、まだキャンプに誘っていない
