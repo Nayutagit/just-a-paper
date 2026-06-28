@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>アニマルアイランド - どうぶつたちと出会う島</title>
+    <!-- Google Fonts: 温かみのある丸ゴシック体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- イントロ/名前入力画面 -->
+        <div id="start-screen" class="screen active">
+            <div class="start-card">
+                <h1 class="game-title">✨ アニマルアイランド ✨</h1>
+                <p class="game-subtitle">どうぶつたちと出会い、なかよしになろう！</p>
+                <div class="character-preview">
+                    <img src="assets/player.png" alt="プレイヤー" class="floating">
+                </div>
+                <div class="name-input-group">
+                    <label for="player-name">あなたの なまえは？</label>
+                    <input type="text" id="player-name" placeholder="なまえを入力してね" maxlength="8">
+                </div>
+                <button id="start-btn" class="btn primary-btn">島へしゅっぱつ！ ⛵</button>
+            </div>
+        </div>
+
+        <!-- メインゲーム画面 -->
+        <div id="main-screen" class="screen">
+            <!-- ゲーム描画用Canvas -->
+            <canvas id="game-canvas"></canvas>
+
+            <!-- 仮想ジョイスティック（スマホ用） -->
+            <div id="joystick-container">
+                <div id="joystick-base">
+                    <div id="joystick-stick"></div>
+                </div>
+            </div>
+
+            <!-- ヘッダーUI（ステータス・時間帯・場所切り替え） -->
+            <div id="header-ui">
+                <div class="player-badge">
+                    <span id="display-player-name">プレイヤー</span>の島
+                </div>
+                <div class="control-buttons">
+                    <button id="time-btn" class="btn circle-btn" title="時間を切り替える">☀️</button>
+                    <button id="location-btn" class="btn pill-btn">🏡 キャンプへ</button>
+                </div>
+            </div>
+
+            <!-- アクションボタン（話しかける・揺らす・拾うなど） -->
+            <button id="action-btn" class="btn action-btn hidden">はなしかける 💬</button>
+
+            <!-- 下部ナビゲーション / バッグ & ともだち手帳 -->
+            <div id="footer-ui">
+                <button id="bag-btn" class="btn footer-btn">🎒 バッグ</button>
+                <button id="friends-btn" class="btn footer-btn">📖 ともだち手帳</button>
+            </div>
+
+            <!-- 会話ダイアログモーダル -->
+            <div id="dialogue-box" class="hidden">
+                <div class="dialogue-header">
+                    <span id="dialogue-speaker">どうぶつ</span>
+                </div>
+                <div class="dialogue-body">
+                    <p id="dialogue-text">こんにちは！</p>
+                </div>
+                <div class="dialogue-footer">
+                    <button id="quest-action-btn" class="btn action-sub-btn hidden">おねがいをきく</button>
+                    <button id="dialogue-next-btn" class="btn primary-btn">つぎへ ▶</button>
+                </div>
+            </div>
+
+            <!-- バッグ（インベントリ）ポップアップ -->
+            <div id="bag-modal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>🎒 もっているもの</h2>
+                        <button class="close-btn" id="close-bag-btn">&times;</button>
+                    </div>
+                    <div class="inventory-grid">
+                        <div class="inventory-item" data-item="apple">
+                            <img src="assets/apple.png" alt="リンゴ">
+                            <span class="item-name">リンゴ</span>
+                            <span class="item-count" id="count-apple">0</span>
+                        </div>
+                        <div class="inventory-item" data-item="shell">
+                            <img src="assets/shell.png" alt="貝殻">
+                            <span class="item-name">かいがら</span>
+                            <span class="item-count" id="count-shell">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ともだち手帳ポップアップ -->
+            <div id="friends-modal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>📖 ともだち手帳</h2>
+                        <button class="close-btn" id="close-friends-btn">&times;</button>
+                    </div>
+                    <div class="friends-list">
+                        <!-- 猫 -->
+                        <div class="friend-card" id="card-cat">
+                            <div class="friend-avatar">
+                                <img src="assets/cat.png" alt="ミケ">
+                            </div>
+                            <div class="friend-info">
+                                <h3>ミケ (ねこ)</h3>
+                                <p class="friend-status">まだ出会っていない</p>
+                                <div class="love-bar-container">
+                                    <div class="love-bar" id="love-cat" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- うさぎ -->
+                        <div class="friend-card" id="card-rabbit">
+                            <div class="friend-avatar">
+                                <img src="assets/rabbit.png" alt="モモ">
+                            </div>
+                            <div class="friend-info">
+                                <h3>モモ (うさぎ)</h3>
+                                <p class="friend-status">まだ出会っていない</p>
+                                <div class="love-bar-container">
+                                    <div class="love-bar" id="love-rabbit" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 犬 -->
+                        <div class="friend-card" id="card-dog">
+                            <div class="friend-avatar">
+                                <img src="assets/dog.png" alt="ポチ">
+                            </div>
+                            <div class="friend-info">
+                                <h3>ポチ (いぬ)</h3>
+                                <p class="friend-status">まだ出会っていない</p>
+                                <div class="love-bar-container">
+                                    <div class="love-bar" id="love-dog" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 通知トースト -->
+            <div id="toast" class="hidden"></div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
