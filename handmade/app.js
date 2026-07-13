@@ -5,7 +5,10 @@
 let currentLang = 'ja';
 const cart = [];
 
-// 3 Products (All are pouches around 20cm)
+// Stripe Checkout URL (Shared across all products)
+const STRIPE_CHECKOUT_URL = 'https://buy.stripe.com/5kQ4gB1MXa8M7uudVrbV60b';
+
+// 6 Products (All are patchwork pouches around 20cm)
 const products = [
   {
     id: "001",
@@ -54,6 +57,58 @@ const products = [
       ja: "ハギレの組み合わせと丁寧な針目が特徴のパッチワークポーチです。少し幅広のサイズ感で、ステーショナリーやガジェット小物の収納にも便利です。",
       en: "Characterized by unique textile harmony and delicate stitches. Slightly wider silhouette, convenient for organizing pens, stationery, or mobile accessories."
     }
+  },
+  {
+    id: "004",
+    images: [
+      "./assets/products/004-1.jpg",
+      "./assets/products/004-2.jpg",
+      "./assets/products/004-3.jpg",
+      "./assets/products/004-4.jpg"
+    ],
+    price: 3900,
+    title: { ja: "パッチワークポーチ 004", en: "Patchwork Pouch 004" },
+    size: { ja: "約 幅20cm × 高さ13cm × マチ4cm", en: "Approx. W7.8 x H5.1 x D1.5 inches" },
+    materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
+    story: {
+      ja: "ハギレの優しいグラデーションが美しい手縫いのポーチです。メイク用品などをスッキリ整理できます。",
+      en: "A beautifully hand-sewn pouch with a soft gradation of fabric scraps. Great for arranging cosmetics."
+    }
+  },
+  {
+    id: "005",
+    images: [
+      "./assets/products/005-1.jpg",
+      "./assets/products/005-2.jpg",
+      "./assets/products/005-3.jpg",
+      "./assets/products/005-4.jpg",
+      "./assets/products/005-5.jpg",
+      "./assets/products/005-6.jpg"
+    ],
+    price: 4500,
+    title: { ja: "パッチワークポーチ 005", en: "Patchwork Pouch 005" },
+    size: { ja: "約 幅22cm × 高さ16cm × マチ3cm", en: "Approx. W8.6 x H6.3 x D1.1 inches" },
+    materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
+    story: {
+      ja: "細やかなパッチワークのステッチが特徴の作品です。平らなシルエットで、バッグの中でもかさばりません。",
+      en: "Characterized by detailed patchwork stitches. Slim design that fits easily inside your bag."
+    }
+  },
+  {
+    id: "006",
+    images: [
+      "./assets/products/006-1.jpg",
+      "./assets/products/006-2.jpg",
+      "./assets/products/006-3.jpg"
+    ],
+    price: 3600,
+    title: { ja: "パッチワークポーチ 006", en: "Patchwork Pouch 006" },
+    size: { ja: "約 幅19cm × 高さ14cm × マチ4cm", en: "Approx. W7.4 x H5.5 x D1.5 inches" },
+    materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
+    story: {
+      ja: "落ち着いた和風のハギレを組み合わせたパッチワークポーチです。シンプルで実用的なデザインです。",
+      en: "A simple, practical patchwork pouch pieced from calm Japanese scrap fabrics."
+    }
   }
 ];
 
@@ -99,14 +154,14 @@ const translations = {
     "modal-size": "サイズ:",
     "modal-materials": "素材:",
     "modal-story-title": "この作品について",
-    "btn-buy-shopify": "Shopifyで購入する",
+    "btn-buy-stripe": "Stripeで購入する",
     "btn-add-cart": "カートに入れる",
     
     // Cart
     "cart-title-your": "あなたのカート",
     "cart-subtotal": "小計:",
     "cart-shipping-notice": "※ 送料は購入手続き時に計算されます。",
-    "cart-checkout": "購入手続きへ (Shopify)",
+    "cart-checkout": "購入手続きへ (Stripe)",
     "cart-added": "カートに追加しました！",
     "cart-empty": "カートは空です"
   },
@@ -150,14 +205,14 @@ const translations = {
     "modal-size": "Size:",
     "modal-materials": "Materials:",
     "modal-story-title": "About this Piece",
-    "btn-buy-shopify": "Buy on Shopify",
+    "btn-buy-stripe": "Buy on Stripe",
     "btn-add-cart": "Add to Cart",
     
     // Cart
     "cart-title-your": "Your Cart",
     "cart-subtotal": "Subtotal:",
     "cart-shipping-notice": "* Shipping calculated during checkout.",
-    "cart-checkout": "Proceed to Checkout (Shopify)",
+    "cart-checkout": "Proceed to Checkout (Stripe)",
     "cart-added": "Added to cart!",
     "cart-empty": "Your cart is empty"
   }
@@ -211,7 +266,7 @@ function formatPrice(amount) {
 }
 
 // ==========================================================================
-// Gallery Rendering (Simply renders all 3 pouches)
+// Gallery Rendering (Renders all 6 pouches)
 // ==========================================================================
 
 function renderProducts() {
@@ -387,32 +442,30 @@ function openCart() {
   document.body.style.overflow = "hidden";
 }
 
-function closeCart() {
-  document.getElementById("cart-drawer").classList.remove("open");
-  document.body.style.overflow = "";
-}
-
-// Mock Shopify Checkout Integration
-function triggerShopifyCheckout(checkoutItems) {
+// Proceed to Stripe checkout
+function triggerStripeCheckout(checkoutItems) {
   if (checkoutItems.length === 0) return;
   
   const itemNames = checkoutItems.map(item => `- ${item.title[currentLang]}`).join("\n");
   const priceDisplay = formatPrice(checkoutItems.reduce((sum, i) => sum + i.price, 0));
   
   const confirmMsg = currentLang === 'ja' 
-    ? `【ニストスタジオ Shopify決済連携デモ】\n\n以下の作品を購入手続き（Shopifyのレジ画面）に進みますか？\n\n${itemNames}\n\n合計: ${priceDisplay}\n\n※このデモでは、ニストスタジオのShopify決済画面への接続窓口を表示しています。本番環境では、Shopifyの「購入ボタン (Buy Button)」またはストアフロントAPIを介して、安全にクレジットカードやPayPal等での決済画面へ遷移します。`
-    : `[Nist Studio Shopify Checkout Integration Demo]\n\nProceed to checkout for the following unique creations?\n\n${itemNames}\n\nTotal: ${priceDisplay}\n\n*Note: This is a demo integration window linking to Nist Studio's Shopify store. In production, this securely forwards to Shopify's checkout page via the Shopify Buy Button SDK / Storefront API.`;
+    ? `以下の作品の決済手続きに進みますか？\n\n${itemNames}\n\n合計: ${priceDisplay}\n\n※「OK」をクリックすると、Stripeの決済画面（外部ページ）へ移動します。`
+    : `Proceed to checkout for the following creations?\n\n${itemNames}\n\nTotal: ${priceDisplay}\n\n*Clicking OK redirects you to the Stripe checkout page.`;
   
   if (confirm(confirmMsg)) {
-    const successMsg = currentLang === 'ja'
-      ? `ありがとうございます！\nShopify決済画面（外部ページ）を呼び出しました。\n（※実際の実装では、Shopify管理画面で発行したチェックアウトURLへリダイレクトされます）`
-      : `Redirecting to Shopify Secure Checkout...\n(In real deployment, this redirects you to your custom Shopify cart checkout URL)`;
-    alert(successMsg);
+    window.open(STRIPE_CHECKOUT_URL, '_blank');
     
+    // Clear cart after checkout trigger
     cart.length = 0;
     updateCartUI();
     closeCart();
   }
+}
+
+function closeCart() {
+  document.getElementById("cart-drawer").classList.remove("open");
+  document.body.style.overflow = "";
 }
 
 // ==========================================================================
@@ -448,13 +501,13 @@ function bindEvents() {
     const p = products.find(prod => prod.id === e.currentTarget.dataset.id);
     if (p) {
       closeModal();
-      triggerShopifyCheckout([p]);
+      triggerStripeCheckout([p]);
     }
   });
   
   // Checkout button in drawer
   document.getElementById("checkout-btn").addEventListener("click", () => {
-    triggerShopifyCheckout(cart);
+    triggerStripeCheckout(cart);
   });
   
   // Contact Form Submission (Mocked)
