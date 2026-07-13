@@ -17,7 +17,7 @@ const products = [
       "./assets/products/001-2.jpg",
       "./assets/products/001-3.jpg"
     ],
-    price: 3800,
+    price: 2000,
     title: { ja: "パッチワークポーチ 001", en: "Patchwork Pouch 001" },
     size: { ja: "約 幅20cm × 高さ14cm × マチ4cm", en: "Approx. W7.8 x H5.5 x D1.5 inches" },
     materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
@@ -33,7 +33,7 @@ const products = [
       "./assets/products/002-2.jpg",
       "./assets/products/002-3.jpg"
     ],
-    price: 3500,
+    price: 2000,
     title: { ja: "パッチワークポーチ 002", en: "Patchwork Pouch 002" },
     size: { ja: "約 幅18cm × 高さ13cm × マチ5cm", en: "Approx. W7.0 x H5.1 x D1.9 inches" },
     materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
@@ -49,7 +49,7 @@ const products = [
       "./assets/products/003-2.jpg",
       "./assets/products/003-3.jpg"
     ],
-    price: 4200,
+    price: 2000,
     title: { ja: "パッチワークポーチ 003", en: "Patchwork Pouch 003" },
     size: { ja: "約 幅22cm × 高さ15cm × マチ3cm", en: "Approx. W8.6 x H5.9 x D1.1 inches" },
     materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
@@ -66,7 +66,7 @@ const products = [
       "./assets/products/004-3.jpg",
       "./assets/products/004-4.jpg"
     ],
-    price: 3900,
+    price: 2000,
     title: { ja: "パッチワークポーチ 004", en: "Patchwork Pouch 004" },
     size: { ja: "約 幅20cm × 高さ13cm × マチ4cm", en: "Approx. W7.8 x H5.1 x D1.5 inches" },
     materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
@@ -85,7 +85,7 @@ const products = [
       "./assets/products/005-5.jpg",
       "./assets/products/005-6.jpg"
     ],
-    price: 4500,
+    price: 2000,
     title: { ja: "パッチワークポーチ 005", en: "Patchwork Pouch 005" },
     size: { ja: "約 幅22cm × 高さ16cm × マチ3cm", en: "Approx. W8.6 x H6.3 x D1.1 inches" },
     materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
@@ -101,7 +101,7 @@ const products = [
       "./assets/products/006-2.jpg",
       "./assets/products/006-3.jpg"
     ],
-    price: 3600,
+    price: 2000,
     title: { ja: "パッチワークポーチ 006", en: "Patchwork Pouch 006" },
     size: { ja: "約 幅19cm × 高さ14cm × マチ4cm", en: "Approx. W7.4 x H5.5 x D1.5 inches" },
     materials: { ja: "ハギレ綿、麻、中綿、ファスナー", en: "Cotton & Linen scraps, Batting, Zipper" },
