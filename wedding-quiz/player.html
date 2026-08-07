@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズに参加する | 魁 & 偲桜 結婚式二次会</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container player-layout">
+        <!-- ヘッダー -->
+        <header>
+            <div class="logo-text">WEDDING QUIZ</div>
+            <div class="sub-title">魁 & 偲桜 Wedding Party</div>
+        </header>
+
+        <!-- 1. ログイン/ニックネーム登録画面 -->
+        <div id="login-section" class="glass-card">
+            <h2 class="question-text" style="text-align: center; font-size: 1.3rem; margin-bottom: 1.5rem;">
+                クイズに参加する
+            </h2>
+            <div class="login-form">
+                <div class="input-group">
+                    <label for="nickname-input">ニックネーム (10文字以内)</label>
+                    <input type="text" id="nickname-input" class="text-input" placeholder="例: たろう" maxlength="10">
+                </div>
+                <button class="btn btn-primary" id="btn-join" style="width: 100%;">
+                    参加する
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. メインゲーム画面 (ログイン後表示) -->
+        <div id="game-section" style="display: none; width: 100%;">
+            <!-- プレイヤー情報バー (名前 & ポイント) -->
+            <div class="player-info-bar">
+                <div class="player-nickname" id="display-nickname">---</div>
+                <div class="player-score-badge" id="display-score">0 pt</div>
+            </div>
+
+            <main class="glass-card" style="padding: 1.8rem 1.2rem;">
+                <!-- 待機中表示 -->
+                <div id="player-waiting" style="text-align: center; padding: 2rem 0;">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem; animation: pulse-glow 2s infinite;">💍</div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.8rem; font-weight: 700;">まもなく開始します</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                        魁さんと偲桜さんの結婚式二次会クイズ大会へようこそ！<br>
+                        スクリーンでクイズが開始されるのをお待ちください。
+                    </p>
+                </div>
+
+                <!-- 回答ボタン画面 -->
+                <div id="player-quiz" style="display: none;">
+                    <h3 id="player-q-number" style="font-family: var(--font-heading); color: var(--gold); font-size: 1.2rem; margin-bottom: 1rem; text-align: center;">
+                        第1問
+                    </h3>
+                    
+                    <div id="question-prompt" style="font-size: 1rem; text-align: center; margin-bottom: 1.5rem; color: var(--text-primary); line-height: 1.5;">
+                        手元のボタンから答えを選んでください！
+                    </div>
+
+                    <!-- 回答ボタン (A-D) -->
+                    <div class="player-options-grid" id="player-options-container">
+                        <button class="player-option-btn" data-choice="A">
+                            <span class="option-badge">A</span>
+                            <span class="option-text-val">選択肢 A</span>
+                        </button>
+                        <button class="player-option-btn" data-choice="B">
+                            <span class="option-badge">B</span>
+                            <span class="option-text-val">選択肢 B</span>
+                        </button>
+                        <button class="player-option-btn" data-choice="C">
+                            <span class="option-badge">C</span>
+                            <span class="option-text-val">選択肢 C</span>
+                        </button>
+                        <button class="player-option-btn" data-choice="D">
+                            <span class="option-badge">D</span>
+                            <span class="option-text-val">選択肢 D</span>
+                        </button>
+                    </div>
+
+                    <!-- 回答送信後の待機メッセージ -->
+                    <div id="player-answered-waiting" style="display: none; text-align: center; margin-top: 1.5rem;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">✓ 送信完了！</div>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem;">
+                            全員の回答が完了するか、制限時間が終了するまでお待ちください。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 単問結果発表画面 -->
+                <div id="player-result" style="display: none;">
+                    <div class="result-status-card" id="result-card">
+                        <div class="status-emoji" id="result-emoji">🎉</div>
+                        <h3 id="result-title" style="font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">正解！</h3>
+                        <p id="result-message" style="font-size: 0.9rem; color: var(--text-secondary);">
+                            素晴らしい回答スピードです！
+                        </p>
+                        <span class="earned-points" id="result-points">+18 pt</span>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                        次の問題が始まるまでしばらくお待ちください。
+                    </div>
+                </div>
+
+                <!-- 最終ランキング待機画面 -->
+                <div id="player-end" style="display: none; text-align: center; padding: 2rem 0;">
+                    <div style="font-size: 3.5rem; margin-bottom: 1.5rem;">🏆</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.8rem; font-weight: 700;">すべてのクイズが終了！</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
+                        お疲れ様でした！<br>
+                        あなたの最終獲得ポイントは以下になります。<br>
+                        結果発表はメインスクリーンをご覧ください！
+                    </p>
+                    <div style="font-size: 2.2rem; font-weight: 700; color: var(--gold); text-shadow: var(--shadow-gold);">
+                        <span id="final-points-val">0</span> pt
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <style>
+        @keyframes pulse-glow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(212,175,55,0.2)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 15px rgba(212,175,55,0.6)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(212,175,55,0.2)); }
+        }
+    </style>
+
+    <!-- アプリケーションスクリプト -->
+    <script src="shared.js"></script>
+    <script>
+        let nickname = '';
+        let pollInterval = null;
+        let lastPhase = '';
+        let lastQuestionNum = 0;
+        let questionStartTimeLocal = 0; // 回答速度計測用
+        let isAnsweringEnabled = true;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // URLパラメータ ?name=xxx の取得
+            const urlParams = new URLSearchParams(window.location.search);
+            const nameParam = urlParams.get('name');
+            
+            // ローカルストレージに名前が保存されているかチェック
+            const savedName = localStorage.getItem('wedding_quiz_name');
+            
+            if (nameParam) {
+                // パラメータ優先で自動ログイン
+                autoJoin(nameParam);
+            } else if (savedName) {
+                // 保存されている名前で自動ログイン
+                autoJoin(savedName);
+            }
+        });
+
+        // 参加登録処理
+        document.getElementById('btn-join').addEventListener('click', () => {
+            const input = document.getElementById('nickname-input');
+            const name = input.value.trim();
+            if (name) {
+                join(name);
+            } else {
+                alert('ニックネームを入力してください。');
+            }
+        });
+
+        async function autoJoin(name) {
+            nickname = name;
+            const res = await joinGame(name);
+            if (res.status === 'success') {
+                onJoinSuccess(name, res.player.points);
+            } else {
+                // エラー時はローカルストレージをクリアしフォームを表示
+                localStorage.removeItem('wedding_quiz_name');
+            }
+        }
+
+        async function join(name) {
+            const btn = document.getElementById('btn-join');
+            btn.disabled = true;
+            btn.textContent = '接続中...';
+            
+            const res = await joinGame(name);
+            if (res.status === 'success') {
+                localStorage.setItem('wedding_quiz_name', name);
+                nickname = name;
+                onJoinSuccess(name, res.player.points);
+            } else {
+                alert(res.message || '参加に失敗しました。');
+                btn.disabled = false;
+                btn.textContent = '参加する';
+            }
+        }
+
+        function onJoinSuccess(name, points) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('game-section').style.display = 'block';
+            document.getElementById('display-nickname').textContent = name;
+            document.getElementById('display-score').textContent = `${points} pt`;
+            
+            // 状態同期のポーリングを開始
+            refreshState();
+            pollInterval = setInterval(refreshState, 1500); // 1.5秒間隔
+        }
+
+        // 状態の確認とUI更新
+        async function refreshState() {
+            if (!nickname) return;
+            
+            const state = await getGameState();
+            if (state.status === 'error') return;
+            
+            // ポイントのリアルタイム更新
+            const playerData = state.players[nickname];
+            if (playerData) {
+                document.getElementById('display-score').textContent = `${playerData.points} pt`;
+                document.getElementById('final-points-val').textContent = playerData.points;
+            }
+
+            const currentPhase = state.phase;
+            const currentQ = state.currentQuestion;
+
+            // フェーズまたは問題番号が変わった場合のみUIを初期化
+            if (currentPhase !== lastPhase || currentQ !== lastQuestionNum) {
+                initPhaseUI(state);
+                lastPhase = currentPhase;
+                lastQuestionNum = currentQ;
+            }
+        }
+
+        // 各フェーズに応じたUIの初期化
+        function initPhaseUI(state) {
+            const pWaiting = document.getElementById('player-waiting');
+            const pQuiz = document.getElementById('player-quiz');
+            const pResult = document.getElementById('player-result');
+            const pEnd = document.getElementById('player-end');
+
+            pWaiting.style.display = 'none';
+            pQuiz.style.display = 'none';
+            pResult.style.display = 'none';
+            pEnd.style.display = 'none';
+
+            if (state.phase === 'WAITING') {
+                pWaiting.style.display = 'block';
+                
+            } else if (state.phase === 'QUESTION') {
+                pQuiz.style.display = 'block';
+                document.getElementById('player-q-number').textContent = `第${state.currentQuestion}問`;
+                
+                // 選択肢テキストの割り当て
+                const qData = QUIZ_DATA.find(q => q.id === state.currentQuestion);
+                if (qData) {
+                    const optButtons = document.querySelectorAll('.player-option-btn');
+                    optButtons.forEach(btn => {
+                        const choice = btn.dataset.choice;
+                        const textEl = btn.querySelector('.option-text-val');
+                        textEl.textContent = qData.options[choice];
+                        
+                        // 初期化
+                        btn.disabled = false;
+                        btn.className = 'player-option-btn';
+                    });
+                }
+                
+                // 回答済みチェック
+                const hasAnswered = state.answers[state.currentQuestion] && state.answers[state.currentQuestion][nickname];
+                
+                if (hasAnswered) {
+                    showAnsweredWaiting(state.answers[state.currentQuestion][nickname].answer);
+                } else {
+                    document.getElementById('player-options-container').style.display = 'grid';
+                    document.getElementById('player-answered-waiting').style.display = 'none';
+                    document.getElementById('question-prompt').textContent = '手元のボタンから答えを選んでください！';
+                    questionStartTimeLocal = Date.now(); // 速度計測開始
+                    isAnsweringEnabled = true;
+                }
+                
+            } else if (state.phase === 'SHOW_ANSWER') {
+                pResult.style.display = 'block';
+                
+                // 回答の正誤を判定
+                const qNum = state.currentQuestion;
+                const playerAns = (state.answers[qNum] && state.answers[qNum][nickname]) ? state.answers[qNum][nickname] : null;
+                const qData = QUIZ_DATA.find(q => q.id === qNum);
+                
+                const card = document.getElementById('result-card');
+                const emoji = document.getElementById('result-emoji');
+                const title = document.getElementById('result-title');
+                const msg = document.getElementById('result-message');
+                const points = document.getElementById('result-points');
+                
+                if (playerAns && playerAns.isCorrect) {
+                    card.className = 'result-status-card correct';
+                    emoji.textContent = '🎉';
+                    title.textContent = '正解！';
+                    msg.textContent = `${playerAns.time.toFixed(1)}秒で回答しました！`;
+                    points.textContent = `+${playerAns.points} pt`;
+                    points.style.display = 'block';
+                } else if (playerAns) {
+                    card.className = 'result-status-card incorrect';
+                    emoji.textContent = '😢';
+                    title.textContent = '不正解...';
+                    msg.textContent = `正解は [${qData.correct}] でした。`;
+                    points.textContent = '0 pt';
+                    points.style.display = 'block';
+                } else {
+                    card.className = 'result-status-card incorrect';
+                    emoji.textContent = '⏰';
+                    title.textContent = '時間切れ';
+                    msg.textContent = '回答時間が足りませんでした。';
+                    points.style.display = 'none';
+                }
+                
+            } else if (state.phase === 'LEADERBOARD') {
+                pEnd.style.display = 'block';
+            }
+        }
+
+        // 回答送信済みUIの表示
+        function showAnsweredWaiting(selectedChoice) {
+            document.getElementById('player-options-container').style.display = 'none';
+            document.getElementById('player-answered-waiting').style.display = 'block';
+            document.getElementById('question-prompt').textContent = `選択肢 [${selectedChoice}] を送信しました。`;
+            isAnsweringEnabled = false;
+        }
+
+        // 回答ボタンのイベントリスナー
+        const optButtons = document.querySelectorAll('.player-option-btn');
+        optButtons.forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (!isAnsweringEnabled) return;
+                
+                const choice = btn.dataset.choice;
+                const timeTakenSec = (Date.now() - questionStartTimeLocal) / 1000.0;
+                
+                // ボタンの無効化
+                optButtons.forEach(b => b.disabled = true);
+                btn.classList.add('selected');
+                isAnsweringEnabled = false;
+                
+                // サーバーに回答を送信
+                const res = await submitAnswer(nickname, lastQuestionNum, choice, timeTakenSec);
+                
+                if (res.status === 'success') {
+                    showAnsweredWaiting(choice);
+                    // ポイントをローカル表示にも即時反映
+                    document.getElementById('display-score').textContent = `${res.totalPoints} pt`;
+                } else {
+                    alert(res.message || '送信に失敗しました。もう一度タップしてください。');
+                    optButtons.forEach(b => b.disabled = false);
+                    btn.classList.remove('selected');
+                    isAnsweringEnabled = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

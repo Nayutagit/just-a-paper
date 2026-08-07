@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魁 & 偲桜 結婚式二次会クイズ大会 | メインスクリーン</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- QRコード生成ライブラリ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header>
+            <div class="logo-text">WEDDING QUIZ</div>
+            <div class="sub-title">魁 & 偲桜 Wedding Party</div>
+        </header>
+
+        <!-- メインコンテンツレイアウト -->
+        <div class="screen-layout">
+            
+            <!-- メインディスプレイエリア (左側) -->
+            <main class="glass-card" id="main-display">
+                <!-- 1. 待機フェーズ (WAITING) -->
+                <div id="phase-waiting" class="join-section">
+                    <h2 class="question-text" style="text-align: center; margin-bottom: 1.5rem;">
+                        スマートフォンからクイズに参加してください！
+                    </h2>
+                    
+                    <!-- QRコード表示 -->
+                    <div class="qr-container" id="qr-code"></div>
+                    
+                    <div class="join-url" id="join-url-text">Loading URL...</div>
+                    
+                    <div class="participant-count">
+                        参加者数:<span id="player-count">0</span>/ 37名
+                    </div>
+                    
+                    <div class="players-grid" id="waiting-players-grid">
+                        <!-- 参加プレイヤーがここに動的に追加される -->
+                    </div>
+                </div>
+
+                <!-- 2. クイズ出題フェーズ (QUESTION) & 結果発表フェーズ (SHOW_ANSWER) -->
+                <div id="phase-quiz" class="question-container" style="display: none;">
+                    <div class="quiz-header">
+                        <div class="question-number" id="question-number-badge">Q1</div>
+                        
+                        <!-- 円形タイマー -->
+                        <div class="timer-ring-container" id="timer-container">
+                            <svg class="timer-svg" width="80" height="80">
+                                <circle class="timer-circle-bg" cx="40" cy="40" r="34"></circle>
+                                <circle class="timer-circle-progress" id="timer-progress" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="0"></circle>
+                            </svg>
+                            <div class="timer-text" id="timer-value">20</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 問題文 -->
+                    <h2 class="question-text" id="question-text-el">
+                        ここに問題文が表示されます。
+                    </h2>
+                    
+                    <!-- 選択肢リスト -->
+                    <div class="options-list" id="options-grid">
+                        <!-- 選択肢 A-D がここに動的に追加される -->
+                    </div>
+                    
+                    <!-- 回答状況プログレスバー -->
+                    <div style="margin-top: auto;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.3rem;">
+                            <span>回答状況</span>
+                            <span id="answers-ratio-text">0 / 0名回答完了</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="answers-progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 最終結果フェーズ (LEADERBOARD) -->
+                <div id="phase-leaderboard" style="display: none;">
+                    <h2 class="question-text" style="text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
+                        🏆 最終ランキング発表 🏆
+                    </h2>
+                    
+                    <div class="leaderboard-list" id="leaderboard-list-el">
+                        <!-- ランキングがここに動的に追加される -->
+                    </div>
+                </div>
+            </main>
+
+            <!-- 管理者用パネル (右側) -->
+            <aside class="glass-card admin-panel">
+                <h3>ゲームコントロール</h3>
+                <div class="admin-actions">
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">現在のフェーズ:</span>
+                        <div id="admin-current-phase" style="font-weight: 700; color: var(--gold); margin-top: 0.2rem;">WAITING</div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="btn-next-step">
+                        クイズを開始する
+                    </button>
+                    
+                    <button class="btn btn-secondary" id="btn-auto-simulate" style="display: none;">
+                        デモ回答を自動送信
+                    </button>
+                </div>
+                
+                <h3>デモ・動作確認ツール</h3>
+                <div class="admin-actions">
+                    <button class="btn btn-secondary" id="btn-add-demo">
+                        デモ参加者を追加 (37名規模再現)
+                    </button>
+                    
+                    <!-- テストリンク -->
+                    <div style="margin-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">テスト用スマホ画面リンク (3名分):</span>
+                        <a href="player.html?name=Taro" target="_blank" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.5rem 1rem; width: 100%; justify-content: flex-start; margin-bottom: 0.5rem; text-decoration: none;">
+                            👤 Taro (テスト1)
+                        </a>
+                        <a href="player.html?name=Hanako" target="_blank" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.5rem 1rem; width: 100%; justify-content: flex-start; margin-bottom: 0.5rem; text-decoration: none;">
+                            👤 Hanako (テスト2)
+                        </a>
+                        <a href="player.html?name=Jiro" target="_blank" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.5rem 1rem; width: 100%; justify-content: flex-start; text-decoration: none;">
+                            👤 Jiro (テスト3)
+                        </a>
+                    </div>
+                    
+                    <button class="btn btn-danger" id="btn-reset" style="margin-top: 1rem;">
+                        ゲームをリセット
+                    </button>
+                </div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <!-- アプリケーションスクリプト -->
+    <script src="shared.js"></script>
+    <script>
+        // メイン画面のゲーム進行コントロール処理
+        let currentGameState = null;
+        let pollTimer = null;
+        let countdownInterval = null;
+        let remainingTime = 20;
+        let totalTime = 20;
+
+        // ドメイン解決とQRコード生成
+        window.addEventListener('DOMContentLoaded', () => {
+            const protocol = window.location.protocol;
+            const host = window.location.host;
+            const pathname = window.location.pathname;
+            // 参加用 player.html へのフルパスを作成
+            const dirPath = pathname.substring(0, pathname.lastIndexOf('/'));
+            const playerUrl = `${protocol}//${host}${dirPath}/player.html`;
+            
+            // URLテキスト表示
+            document.getElementById('join-url-text').innerHTML = `<a href="${playerUrl}" target="_blank" style="color: var(--gold-light); text-decoration: underline;">${playerUrl}</a>`;
+            
+            // QRコード生成
+            new QRCode(document.getElementById("qr-code"), {
+                text: playerUrl,
+                width: 200,
+                height: 200,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+            
+            // 初期状態取得とポーリング開始
+            refreshState();
+            pollTimer = setInterval(refreshState, 1500); // 1.5秒ごとにサーバーと同期
+        });
+
+        // 定期的な状態更新
+        async function refreshState() {
+            const oldState = currentGameState;
+            currentGameState = await getGameState();
+            
+            if (currentGameState.status === 'error') {
+                console.error(currentGameState.message);
+                return;
+            }
+            
+            // 画面のレンダリング
+            renderScreen(oldState, currentGameState);
+        }
+
+        // 画面の描画管理
+        function renderScreen(oldState, state) {
+            // 管理用現在のフェーズテキスト更新
+            document.getElementById('admin-current-phase').textContent = state.phase;
+            
+            // 参加者数の更新
+            const players = state.players || {};
+            const playerCount = Object.keys(players).length;
+            document.getElementById('player-count').textContent = playerCount;
+            
+            // 進行ボタンのテキスト・アクションの更新
+            const btnNext = document.getElementById('btn-next-step');
+            const btnSimulate = document.getElementById('btn-auto-simulate');
+            
+            if (state.phase === 'WAITING') {
+                btnNext.textContent = "クイズを開始する";
+                btnNext.style.display = 'inline-flex';
+                btnSimulate.style.display = 'none';
+                
+                // 画面表示切替
+                document.getElementById('phase-waiting').style.display = 'flex';
+                document.getElementById('phase-quiz').style.display = 'none';
+                document.getElementById('phase-leaderboard').style.display = 'none';
+                
+                // 待機グリッドの描画
+                renderWaitingGrid(players);
+                
+            } else if (state.phase === 'QUESTION') {
+                btnNext.textContent = "回答を締め切る";
+                btnNext.style.display = 'inline-flex';
+                // デモプレイヤーがいる場合のみシミュレートボタンを表示
+                const hasDemo = Object.values(players).some(p => p.isDemo);
+                btnSimulate.style.display = hasDemo ? 'inline-flex' : 'none';
+                
+                document.getElementById('phase-waiting').style.display = 'none';
+                document.getElementById('phase-quiz').style.display = 'flex';
+                document.getElementById('phase-leaderboard').style.display = 'none';
+                
+                // 問題情報のセット
+                const qNum = state.currentQuestion;
+                const questionData = QUIZ_DATA.find(q => q.id === qNum);
+                
+                if (questionData) {
+                    document.getElementById('question-number-badge').textContent = `Q${qNum}`;
+                    document.getElementById('question-text-el').textContent = questionData.question;
+                    
+                    // 選択肢の描画（結果非表示モード）
+                    renderOptions(questionData, state, false);
+                }
+                
+                // 回答数プログレスバー
+                updateAnswersProgress(state);
+                
+                // タイマー制御 (QUESTIONフェーズに入った最初の1回だけタイマーを起動)
+                if (!oldState || oldState.phase !== 'QUESTION' || oldState.currentQuestion !== state.currentQuestion) {
+                    startCountdown(state.questionStartTime);
+                }
+                
+            } else if (state.phase === 'SHOW_ANSWER') {
+                btnNext.textContent = state.currentQuestion < QUIZ_DATA.length ? "次の問題へ" : "最終結果発表へ";
+                btnNext.style.display = 'inline-flex';
+                btnSimulate.style.display = 'none';
+                
+                document.getElementById('phase-waiting').style.display = 'none';
+                document.getElementById('phase-quiz').style.display = 'flex';
+                document.getElementById('phase-leaderboard').style.display = 'none';
+                
+                // タイマー非表示・リセット
+                clearInterval(countdownInterval);
+                document.getElementById('timer-container').style.visibility = 'hidden';
+                
+                // 問題情報と回答分布の描画（結果表示モード）
+                const qNum = state.currentQuestion;
+                const questionData = QUIZ_DATA.find(q => q.id === qNum);
+                if (questionData) {
+                    renderOptions(questionData, state, true);
+                }
+                
+                updateAnswersProgress(state);
+                
+            } else if (state.phase === 'LEADERBOARD') {
+                btnNext.style.display = 'none'; // 終了
+                btnSimulate.style.display = 'none';
+                
+                document.getElementById('phase-waiting').style.display = 'none';
+                document.getElementById('phase-quiz').style.display = 'none';
+                document.getElementById('phase-leaderboard').style.display = 'block';
+                
+                renderLeaderboard(players);
+            }
+        }
+
+        // 参加者カードグリッドのレンダリング
+        function renderWaitingGrid(players) {
+            const grid = document.getElementById('waiting-players-grid');
+            
+            // 描画されているカードのIDリストを取得
+            const existingCards = Array.from(grid.children).map(c => c.dataset.name);
+            
+            // 新しく追加されたプレイヤーをカードにする
+            Object.keys(players).forEach(name => {
+                if (!existingCards.includes(name)) {
+                    const card = document.createElement('div');
+                    card.className = 'player-card';
+                    if (players[name].isDemo) {
+                        card.classList.add('is-testing');
+                    }
+                    card.dataset.name = name;
+                    card.textContent = name;
+                    grid.appendChild(card);
+                }
+            });
+            
+            // 削除されたプレイヤーを取り除く
+            Array.from(grid.children).forEach(card => {
+                const name = card.dataset.name;
+                if (!players[name]) {
+                    grid.removeChild(card);
+                }
+            });
+        }
+
+        // タイマーカウントダウン
+        function startCountdown(startTimeUnix) {
+            clearInterval(countdownInterval);
+            document.getElementById('timer-container').style.visibility = 'visible';
+            
+            const timerVal = document.getElementById('timer-value');
+            const timerProgress = document.getElementById('timer-progress');
+            
+            totalTime = 20; // 20秒
+            
+            function updateTimer() {
+                const nowUnix = Math.floor(Date.now() / 1000);
+                const elapsed = nowUnix - startTimeUnix;
+                remainingTime = Math.max(0, totalTime - elapsed);
+                
+                timerVal.textContent = remainingTime;
+                
+                // SVGプログレス円の計算
+                // 周囲長 = 2 * PI * r = 2 * 3.14159 * 34 ≒ 213.6
+                const strokeDashoffset = 213.6 * (1 - remainingTime / totalTime);
+                timerProgress.style.strokeDashoffset = strokeDashoffset;
+                
+                if (remainingTime <= 5) {
+                    timerVal.classList.add('danger');
+                } else {
+                    timerVal.classList.remove('danger');
+                }
+                
+                if (remainingTime <= 0) {
+                    clearInterval(countdownInterval);
+                    // 時間切れのとき自動的に結果発表フェーズへ移行
+                    handleNextStep();
+                }
+            }
+            
+            updateTimer();
+            countdownInterval = setInterval(updateTimer, 1000);
+        }
+
+        // 選択肢の描画
+        function renderOptions(questionData, state, showResults) {
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            
+            const qNum = state.currentQuestion;
+            const answers = state.answers[qNum] || {};
+            const totalAnswers = Object.keys(answers).length;
+            
+            // 各選択肢の回答数をカウント
+            const counts = { A: 0, B: 0, C: 0, D: 0 };
+            Object.values(answers).forEach(ans => {
+                if (counts[ans.answer] !== undefined) {
+                    counts[ans.answer]++;
+                }
+            });
+
+            Object.entries(questionData.options).forEach(([key, text]) => {
+                const item = document.createElement('div');
+                item.className = 'option-item';
+                
+                const badge = document.createElement('div');
+                badge.className = 'option-badge';
+                badge.textContent = key;
+                item.appendChild(badge);
+                
+                const textEl = document.createElement('span');
+                textEl.textContent = text;
+                item.appendChild(textEl);
+                
+                // 結果発表フェーズの場合
+                if (showResults) {
+                    item.classList.add('show-results');
+                    
+                    const count = counts[key];
+                    const percent = totalAnswers > 0 ? Math.round((count / totalAnswers) * 100) : 0;
+                    
+                    // 棒グラフ
+                    const bar = document.createElement('div');
+                    bar.className = 'result-bar';
+                    item.appendChild(bar);
+                    
+                    // アニメーション効果を少し遅らせて開始
+                    setTimeout(() => {
+                        bar.style.width = `${percent}%`;
+                    }, 100);
+                    
+                    // パーセンテージ表示
+                    const percentEl = document.createElement('span');
+                    percentEl.className = 'result-percentage';
+                    percentEl.textContent = `${percent}% (${count}人)`;
+                    item.appendChild(percentEl);
+                    
+                    // 正解のハイライト
+                    if (key === questionData.correct) {
+                        item.classList.add('correct');
+                    }
+                }
+                
+                grid.appendChild(item);
+            });
+        }
+
+        // 回答割合メーターの更新
+        function updateAnswersProgress(state) {
+            const players = state.players || {};
+            const totalPlayers = Object.keys(players).length;
+            
+            const qNum = state.currentQuestion;
+            const answers = state.answers[qNum] || {};
+            const answeredCount = Object.keys(answers).length;
+            
+            const ratio = totalPlayers > 0 ? (answeredCount / totalPlayers) : 0;
+            const percent = Math.round(ratio * 100);
+            
+            document.getElementById('answers-progress-bar').style.width = `${percent}%`;
+            document.getElementById('answers-ratio-text').textContent = `${answeredCount} / ${totalPlayers}名回答完了`;
+            
+            // 全員が回答完了したら自動でカウントダウン停止
+            if (state.phase === 'QUESTION' && answeredCount > 0 && answeredCount === totalPlayers) {
+                clearInterval(countdownInterval);
+                handleNextStep();
+            }
+        }
+
+        // ランキングの描画
+        function renderLeaderboard(players) {
+            const listEl = document.getElementById('leaderboard-list-el');
+            listEl.innerHTML = '';
+            
+            // プレイヤーをポイント降順でソート
+            const sortedPlayers = Object.entries(players)
+                .map(([name, data]) => ({ name, ...data }))
+                .sort((a, b) => b.points - a.points);
+            
+            sortedPlayers.forEach((player, index) => {
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                
+                const rankBadge = document.createElement('div');
+                rankBadge.className = 'rank-badge';
+                rankBadge.textContent = index + 1;
+                item.appendChild(rankBadge);
+                
+                const nameEl = document.createElement('div');
+                nameEl.className = 'player-name';
+                nameEl.textContent = player.name;
+                if (player.isDemo) {
+                    nameEl.textContent += " (デモ)";
+                }
+                item.appendChild(nameEl);
+                
+                const scoreEl = document.createElement('div');
+                scoreEl.className = 'player-score';
+                scoreEl.textContent = `${player.points} pt`;
+                item.appendChild(scoreEl);
+                
+                listEl.appendChild(item);
+            });
+        }
+
+        // 進行管理ボタンイベント
+        document.getElementById('btn-next-step').addEventListener('click', handleNextStep);
+        
+        async function handleNextStep() {
+            if (!currentGameState) return;
+            
+            let nextPhase = 'WAITING';
+            let nextQuestion = currentGameState.currentQuestion;
+            
+            if (currentGameState.phase === 'WAITING') {
+                nextPhase = 'QUESTION';
+                nextQuestion = 1;
+            } else if (currentGameState.phase === 'QUESTION') {
+                nextPhase = 'SHOW_ANSWER';
+            } else if (currentGameState.phase === 'SHOW_ANSWER') {
+                if (currentGameState.currentQuestion < QUIZ_DATA.length) {
+                    nextPhase = 'QUESTION';
+                    nextQuestion = currentGameState.currentQuestion + 1;
+                } else {
+                    nextPhase = 'LEADERBOARD';
+                }
+            }
+            
+            await updateGameState(nextPhase, nextQuestion);
+            refreshState();
+        }
+
+        // デモ追加ボタン
+        document.getElementById('btn-add-demo').addEventListener('click', async () => {
+            await addDemoPlayers();
+            refreshState();
+        });
+
+        // デモ回答シミュレートボタン
+        document.getElementById('btn-auto-simulate').addEventListener('click', async () => {
+            if (currentGameState && currentGameState.phase === 'QUESTION') {
+                await submitDemoAnswers(currentGameState.currentQuestion);
+                refreshState();
+            }
+        });
+
+        // リセットボタン
+        document.getElementById('btn-reset').addEventListener('click', async () => {
+            if (confirm('ゲームデータをリセットして待機画面に戻しますか？')) {
+                clearInterval(countdownInterval);
+                await resetGameState();
+                refreshState();
+            }
+        });
+    </script>
+</body>
+</html>
