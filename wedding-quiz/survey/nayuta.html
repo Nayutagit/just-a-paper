@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テスト入力フォーム (那由他さん専用) | WEDDING QUIZ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-nayuta">
+    <div class="container" id="survey-app">
+        <!-- ヘッダー -->
+        <header>
+            <div class="logo-text">TEST SURVEY</div>
+            <div class="sub-title">那由他さん専用 テスト用アンケート入力フォーム</div>
+        </header>
+
+        <!-- 入力フォームカード -->
+        <main class="glass-card" id="form-card">
+            <p class="form-intro">
+                このページは、那由他さん自身が新郎新婦の入力テストを行うための専用ページです。<br>
+                新郎（魁さん）役、または新婦（偲桜さん）役のどちらとして回答するかを選択して、入力・送信テストを行えます。
+            </p>
+
+            <!-- 立場選択トグル -->
+            <div class="question-block" style="margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem;">
+                <label class="question-label" style="margin-bottom: 1rem;">
+                    入力するテストの役割を選択してください：
+                </label>
+                <div style="display: flex; gap: 1rem;">
+                    <label style="flex: 1; cursor: pointer;">
+                        <input type="radio" name="test-role" value="nayuta_groom" checked style="display:none;" id="role-groom-radio">
+                        <div id="role-groom-btn" class="input-text" style="text-align: center; font-weight: 700; border-color: var(--gold); background: rgba(212, 175, 55, 0.1); color: var(--gold-light);">
+                            🤵 新郎 (魁さん役) としてテスト
+                        </div>
+                    </label>
+                    <label style="flex: 1; cursor: pointer;">
+                        <input type="radio" name="test-role" value="nayuta_bride" style="display:none;" id="role-bride-radio">
+                        <div id="role-bride-btn" class="input-text" style="text-align: center; font-weight: 700;">
+                            👰 新婦 (偲桜さん役) としてテスト
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <form id="survey-form">
+                <!-- 質問 1: プレゼント -->
+                <div class="question-block">
+                    <label class="question-label">
+                        <span class="question-number">Q1.</span>
+                        今まで<span class="target-partner">偲桜（しほ）</span>さんから貰ったプレゼントで、嬉しかったものランキングを教えてください。
+                    </label>
+                    <div class="ranking-inputs">
+                        <div class="ranking-row">
+                            <span class="ranking-badge">1st</span>
+                            <input type="text" id="q1_1" class="input-text" placeholder="例: テストのプレゼント1位" required>
+                        </div>
+                        <div class="ranking-row">
+                            <span class="ranking-badge">2nd</span>
+                            <input type="text" id="q1_2" class="input-text" placeholder="例: テストのプレゼント2位" required>
+                        </div>
+                        <div class="ranking-row">
+                            <span class="ranking-badge">3rd</span>
+                            <input type="text" id="q1_3" class="input-text" placeholder="例: テストのプレゼント3位" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 質問 2: 第一印象 -->
+                <div class="question-block">
+                    <label for="q2" class="question-label">
+                        <span class="question-number">Q2.</span>
+                        <span class="target-partner">偲桜（しほ）</span>さんに初めて会った時の「第一印象」は？
+                    </label>
+                    <input type="text" id="q2" class="input-text" placeholder="例: テストの第一印象回答" required>
+                </div>
+
+                <!-- 質問 3: 直してほしいこと -->
+                <div class="question-block">
+                    <label for="q3" class="question-label">
+                        <span class="question-number">Q3.</span>
+                        <span class="target-partner">偲桜（しほ）</span>さんに「実はここだけは直してほしいなぁ」と思っていることは？
+                    </label>
+                    <input type="text" id="q3" class="input-text" placeholder="例: テストの直してほしいこと回答" required>
+                </div>
+
+                <!-- 質問 4: 尊敬するところ -->
+                <div class="question-block">
+                    <label for="q4" class="question-label">
+                        <span class="question-number">Q4.</span>
+                        <span class="target-partner">偲桜（しほ）</span>さんの「こういうところが一番尊敬できる！」と思う部分は？
+                    </label>
+                    <input type="text" id="q4" class="input-text" placeholder="例: テストの尊敬するところ回答" required>
+                </div>
+
+                <!-- 質問 5: 初デートの場所 -->
+                <div class="question-block">
+                    <label for="q5" class="question-label">
+                        <span class="question-number">Q5.</span>
+                        お二人が初めてデートした「思い出の場所」はどこですか？
+                    </label>
+                    <input type="text" id="q5" class="input-text" placeholder="例: テストの初デート場所回答" required>
+                </div>
+
+                <!-- 質問 6: 秘密エピソード -->
+                <div class="question-block">
+                    <label for="q6" class="question-label">
+                        <span class="question-number">Q6.</span>
+                        <span class="target-partner">偲桜（しほ）</span>さんに対して、実はまだ秘密にしていることや、言っていないエピソードはありますか？
+                    </label>
+                    <textarea id="q6" class="input-text" placeholder="例: テストの秘密エピソード回答" required></textarea>
+                </div>
+
+                <!-- 送信ボタン -->
+                <button type="submit" class="btn btn-submit" id="btn-submit" style="background: var(--border-accent);">
+                    テストデータを送信する
+                </button>
+            </form>
+        </main>
+
+        <!-- 送信完了メッセージ (初期非表示) -->
+        <main class="glass-card success-msg" id="success-card" style="display: none;">
+            <div class="success-icon">🎉</div>
+            <h2 style="font-size: 1.6rem; margin-bottom: 0.8rem; font-weight: 700; color: #9fa8da;">
+                テストデータ送信完了！
+            </h2>
+            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;" id="success-message-text">
+                テスト回答が「新郎役」として送信されました。<br>
+                結果確認画面で正しく反映されているか確認してください。
+            </p>
+            <button class="btn btn-secondary" onclick="window.location.reload();">
+                続けてもう一方のテストも行う
+            </button>
+            <a href="results.html" class="btn btn-primary" style="display: inline-flex; text-decoration: none; margin-top: 1rem; background: linear-gradient(135deg, #9fa8da 0%, #5c6bc0 100%); color: #fff;">
+                結果確認画面へ進む
+            </a>
+        </main>
+    </div>
+
+    <script>
+        const partnerSpans = document.querySelectorAll('.target-partner');
+        const groomRadio = document.getElementById('role-groom-radio');
+        const brideRadio = document.getElementById('role-bride-radio');
+        const groomBtn = document.getElementById('role-groom-btn');
+        const brideBtn = document.getElementById('role-bride-btn');
+
+        let selectedRole = 'nayuta_groom';
+
+        function updateRoleSelection(role) {
+            selectedRole = role;
+            if (role === 'nayuta_groom') {
+                partnerSpans.forEach(s => s.textContent = '偲桜（しほ）');
+                groomBtn.style.borderColor = 'var(--gold)';
+                groomBtn.style.background = 'rgba(212, 175, 55, 0.1)';
+                groomBtn.style.color = 'var(--gold-light)';
+                
+                brideBtn.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                brideBtn.style.background = 'rgba(255, 255, 255, 0.04)';
+                brideBtn.style.color = '#fff';
+            } else {
+                partnerSpans.forEach(s => s.textContent = '魁（かい）');
+                brideBtn.style.borderColor = 'var(--rose)';
+                brideBtn.style.background = 'rgba(183, 110, 121, 0.15)';
+                brideBtn.style.color = 'var(--rose-light)';
+                
+                groomBtn.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                groomBtn.style.background = 'rgba(255, 255, 255, 0.04)';
+                groomBtn.style.color = '#fff';
+            }
+        }
+
+        groomBtn.addEventListener('click', () => {
+            groomRadio.checked = true;
+            updateRoleSelection('nayuta_groom');
+        });
+
+        brideBtn.addEventListener('click', () => {
+            brideRadio.checked = true;
+            updateRoleSelection('nayuta_bride');
+        });
+
+        document.getElementById('survey-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btn-submit');
+            btn.disabled = true;
+            btn.textContent = 'テスト送信中...';
+
+            const answers = {
+                q1: {
+                    1: document.getElementById('q1_1').value.trim(),
+                    2: document.getElementById('q1_2').value.trim(),
+                    3: document.getElementById('q1_3').value.trim()
+                },
+                q2: document.getElementById('q2').value.trim(),
+                q3: document.getElementById('q3').value.trim(),
+                q4: document.getElementById('q4').value.trim(),
+                q5: document.getElementById('q5').value.trim(),
+                q6: document.getElementById('q6').value.trim()
+            };
+
+            try {
+                const response = await fetch(`api.php?action=save&role=${selectedRole}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ answers })
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    document.getElementById('form-card').style.display = 'none';
+                    document.getElementById('success-card').style.display = 'block';
+                    
+                    const roleText = selectedRole === 'nayuta_groom' ? '新郎役（テスト）' : '新婦役（テスト）';
+                    document.getElementById('success-message-text').innerHTML = `
+                        テスト回答が「${roleText}」として送信されました。<br>
+                        結果確認画面で正しく反映されているか確認してください。
+                    `;
+                } else {
+                    alert('送信エラー: ' + result.message);
+                    btn.disabled = false;
+                    btn.textContent = 'テストデータを送信する';
+                }
+            } catch (err) {
+                console.error(err);
+                alert('通信に失敗しました。');
+                btn.disabled = false;
+                btn.textContent = 'テストデータを送信する';
+            }
+        });
+    </script>
+</body>
+</html>
