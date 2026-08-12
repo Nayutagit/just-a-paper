@@ -221,6 +221,47 @@ textarea.input-text:focus {
     cursor: not-allowed;
 }
 
+/* フローティング一時保存ボタン */
+.btn-floating-save {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #5f6368;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.btn-floating-save:hover {
+    background-color: #4b4f53;
+    transform: translateY(-2px);
+}
+
+.btn-floating-save:active {
+    transform: translateY(0);
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    .btn-floating-save {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+    }
+}
+
 /* オートセーブインジケータ */
 .autosave-indicator {
     position: fixed;

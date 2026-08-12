@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-groom">
+    <!-- 画面追従型（フローティング）一時保存ボタン -->
+    <button type="button" class="btn-floating-save" id="btn-floating-save">💾 一時保存</button>
+
     <div class="container" id="survey-app">
         <!-- ヘッダー -->
         <header class="form-header-card">
@@ -201,6 +204,7 @@
         const successCard = document.getElementById('success-card');
         const submitBtn = document.getElementById('btn-submit');
         const draftBtn = document.getElementById('btn-save-draft');
+        const floatingDraftBtn = document.getElementById('btn-floating-save');
         const statusText = document.getElementById('save-status-text');
         const statusIcon = document.getElementById('save-status-icon');
 
@@ -368,7 +372,48 @@
             return await response.json();
         }
 
-        // 入力時のオートセーブ (ローカル & サーバーへのサイレント送信)
+        // 一時保存の共通実行ロジック
+        async function executeSaveDraft(buttonElement) {
+            buttonElement.disabled = true;
+            const originalText = buttonElement.textContent;
+            buttonElement.textContent = '一時保存中...';
+            
+            try {
+                const res = await sendToServer('draft');
+                if (res.status === 'success') {
+                    alert('下書きを一時保存しました。');
+                    statusText.textContent = "下書きは自動保存されています";
+                    statusIcon.textContent = "✓";
+                    statusIcon.style.color = "green";
+                    
+                    if (res.data && res.data.photos) {
+                        for (let i = 1; i <= 3; i++) {
+                            const key = 'photo' + i;
+                            if (res.data.photos[key]) {
+                                const previewImg = document.getElementById('preview-' + key);
+                                const deleteBtn = document.getElementById('btn-delete-' + key);
+                                if (previewImg && deleteBtn) {
+                                    previewImg.src = '../' + res.data.photos[key] + '?t=' + Date.now();
+                                    previewImg.style.display = 'block';
+                                    deleteBtn.style.display = 'inline-block';
+                                    document.getElementById('photo' + i).value = '';
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    alert('一時保存エラー: ' + res.message);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('通信に失敗しました。');
+            } finally {
+                buttonElement.disabled = false;
+                buttonElement.textContent = originalText;
+            }
+        }
+
+        // 入力時のオートセーブ
         let saveTimeout = null;
         form.addEventListener('input', () => {
             statusText.textContent = "一時保存中...";
@@ -407,46 +452,11 @@
             }, 2000);
         });
 
-        // 「一時保存する」ボタンクリック時の処理 (手動一時保存)
-        draftBtn.addEventListener('click', async () => {
-            draftBtn.disabled = true;
-            const originalText = draftBtn.textContent;
-            draftBtn.textContent = '一時保存中...';
-            
-            try {
-                const res = await sendToServer('draft');
-                if (res.status === 'success') {
-                    alert('下書きを一時保存しました。');
-                    statusText.textContent = "下書きは自動保存されています";
-                    statusIcon.textContent = "✓";
-                    statusIcon.style.color = "green";
-                    
-                    if (res.data && res.data.photos) {
-                        for (let i = 1; i <= 3; i++) {
-                            const key = 'photo' + i;
-                            if (res.data.photos[key]) {
-                                const previewImg = document.getElementById('preview-' + key);
-                                const deleteBtn = document.getElementById('btn-delete-' + key);
-                                if (previewImg && deleteBtn) {
-                                    previewImg.src = '../' + res.data.photos[key] + '?t=' + Date.now();
-                                    previewImg.style.display = 'block';
-                                    deleteBtn.style.display = 'inline-block';
-                                    document.getElementById('photo' + i).value = '';
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    alert('一時保存エラー: ' + res.message);
-                }
-            } catch (err) {
-                console.error(err);
-                alert('通信に失敗しました。');
-            } finally {
-                draftBtn.disabled = false;
-                draftBtn.textContent = originalText;
-            }
-        });
+        // 「一時保存する」ボタンクリック時の処理 (最下部ボタン)
+        draftBtn.addEventListener('click', () => executeSaveDraft(draftBtn));
+
+        // 画面追従（フローティング）一時保存ボタンクリック時の処理
+        floatingDraftBtn.addEventListener('click', () => executeSaveDraft(floatingDraftBtn));
 
         // 送信ボタンクリック時の処理
         form.addEventListener('submit', async (e) => {
@@ -455,6 +465,7 @@
             submitBtn.disabled = true;
             submitBtn.textContent = '送信中...';
             draftBtn.disabled = true;
+            floatingDraftBtn.disabled = true;
 
             try {
                 const result = await sendToServer('submitted');
@@ -462,6 +473,7 @@
                 if (result.status === 'success') {
                     localStorage.removeItem(DRAFT_KEY);
                     form.style.display = 'none';
+                    floatingDraftBtn.style.display = 'none'; // フローティングボタンも消す
                     successCard.style.display = 'block';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
@@ -469,6 +481,7 @@
                     submitBtn.disabled = false;
                     submitBtn.textContent = '送信する';
                     draftBtn.disabled = false;
+                    floatingDraftBtn.disabled = false;
                 }
             } catch (err) {
                 console.error(err);
@@ -476,6 +489,7 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = '送信する';
                 draftBtn.disabled = false;
+                floatingDraftBtn.disabled = false;
             }
         });
     </script>
