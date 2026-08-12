@@ -5,8 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>アンケート結果確認 | WEDDING QUIZ</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            margin-top: 0.3rem;
+            text-align: center;
+        }
+        .status-badge.submitted {
+            background-color: #e6f4ea;
+            color: #137333;
+            border: 1px solid #137333;
+        }
+        .status-badge.draft {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+            border: 1px solid #1a73e8;
+        }
+        .status-badge.none {
+            background-color: #fce8e6;
+            color: #c5221f;
+            border: 1px solid #c5221f;
+        }
+        .photo-result-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .photo-result-item {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem;
+            background: #f8f9fa;
+        }
+        .photo-result-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 2px;
+            display: block;
+            margin-top: 0.3rem;
+            max-height: 250px;
+            object-fit: contain;
+        }
+        .photo-result-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--text-secondary);
+        }
+    </style>
 </head>
-<body class="theme-nayuta"> <!-- ニュートラルなテーマ -->
+<body class="theme-nayuta">
     <div class="container-wide" id="results-app">
         <!-- ヘッダー -->
         <header class="form-header-card" style="margin-bottom: 1.5rem;">
@@ -56,56 +108,22 @@
         let showTestMode = false;
 
         const QUIZ_QUESTIONS = [
-            {
-                id: 'q1',
-                title: 'Q1. お互いの呼び名と、その由来',
-                isRanking: false
-            },
-            {
-                id: 'q2',
-                title: 'Q2. 初めて会った時の「第一印象」',
-                isRanking: false
-            },
-            {
-                id: 'q3',
-                title: 'Q3. 【意思疎通チェック】初めてデートした「思い出の場所」',
-                isRanking: false
-            },
-            {
-                id: 'q4',
-                title: 'Q4. 【意思疎通チェック】作ってくれた手料理で「一番美味しかったもの（得意料理）」',
-                isRanking: false
-            },
-            {
-                id: 'q5',
-                title: 'Q5. 【意思疎通チェック】相手から貰ったプレゼントで、嬉しかったものランキング',
-                isRanking: true
-            },
-            {
-                id: 'q6',
-                title: 'Q6. 【意思疎通チェック】魁さん・偲桜さんから見て「二人の一番似ているところ（共通点）」',
-                isRanking: false
-            },
-            {
-                id: 'q7',
-                title: 'Q7. 相手の「こういうところが本当に素敵で、尊敬できる！」と思う部分',
-                isRanking: false
-            },
-            {
-                id: 'q8',
-                title: 'Q8. 相手の「直さなくてもいいけれど、実はちょっと面白いな・可愛らしいな」と思う癖や習慣',
-                isRanking: false
-            },
-            {
-                id: 'q9',
-                title: 'Q9. プロポーズのシチュエーションやその時の感想・裏話',
-                isRanking: false
-            },
-            {
-                id: 'q10',
-                title: 'Q10. 照れくさくて普段言えない、相手への「ちょっとした感謝の気持ち」やメッセージ',
-                isRanking: false
-            }
+            { id: 'q1', title: 'Q1. お互いの呼び名と、その由来', isRanking: false, isPhoto: false },
+            { id: 'q2', title: 'Q2. 初めて会った時の「第一印象」', isRanking: false, isPhoto: false },
+            { id: 'q3', title: 'Q3. 初めてデートした「思い出の場所」', isRanking: false, isPhoto: false },
+            { id: 'q4', title: 'Q4. 作ってくれた料理（用意してくれた食事）で「一番美味しかったもの」', isRanking: false, isPhoto: false },
+            { id: 'q5', title: 'Q5. 相手から貰ったプレゼントで、嬉しかったものランキング', isRanking: true, isPhoto: false },
+            { id: 'q6', title: 'Q6. 魁さん・偲桜さんから見て「二人の一番似ているところ（共通点）」', isRanking: false, isPhoto: false },
+            { id: 'q7', title: 'Q7. 相手の「こういうところが本当に素敵で、尊敬できる！」と思う部分', isRanking: false, isPhoto: false },
+            { id: 'q8', title: 'Q8. 相手の「直さなくてもいいけれど、実はちょっと面白いな・可愛らしいな」と思う癖や習慣', isRanking: false, isPhoto: false },
+            { id: 'q9', title: 'Q9. プロポーズのシチュエーションやその時の感想・裏話', isRanking: false, isPhoto: false },
+            { id: 'q10', title: 'Q10. 照れくさくて普段言えない、相手へのメッセージ', isRanking: false, isPhoto: false },
+            { id: 'q11', title: 'Q11. 相手の「好きなところ」ベスト3', isRanking: true, isPhoto: false },
+            { id: 'q12', title: 'Q12. 一番よく行くお気に入りのデートスポットや、よく一緒に行くお店', isRanking: false, isPhoto: false },
+            { id: 'q13', title: 'Q13. 相手を「天才か！」「すごい！」と思った瞬間', isRanking: false, isPhoto: false },
+            { id: 'q14', title: 'Q14. お二人の「マイブーム」（二人でハマっていることや、よく一緒にしていること）', isRanking: false, isPhoto: false },
+            { id: 'q15', title: 'Q15. 相手を「動物」に例えると何ですか？またその理由', isRanking: false, isPhoto: false },
+            { id: 'photo', title: 'Q16. 相手が写っているお気に入り写真ベスト3', isRanking: false, isPhoto: true }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -153,6 +171,17 @@
             }
         }
 
+        // ステータスバッジの描画
+        function getStatusBadgeHtml(data) {
+            if (!data) {
+                return `<div class="status-badge none">未回答</div>`;
+            }
+            if (data.status === 'submitted') {
+                return `<div class="status-badge submitted">送信完了</div>`;
+            }
+            return `<div class="status-badge draft">一時保存中 (下書き)</div>`;
+        }
+
         function renderResults() {
             if (!serverData) return;
 
@@ -170,6 +199,7 @@
                 toggleViewButtons();
             }
 
+            // Q16用の写真表示も含め、すべて描画
             QUIZ_QUESTIONS.forEach(question => {
                 const section = document.createElement('section');
                 section.className = 'question-card';
@@ -190,16 +220,26 @@
                 // 1. 新郎 (魁さん) の回答
                 const colGroom = document.createElement('div');
                 colGroom.className = 'role-column';
-                colGroom.innerHTML = `<div class="role-header groom">🤵 新郎・魁さん</div>`;
+                
+                // ヘッダー情報 (ステータスバッジ含む)
+                let groomHeaderHtml = `<div class="role-header groom">🤵 新郎・魁さん`;
+                groomHeaderHtml += getStatusBadgeHtml(serverData.groom);
+                groomHeaderHtml += `</div>`;
+                colGroom.innerHTML = groomHeaderHtml;
+
                 const ansGroomCard = document.createElement('div');
                 ansGroomCard.className = 'answer-card';
                 ansGroomCard.style.borderLeft = '3px solid #1a73e8';
                 
                 if (hasGroom) {
-                    renderAnswerContent(ansGroomCard, serverData.groom.answers[question.id], question.isRanking);
-                    colGroom.innerHTML += `<div class="meta-status">回答日時: ${serverData.groom.updated_at}</div>`;
+                    if (question.isPhoto) {
+                        renderPhotoContent(ansGroomCard, serverData.groom.photos);
+                    } else {
+                        renderAnswerContent(ansGroomCard, serverData.groom.answers[question.id], question.isRanking);
+                    }
+                    colGroom.innerHTML += `<div class="meta-status">最終更新: ${serverData.groom.updated_at}</div>`;
                 } else {
-                    ansGroomCard.innerHTML = `<p style="color: var(--text-secondary); font-style: italic; text-align: center; font-size: 0.85rem;">未回答</p>`;
+                    ansGroomCard.innerHTML = `<p style="color: var(--text-secondary); font-style: italic; text-align: center; font-size: 0.85rem;">データなし</p>`;
                 }
                 colGroom.insertBefore(ansGroomCard, colGroom.firstChild.nextSibling);
                 grid.appendChild(colGroom);
@@ -207,16 +247,25 @@
                 // 2. 新婦 (偲桜さん) の回答
                 const colBride = document.createElement('div');
                 colBride.className = 'role-column';
-                colBride.innerHTML = `<div class="role-header bride">👰 新婦・偲桜さん</div>`;
+
+                let brideHeaderHtml = `<div class="role-header bride">👰 新婦・偲桜さん`;
+                brideHeaderHtml += getStatusBadgeHtml(serverData.bride);
+                brideHeaderHtml += `</div>`;
+                colBride.innerHTML = brideHeaderHtml;
+
                 const ansBrideCard = document.createElement('div');
                 ansBrideCard.className = 'answer-card';
                 ansBrideCard.style.borderLeft = '3px solid #e91e63';
                 
                 if (hasBride) {
-                    renderAnswerContent(ansBrideCard, serverData.bride.answers[question.id], question.isRanking);
-                    colBride.innerHTML += `<div class="meta-status">回答日時: ${serverData.bride.updated_at}</div>`;
+                    if (question.isPhoto) {
+                        renderPhotoContent(ansBrideCard, serverData.bride.photos);
+                    } else {
+                        renderAnswerContent(ansBrideCard, serverData.bride.answers[question.id], question.isRanking);
+                    }
+                    colBride.innerHTML += `<div class="meta-status">最終更新: ${serverData.bride.updated_at}</div>`;
                 } else {
-                    ansBrideCard.innerHTML = `<p style="color: var(--text-secondary); font-style: italic; text-align: center; font-size: 0.85rem;">未回答</p>`;
+                    ansBrideCard.innerHTML = `<p style="color: var(--text-secondary); font-style: italic; text-align: center; font-size: 0.85rem;">データなし</p>`;
                 }
                 colBride.insertBefore(ansBrideCard, colBride.firstChild.nextSibling);
                 grid.appendChild(colBride);
@@ -225,7 +274,17 @@
                 if (showTestMode) {
                     const colTest = document.createElement('div');
                     colTest.className = 'role-column';
-                    colTest.innerHTML = `<div class="role-header nayuta">👤 テスト回答 (那由他さん)</div>`;
+                    
+                    let testHeaderHtml = `<div class="role-header nayuta">👤 テスト回答 (那由他さん)`;
+                    // バッジの表示 (GroomとBrideがあるため、両方のステータスを並べるか、親切にラベルを分ける)
+                    let statusLabel = '';
+                    if (hasTestGroom) statusLabel += `新郎:${serverData.nayuta_groom.status === 'submitted' ? '送信済' : '下書き'} `;
+                    if (hasTestBride) statusLabel += `新婦:${serverData.nayuta_bride.status === 'submitted' ? '送信済' : '下書き'}`;
+                    if (!hasTestGroom && !hasTestBride) statusLabel = '未回答';
+                    
+                    testHeaderHtml += `<div class="status-badge ${hasTestGroom || hasTestBride ? 'draft' : 'none'}" style="font-size:0.7rem; font-weight:normal;">${statusLabel}</div>`;
+                    testHeaderHtml += `</div>`;
+                    colTest.innerHTML = testHeaderHtml;
                     
                     const ansTestCard = document.createElement('div');
                     ansTestCard.className = 'answer-card';
@@ -235,14 +294,22 @@
                     if (hasTestGroom) {
                         testHtml += `<h5 style="color: #1557b0; font-size: 0.8rem; margin-bottom: 0.3rem;">新郎役としてテスト入力:</h5>`;
                         const tempDiv = document.createElement('div');
-                        renderAnswerContent(tempDiv, serverData.nayuta_groom.answers[question.id], question.isRanking);
+                        if (question.isPhoto) {
+                            renderPhotoContent(tempDiv, serverData.nayuta_groom.photos);
+                        } else {
+                            renderAnswerContent(tempDiv, serverData.nayuta_groom.answers[question.id], question.isRanking);
+                        }
                         testHtml += tempDiv.innerHTML;
                     }
                     if (hasTestBride) {
                         if (hasTestGroom) testHtml += `<hr style="margin: 0.8rem 0; border: none; border-top: 1px dashed var(--border-color);">`;
                         testHtml += `<h5 style="color: #c2185b; font-size: 0.8rem; margin-bottom: 0.3rem;">新婦役としてテスト入力:</h5>`;
                         const tempDiv = document.createElement('div');
-                        renderAnswerContent(tempDiv, serverData.nayuta_bride.answers[question.id], question.isRanking);
+                        if (question.isPhoto) {
+                            renderPhotoContent(tempDiv, serverData.nayuta_bride.photos);
+                        } else {
+                            renderAnswerContent(tempDiv, serverData.nayuta_bride.answers[question.id], question.isRanking);
+                        }
                         testHtml += tempDiv.innerHTML;
                     }
                     
@@ -260,10 +327,10 @@
             });
         }
 
-        // 回答コンテンツの描画ユーティリティ
+        // 回答テキストコンテンツの描画
         function renderAnswerContent(element, data, isRanking) {
             if (!data) {
-                element.innerHTML = `<p style="color: var(--text-secondary); font-style: italic; text-align: center; font-size: 0.85rem;">未回答</p>`;
+                element.innerHTML = `<p style="color: var(--text-secondary); font-style: italic; text-align: center; font-size: 0.85rem;">未入力</p>`;
                 return;
             }
 
@@ -280,6 +347,39 @@
             }
         }
 
+        // アップロード写真の描画
+        function renderPhotoContent(element, photos) {
+            if (!photos || (!photos.photo1 && !photos.photo2 && !photos.photo3)) {
+                element.innerHTML = `<p style="color: var(--text-secondary); font-style: italic; text-align: center; font-size: 0.85rem;">写真未登録</p>`;
+                return;
+            }
+
+            let html = `<div class="photo-result-container">`;
+            const cacheBuster = Date.now(); // 画像のキャッシュクリア対策
+
+            for (let i = 1; i <= 3; i++) {
+                const key = 'photo' + i;
+                if (photos[key]) {
+                    // `../` を付与してパスを解決
+                    const imgUrl = `../${photos[key]}?t=${cacheBuster}`;
+                    html += `
+                        <div class="photo-result-item">
+                            <div class="photo-result-title">${i}位の写真</div>
+                            <img src="${imgUrl}" alt="${i}位の写真" onerror="this.style.display='none'; this.after('読み込み失敗');">
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="photo-result-item" style="border-style: dashed;">
+                            <div class="photo-result-title">${i}位の写真: <span style="font-weight:normal; font-style:italic;">未登録</span></div>
+                        </div>
+                    `;
+                }
+            }
+            html += `</div>`;
+            element.innerHTML = html;
+        }
+
         function escapeHtml(str) {
             if (typeof str !== 'string') return '';
             return str
@@ -291,7 +391,7 @@
         }
 
         async function clearData(target) {
-            if (confirm(`${target} のアンケートデータをサーバーから完全に削除しますか？`)) {
+            if (confirm(`${target} のアンケートデータおよびアップロード画像をサーバーから完全に削除しますか？`)) {
                 try {
                     const response = await fetch(`api.php?action=clear&target=${target}`, {
                         method: 'POST'

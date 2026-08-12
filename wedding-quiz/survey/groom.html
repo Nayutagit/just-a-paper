@@ -13,10 +13,9 @@
             <div class="logo-text">SURVEY FOR GROOM</div>
             <div class="sub-title">魁さん（新郎）用 事前アンケートフォーム</div>
             <p class="form-intro">魁さん、ご結婚おめでとうございます！
-二次会クイズの「意思疎通チェック」や「エピソードクイズ」で使用するアンケートです。
-回答された内容はサーバーに自動保存され、当日のクイズ作成にのみ使用されます。
+二次会で使用する事前アンケートです。回答された内容は当日のクイズ作成にのみ使用されます。
 
-※回答内容はブラウザに自動保存されますので、途中で閉じても続きから再開できます。</p>
+※回答内容はブラウザに自動保存され、管理者（那由他さん）の確認画面へも自動で共有されます。</p>
             <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.3rem;">
                 <span id="save-status-icon">✓</span>
                 <span id="save-status-text">下書きは自動保存されています</span>
@@ -24,87 +23,148 @@
         </header>
 
         <!-- 入力フォーム -->
-        <form id="survey-form">
+        <form id="survey-form" enctype="multipart/form-data">
             <!-- Q1. 呼び名 -->
             <div class="question-card">
                 <label for="q1" class="question-label">Q1. 普段、お互いのことを何と呼んでいますか？また、その由来があれば教えてください。</label>
-                <input type="text" id="q1" class="input-text" placeholder="回答を入力してください" required>
+                <input type="text" id="q1" class="input-text" required>
             </div>
 
             <!-- Q2. 第一印象 -->
             <div class="question-card">
-                <label for="q2" class="question-label">Q2. 偲桜さんに初めて会った時の「第一印象」を教えてください。</label>
-                <input type="text" id="q2" class="input-text" placeholder="回答を入力してください" required>
+                <label for="q2" class="question-label">Q2. しほさんに初めて会った時の「第一印象」を教えてください。</label>
+                <input type="text" id="q2" class="input-text" required>
             </div>
 
             <!-- Q3. デート場所 -->
             <div class="question-card">
-                <label for="q3" class="question-label">Q3. 【意思疎通チェック】お二人が初めてデートした「思い出の場所」はどこですか？</label>
-                <div class="question-description">※お互いの答えが一致するかチェックするクイズのネタになります。</div>
-                <input type="text" id="q3" class="input-text" placeholder="例: 江の島の水族館と海沿いのカフェ" required>
+                <label for="q3" class="question-label">Q3. お二人が初めてデートした「思い出の場所」はどこですか？</label>
+                <input type="text" id="q3" class="input-text" required>
             </div>
 
             <!-- Q4. 手料理 -->
             <div class="question-card">
-                <label for="q4" class="question-label">Q4. 【意思疎通チェック】偲桜さんが作ってくれた手料理で「一番美味しかったもの（得意料理）」は何ですか？</label>
-                <div class="question-description">※お互いの答えが一致するかチェックするクイズのネタになります。</div>
-                <input type="text" id="q4" class="input-text" placeholder="例: 肉じゃが" required>
+                <label for="q4" class="question-label">Q4. しほさんが作ってくれた手料理で「一番美味しかったもの（得意料理）」は何ですか？</label>
+                <input type="text" id="q4" class="input-text" required>
             </div>
 
             <!-- Q5. プレゼント -->
             <div class="question-card">
-                <label class="question-label">Q5. 【意思疎通チェック】今まで偲桜さんから貰ったプレゼントで、嬉しかったものランキングを教えてください。</label>
-                <div class="question-description">※相手が喜んだものを覚えているかのチェッククイズになります。</div>
+                <label class="question-label">Q5. 今までしほさんから貰ったプレゼントで、嬉しかったものランキングを教えてください。</label>
                 <div class="ranking-inputs">
                     <div class="ranking-row">
                         <span class="ranking-badge">1位</span>
-                        <input type="text" id="q5_1" class="input-text" placeholder="1位のプレゼント" required>
+                        <input type="text" id="q5_1" class="input-text" required>
                     </div>
                     <div class="ranking-row">
                         <span class="ranking-badge">2位</span>
-                        <input type="text" id="q5_2" class="input-text" placeholder="2位のプレゼント" required>
+                        <input type="text" id="q5_2" class="input-text" required>
                     </div>
                     <div class="ranking-row">
                         <span class="ranking-badge">3位</span>
-                        <input type="text" id="q5_3" class="input-text" placeholder="3位のプレゼント" required>
+                        <input type="text" id="q5_3" class="input-text" required>
                     </div>
                 </div>
             </div>
 
             <!-- Q6. 共通点 -->
             <div class="question-card">
-                <label for="q6" class="question-label">Q6. 【意思疎通チェック】魁さんから見て「二人の一番似ているところ（共通点）」はどこだと思いますか？</label>
-                <div class="question-description">※お互いの答えが一致するかチェックするクイズのネタになります。</div>
-                <input type="text" id="q6" class="input-text" placeholder="例: 食べ物の好みが似ている、のんびりした性格など" required>
+                <label for="q6" class="question-label">Q6. 魁さんから見て「二人の一番似ているところ（共通点）」はどこだと思いますか？</label>
+                <input type="text" id="q6" class="input-text" required>
             </div>
 
             <!-- Q7. 尊敬できるところ -->
             <div class="question-card">
-                <label for="q7" class="question-label">Q7. 偲桜さんの「こういうところが本当に素敵で、尊敬できる！」と思う部分を教えてください。</label>
-                <input type="text" id="q7" class="input-text" placeholder="回答を入力してください" required>
+                <label for="q7" class="question-label">Q7. しほさんの「こういうところが本当に素敵で、尊敬できる！」と思う部分を教えてください。</label>
+                <input type="text" id="q7" class="input-text" required>
             </div>
 
             <!-- Q8. 微笑ましい癖 -->
             <div class="question-card">
-                <label for="q8" class="question-label">Q8. 偲桜さんの「直さなくてもいいけれど、実はちょっと面白いな・可愛らしいな」と思っている癖や習慣はありますか？</label>
-                <div class="question-description">※ゲストが聞いていて微笑ましくなるような可愛らしいエピソードを教えてください。</div>
-                <input type="text" id="q8" class="input-text" placeholder="例: 美味しいものを食べた時に無意識に小さく踊ってしまうところ" required>
+                <label for="q8" class="question-label">Q8. しほさんの「直さなくてもいいけれど、実はちょっと面白いな・可愛らしいな」と思っている癖や習慣はありますか？</label>
+                <input type="text" id="q8" class="input-text" required>
             </div>
 
             <!-- Q9. プロポーズの思い出 -->
             <div class="question-card">
-                <label for="q9" class="question-label">Q9. プロポーズのシチュエーションや、その時の魁さん視点での率直な感想・裏話などを教えてください。</label>
-                <textarea id="q9" class="input-text" placeholder="回答を入力してください" required></textarea>
+                <label for="q9" class="question-label">Q9. プロポーズのシチュエーションや、その時の魁さん視点での率早な感想・裏話などを教えてください。</label>
+                <textarea id="q9" class="input-text" required></textarea>
             </div>
 
             <!-- Q10. 相手へのメッセージ -->
             <div class="question-card">
-                <label for="q10" class="question-label">Q10. 普段は照れくさくてなかなか言葉にできない、偲桜さんへの「ちょっとした感謝の気持ち」やメッセージを教えてください。</label>
-                <textarea id="q10" class="input-text" placeholder="回答を入力してください" required></textarea>
+                <label for="q10" class="question-label">Q10. 普段は照れくさくてなかなか言葉にできない、しほさんへのメッセージを教えてください。</label>
+                <textarea id="q10" class="input-text" required></textarea>
             </div>
 
-            <!-- 送信ボタン -->
-            <div style="margin: 2rem 0; text-align: right;">
+            <!-- Q11. 好きなところベスト3 -->
+            <div class="question-card">
+                <label class="question-label">Q11. しほさんの「好きなところ」ベスト3を教えてください。</label>
+                <div class="ranking-inputs">
+                    <div class="ranking-row">
+                        <span class="ranking-badge">1位</span>
+                        <input type="text" id="q11_1" class="input-text" required>
+                    </div>
+                    <div class="ranking-row">
+                        <span class="ranking-badge">2位</span>
+                        <input type="text" id="q11_2" class="input-text" required>
+                    </div>
+                    <div class="ranking-row">
+                        <span class="ranking-badge">3位</span>
+                        <input type="text" id="q11_3" class="input-text" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q12. よく行くスポット -->
+            <div class="question-card">
+                <label for="q12" class="question-label">Q12. お二人が一番よく行くお気に入りのデートスポットや、よく一緒に行くお店はどこですか？</label>
+                <input type="text" id="q12" class="input-text" required>
+            </div>
+
+            <!-- Q13. 天才かと思った瞬間 -->
+            <div class="question-card">
+                <label for="q13" class="question-label">Q13. しほさんを「天才か！」「すごい！」と思った瞬間はどんな時ですか？</label>
+                <input type="text" id="q13" class="input-text" required>
+            </div>
+
+            <!-- Q14. マイブーム -->
+            <div class="question-card">
+                <label for="q14" class="question-label">Q14. お二人の「マイブーム」（二人でハマっていることや、よく一緒にしていること）は何ですか？</label>
+                <input type="text" id="q14" class="input-text" required>
+            </div>
+
+            <!-- Q15. 動物に例えると -->
+            <div class="question-card">
+                <label for="q15" class="question-label">Q15. しほさんを「動物」に例えると何ですか？またその理由も教えてください。</label>
+                <input type="text" id="q15" class="input-text" required>
+            </div>
+
+            <!-- Q16. お気に入り写真ベスト3 -->
+            <div class="question-card">
+                <label class="question-label">Q16. しほさんが写っている「お気に入り写真」を3枚アップロードしてください。</label>
+                <div class="ranking-inputs" style="gap: 1.5rem;">
+                    <div>
+                        <span style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 0.3rem;">1位の写真</span>
+                        <input type="file" id="photo1" name="photo1" accept="image/*" class="input-text" style="border: none; padding: 0.3rem 0;">
+                        <img id="preview-photo1" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                    </div>
+                    <div>
+                        <span style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 0.3rem;">2位の写真</span>
+                        <input type="file" id="photo2" name="photo2" accept="image/*" class="input-text" style="border: none; padding: 0.3rem 0;">
+                        <img id="preview-photo2" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                    </div>
+                    <div>
+                        <span style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 0.3rem;">3位の写真</span>
+                        <input type="file" id="photo3" name="photo3" accept="image/*" class="input-text" style="border: none; padding: 0.3rem 0;">
+                        <img id="preview-photo3" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ボタンエリア -->
+            <div style="margin: 2.5rem 0; display: flex; justify-content: flex-end; gap: 0.8rem;">
+                <button type="button" class="btn-submit" id="btn-save-draft" style="background-color: #5f6368;">一時保存する</button>
                 <button type="submit" class="btn-submit" id="btn-submit">送信する</button>
             </div>
         </form>
@@ -123,15 +183,16 @@
     <script>
         const DRAFT_KEY = 'wedding_survey_draft_groom';
         const form = document.getElementById('survey-form');
-        const formCard = document.getElementById('form-card');
         const successCard = document.getElementById('success-card');
         const submitBtn = document.getElementById('btn-submit');
+        const draftBtn = document.getElementById('btn-save-draft');
         const statusText = document.getElementById('save-status-text');
         const statusIcon = document.getElementById('save-status-icon');
 
-        // 各入力要素のリスト
+        // テキスト入力フィールド
         const fields = [
-            'q1', 'q2', 'q3', 'q4', 'q5_1', 'q5_2', 'q5_3', 'q6', 'q7', 'q8', 'q9', 'q10'
+            'q1', 'q2', 'q3', 'q4', 'q5_1', 'q5_2', 'q5_3', 'q6', 'q7', 'q8', 'q9', 'q10', 
+            'q11_1', 'q11_2', 'q11_3', 'q12', 'q13', 'q14', 'q15'
         ];
 
         // ページロード時の下書き復元
@@ -150,40 +211,33 @@
                     console.error("Draft restore error: ", e);
                 }
             }
-        });
-
-        // 入力時のオートセーブ (デバウンス)
-        let saveTimeout = null;
-        form.addEventListener('input', () => {
-            statusText.textContent = "一時保存中...";
-            statusIcon.textContent = "●";
-            statusIcon.style.color = "var(--accent-color)";
-
-            clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(() => {
-                const data = {};
-                fields.forEach(fieldId => {
-                    const el = document.getElementById(fieldId);
-                    if (el) {
-                        data[fieldId] = el.value;
-                    }
-                });
-                localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
-                
-                statusText.textContent = "下書きは自動保存されています";
-                statusIcon.textContent = "✓";
-                statusIcon.style.color = "green";
-            }, 800); // 入力停止から800ms後に保存
-        });
-
-        // 送信処理
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
             
-            submitBtn.disabled = true;
-            submitBtn.textContent = '送信中...';
+            // 写真選択時のプレビュー処理
+            for (let i = 1; i <= 3; i++) {
+                const photoInput = document.getElementById('photo' + i);
+                const previewImg = document.getElementById('preview-photo' + i);
+                if (photoInput && previewImg) {
+                    photoInput.addEventListener('change', (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                previewImg.src = e.target.result;
+                                previewImg.style.display = 'block';
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            previewImg.src = '';
+                            previewImg.style.display = 'none';
+                        }
+                    });
+                }
+            }
+        });
 
-            const answers = {
+        // 回答オブジェクトの取得
+        function getAnswersObject() {
+            return {
                 q1: document.getElementById('q1').value.trim(),
                 q2: document.getElementById('q2').value.trim(),
                 q3: document.getElementById('q3').value.trim(),
@@ -197,22 +251,133 @@
                 q7: document.getElementById('q7').value.trim(),
                 q8: document.getElementById('q8').value.trim(),
                 q9: document.getElementById('q9').value.trim(),
-                q10: document.getElementById('q10').value.trim()
+                q10: document.getElementById('q10').value.trim(),
+                q11: {
+                    1: document.getElementById('q11_1').value.trim(),
+                    2: document.getElementById('q11_2').value.trim(),
+                    3: document.getElementById('q11_3').value.trim()
+                },
+                q12: document.getElementById('q12').value.trim(),
+                q13: document.getElementById('q13').value.trim(),
+                q14: document.getElementById('q14').value.trim(),
+                q15: document.getElementById('q15').value.trim()
             };
+        }
+
+        // サーバーへの送信関数 (draft または submitted)
+        async function sendToServer(status = 'draft') {
+            const answers = getAnswersObject();
+            
+            // ローカルストレージに下書き保存
+            const localData = {};
+            fields.forEach(fieldId => {
+                const el = document.getElementById(fieldId);
+                if (el) localData[fieldId] = el.value;
+            });
+            localStorage.setItem(DRAFT_KEY, JSON.stringify(localData));
+
+            const formData = new FormData();
+            formData.append('status', status);
+            formData.append('answers', JSON.stringify(answers));
+
+            // 画像の添付
+            for (let i = 1; i <= 3; i++) {
+                const photoInput = document.getElementById('photo' + i);
+                if (photoInput && photoInput.files[0]) {
+                    formData.append('photo' + i, photoInput.files[0]);
+                }
+            }
+
+            const response = await fetch('api.php?action=save&role=groom', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('HTTPエラー');
+            }
+
+            return await response.json();
+        }
+
+        // 入力時のオートセーブ (ローカル & サーバーへのサイレント送信)
+        let saveTimeout = null;
+        form.addEventListener('input', () => {
+            statusText.textContent = "一時保存中...";
+            statusIcon.textContent = "●";
+            statusIcon.style.color = "var(--accent-color)";
+
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(async () => {
+                try {
+                    // 入力内容をローカルストレージへ即時反映
+                    const localData = {};
+                    fields.forEach(fieldId => {
+                        const el = document.getElementById(fieldId);
+                        if (el) localData[fieldId] = el.value;
+                    });
+                    localStorage.setItem(DRAFT_KEY, JSON.stringify(localData));
+
+                    // サーバーへサイレント下書き保存 (画像はファイル選択時以外は送らないようにデータのみ送信)
+                    const answers = getAnswersObject();
+                    const formData = new FormData();
+                    formData.append('status', 'draft');
+                    formData.append('answers', JSON.stringify(answers));
+                    
+                    await fetch('api.php?action=save&role=groom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    statusText.textContent = "下書きは自動保存されています";
+                    statusIcon.textContent = "✓";
+                    statusIcon.style.color = "green";
+                } catch (e) {
+                    console.error("Auto save failed:", e);
+                    statusText.textContent = "下書き自動保存失敗（オフライン）";
+                    statusIcon.textContent = "⚠️";
+                    statusIcon.style.color = "orange";
+                }
+            }, 2000); // 2秒のデバウンス
+        });
+
+        // 「一時保存する」ボタンクリック時の処理 (手動一時保存)
+        draftBtn.addEventListener('click', async () => {
+            draftBtn.disabled = true;
+            const originalText = draftBtn.textContent;
+            draftBtn.textContent = '一時保存中...';
+            
+            try {
+                const res = await sendToServer('draft');
+                if (res.status === 'success') {
+                    alert('下書きを一時保存しました。管理者の確認画面に同期されました。');
+                    statusText.textContent = "下書きは自動保存されています";
+                    statusIcon.textContent = "✓";
+                    statusIcon.style.color = "green";
+                } else {
+                    alert('一時保存エラー: ' + res.message);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('通信に失敗しました。');
+            } finally {
+                draftBtn.disabled = false;
+                draftBtn.textContent = originalText;
+            }
+        });
+
+        // 送信ボタンクリック時の処理
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
+            draftBtn.disabled = true;
 
             try {
-                const response = await fetch('api.php?action=save&role=groom', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ answers })
-                });
-
-                const result = await response.json();
+                const result = await sendToServer('submitted');
 
                 if (result.status === 'success') {
-                    // 送信成功時は下書きを消去
                     localStorage.removeItem(DRAFT_KEY);
                     form.style.display = 'none';
                     successCard.style.display = 'block';
@@ -221,12 +386,14 @@
                     alert('送信エラー: ' + result.message);
                     submitBtn.disabled = false;
                     submitBtn.textContent = '送信する';
+                    draftBtn.disabled = false;
                 }
             } catch (err) {
                 console.error(err);
                 alert('通信に失敗しました。もう一度お試しください。');
                 submitBtn.disabled = false;
                 submitBtn.textContent = '送信する';
+                draftBtn.disabled = false;
             }
         });
     </script>
