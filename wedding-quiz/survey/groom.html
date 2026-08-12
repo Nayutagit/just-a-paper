@@ -152,17 +152,26 @@
                     <div>
                         <span style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 0.3rem;">1位の写真</span>
                         <input type="file" id="photo1" name="photo1" accept="image/*" class="input-text" style="border: none; padding: 0.3rem 0;">
-                        <img id="preview-photo1" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap;">
+                            <img id="preview-photo1" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                            <button type="button" class="btn-small-danger" id="btn-delete-photo1" style="display: none; margin-top: 0.5rem;">この写真を削除</button>
+                        </div>
                     </div>
                     <div>
                         <span style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 0.3rem;">2位の写真</span>
                         <input type="file" id="photo2" name="photo2" accept="image/*" class="input-text" style="border: none; padding: 0.3rem 0;">
-                        <img id="preview-photo2" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap;">
+                            <img id="preview-photo2" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                            <button type="button" class="btn-small-danger" id="btn-delete-photo2" style="display: none; margin-top: 0.5rem;">この写真を削除</button>
+                        </div>
                     </div>
                     <div>
                         <span style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 0.3rem;">3位の写真</span>
                         <input type="file" id="photo3" name="photo3" accept="image/*" class="input-text" style="border: none; padding: 0.3rem 0;">
-                        <img id="preview-photo3" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap;">
+                            <img id="preview-photo3" style="max-width: 150px; border-radius: 4px; display: none; margin-top: 0.5rem; border: 1px solid var(--border-color);">
+                            <button type="button" class="btn-small-danger" id="btn-delete-photo3" style="display: none; margin-top: 0.5rem;">この写真を削除</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -186,6 +195,7 @@
     </div>
 
     <script>
+        const ROLE = 'groom';
         const DRAFT_KEY = 'wedding_survey_draft_groom';
         const form = document.getElementById('survey-form');
         const successCard = document.getElementById('success-card');
@@ -201,7 +211,8 @@
         ];
 
         // ページロード時の下書き復元
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
+            // テキストのローカル復元
             const savedDraft = localStorage.getItem(DRAFT_KEY);
             if (savedDraft) {
                 try {
@@ -217,11 +228,40 @@
                 }
             }
             
-            // 写真選択時のプレビュー処理
+            // サーバー側データの読み込み（すでにアップロードされた画像がある場合、プレビューを表示）
+            try {
+                const response = await fetch('api.php?action=get&t=' + Date.now());
+                const result = await response.json();
+                if (result.status === 'success' && result.results[ROLE]) {
+                    const savedData = result.results[ROLE];
+                    
+                    // 写真がサーバー上に存在していればプレビューと削除ボタンを表示
+                    if (savedData.photos) {
+                        for (let i = 1; i <= 3; i++) {
+                            const key = 'photo' + i;
+                            if (savedData.photos[key]) {
+                                const previewImg = document.getElementById('preview-' + key);
+                                const deleteBtn = document.getElementById('btn-delete-' + key);
+                                if (previewImg && deleteBtn) {
+                                    previewImg.src = '../' + savedData.photos[key] + '?t=' + Date.now();
+                                    previewImg.style.display = 'block';
+                                    deleteBtn.style.display = 'inline-block';
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load existing server data:", err);
+            }
+            
+            // 写真選択時のプレビュー処理と削除ボタン表示
             for (let i = 1; i <= 3; i++) {
                 const photoInput = document.getElementById('photo' + i);
                 const previewImg = document.getElementById('preview-photo' + i);
-                if (photoInput && previewImg) {
+                const deleteBtn = document.getElementById('btn-delete-photo' + i);
+                
+                if (photoInput && previewImg && deleteBtn) {
                     photoInput.addEventListener('change', (e) => {
                         const file = e.target.files[0];
                         if (file) {
@@ -229,11 +269,40 @@
                             reader.onload = (e) => {
                                 previewImg.src = e.target.result;
                                 previewImg.style.display = 'block';
+                                deleteBtn.style.display = 'inline-block';
                             };
                             reader.readAsDataURL(file);
                         } else {
                             previewImg.src = '';
                             previewImg.style.display = 'none';
+                            deleteBtn.style.display = 'none';
+                        }
+                    });
+
+                    // 削除ボタンのクリック処理
+                    deleteBtn.addEventListener('click', async () => {
+                        if (confirm('この写真を削除しますか？')) {
+                            // 1. ファイル選択をクリア
+                            photoInput.value = '';
+                            previewImg.src = '';
+                            previewImg.style.display = 'none';
+                            deleteBtn.style.display = 'none';
+
+                            // 2. すでにサーバー上に保存されていたらAPIを呼んで物理削除
+                            try {
+                                const res = await fetch(`api.php?action=delete_photo&role=${ROLE}&photo_num=${i}`, {
+                                    method: 'POST'
+                                });
+                                const result = await res.json();
+                                if (result.status === 'success') {
+                                    statusText.textContent = "写真を削除しました";
+                                    setTimeout(() => {
+                                        statusText.textContent = "下書きは自動保存されています";
+                                    }, 2000);
+                                }
+                            } catch (e) {
+                                console.error("Failed to delete photo on server:", e);
+                            }
                         }
                     });
                 }
@@ -285,7 +354,7 @@
             formData.append('status', status);
             formData.append('answers', JSON.stringify(answers));
 
-            // 画像の添付
+            // 新しく選択された画像の添付
             for (let i = 1; i <= 3; i++) {
                 const photoInput = document.getElementById('photo' + i);
                 if (photoInput && photoInput.files[0]) {
@@ -293,7 +362,7 @@
                 }
             }
 
-            const response = await fetch('api.php?action=save&role=groom', {
+            const response = await fetch(`api.php?action=save&role=${ROLE}`, {
                 method: 'POST',
                 body: formData
             });
@@ -327,7 +396,7 @@
                     formData.append('status', 'draft');
                     formData.append('answers', JSON.stringify(answers));
                     
-                    await fetch('api.php?action=save&role=groom', {
+                    await fetch(`api.php?action=save&role=${ROLE}`, {
                         method: 'POST',
                         body: formData
                     });
@@ -357,6 +426,25 @@
                     statusText.textContent = "下書きは自動保存されています";
                     statusIcon.textContent = "✓";
                     statusIcon.style.color = "green";
+                    
+                    // サーバーから返ってきた最新の画像情報をプレビューに設定
+                    if (res.data && res.data.photos) {
+                        for (let i = 1; i <= 3; i++) {
+                            const key = 'photo' + i;
+                            if (res.data.photos[key]) {
+                                const previewImg = document.getElementById('preview-' + key);
+                                const deleteBtn = document.getElementById('btn-delete-' + key);
+                                if (previewImg && deleteBtn) {
+                                    previewImg.src = '../' + res.data.photos[key] + '?t=' + Date.now();
+                                    previewImg.style.display = 'block';
+                                    deleteBtn.style.display = 'inline-block';
+                                    
+                                    // file input をリセット（アップロード済みの状態）
+                                    document.getElementById('photo' + i).value = '';
+                                }
+                            }
+                        }
+                    }
                 } else {
                     alert('一時保存エラー: ' + res.message);
                 }

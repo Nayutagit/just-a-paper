@@ -30,8 +30,7 @@ switch ($action) {
             exit;
         }
 
-        // multipart/form-data または通常のPOST経由でデータを受け取る
-        $status = $_POST['status'] ?? 'draft'; // draft または submitted
+        $status = $_POST['status'] ?? 'draft';
         $answersJson = $_POST['answers'] ?? '';
         $answers = json_decode($answersJson, true);
 
@@ -40,7 +39,6 @@ switch ($action) {
             exit;
         }
 
-        // 画像アップロードの処理
         $photoPaths = [];
         for ($i = 1; $i <= 3; $i++) {
             $fileKey = 'photo' . $i;
@@ -49,12 +47,10 @@ switch ($action) {
                 $originalName = $_FILES[$fileKey]['name'];
                 $ext = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
                 
-                // 拡張子制限 (jpg, jpeg, png, gif, webp)
                 if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
                     $newFileName = 'survey_' . $role . '_photo_' . $i . '.' . $ext;
                     $destPath = $uploadsDir . '/' . $newFileName;
                     
-                    // 既存の同一番号の画像を削除 (拡張子が異なる場合を考慮して全検索＆削除)
                     $pattern = $uploadsDir . '/survey_' . $role . '_photo_' . $i . '.*';
                     foreach (glob($pattern) as $oldFile) {
                         unlink($oldFile);
@@ -67,7 +63,6 @@ switch ($action) {
             }
         }
 
-        // 既存データの読み込み (画像パスなどを維持するため)
         $saveFile = $dataDir . '/survey_' . $role . '.json';
         $existingData = [];
         if (file_exists($saveFile)) {
@@ -75,7 +70,6 @@ switch ($action) {
             $existingData = json_decode($content, true) ?: [];
         }
 
-        // 画像パスの統合 (新しいアップロードがあれば上書き、なければ既存を維持)
         $mergedPhotos = $existingData['photos'] ?? [];
         foreach ($photoPaths as $k => $v) {
             $mergedPhotos[$k] = $v;
@@ -95,6 +89,50 @@ switch ($action) {
             'status' => 'success', 
             'message' => 'データを保存しました。', 
             'data' => $saveData
+        ], JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'delete_photo':
+        if (!in_array($role, $allowedRoles)) {
+            echo json_encode(['status' => 'error', 'message' => '無効な役割（Role）です。']);
+            exit;
+        }
+
+        $photoNum = intval($_GET['photo_num'] ?? $_POST['photo_num'] ?? 0);
+        if ($photoNum < 1 || $photoNum > 3) {
+            echo json_encode(['status' => 'error', 'message' => '無効な写真番号です。']);
+            exit;
+        }
+
+        // サーバー上の画像ファイルを削除
+        $pattern = $uploadsDir . '/survey_' . $role . '_photo_' . $photoNum . '.*';
+        $deletedCount = 0;
+        foreach (glob($pattern) as $file) {
+            if (unlink($file)) {
+                $deletedCount++;
+            }
+        }
+
+        // JSONデータ内の写真パスを消去
+        $saveFile = $dataDir . '/survey_' . $role . '.json';
+        $updatedData = null;
+        if (file_exists($saveFile)) {
+            $content = file_get_contents($saveFile);
+            $data = json_decode($content, true) ?: [];
+            
+            if (isset($data['photos']['photo' . $photoNum])) {
+                unset($data['photos']['photo' . $photoNum]);
+                $data['updated_at'] = date('Y-m-d H:i:s');
+                file_put_contents($saveFile, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+                $updatedData = $data;
+            }
+        }
+
+        echo json_encode([
+            'status' => 'success', 
+            'message' => '写真を削除しました。',
+            'deleted_count' => $deletedCount,
+            'data' => $updatedData
         ], JSON_UNESCAPED_UNICODE);
         break;
 
@@ -118,12 +156,10 @@ switch ($action) {
     case 'clear':
         $target = $_GET['target'] ?? $_POST['target'] ?? '';
         if (in_array($target, $allowedRoles)) {
-            // JSONの削除
             $file = $dataDir . '/survey_' . $target . '.json';
             if (file_exists($file)) {
                 unlink($file);
             }
-            // 画像の削除
             $pattern = $uploadsDir . '/survey_' . $target . '_photo_*.*';
             foreach (glob($pattern) as $imgFile) {
                 unlink($imgFile);
