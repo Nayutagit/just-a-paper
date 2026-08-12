@@ -12,10 +12,15 @@
         <header class="form-header-card">
             <div class="logo-text">SURVEY FOR BRIDE</div>
             <div class="sub-title">偲桜さん（新婦）用 事前アンケートフォーム</div>
-            <p class="form-intro">偲桜さん、ご結婚おめでとうございます！
-二次会で使用する事前アンケートです。回答された内容は当日のクイズ作成にのみ使用されます。
+            <p class="form-intro">なゆたです！
+改めてご結婚おめでとうございます！
+お二人の幸せな日の盛り上げに携わることができて嬉しいです☺️
+みんなに楽しんでもらえるように頑張りましょう〜！
 
-※回答内容はブラウザに自動保存され、管理者（那由他さん）の確認画面へも自動で共有されます。</p>
+以下のアンケートをもとにクイズをいくつか作ります！
+恥ずかしがらずに書いてね！笑
+
+※回答内容はブラウザに自動保存されます。</p>
             <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.3rem;">
                 <span id="save-status-icon">✓</span>
                 <span id="save-status-text">下書きは自動保存されています</span>
@@ -174,7 +179,7 @@
             <div class="success-icon">✓</div>
             <h2 class="success-title">ご協力ありがとうございました！</h2>
             <p class="success-body">
-                偲桜さんのアンケート回答は無事に送信され、保存されました。<br>
+                偲桜さんのアンケート回答は無さに送信され、保存されました。<br>
                 二次会クイズ大会の当日を楽しみにしていてください。
             </p>
         </main>
@@ -310,7 +315,6 @@
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(async () => {
                 try {
-                    // 入力内容をローカルストレージへ即時反映
                     const localData = {};
                     fields.forEach(fieldId => {
                         const el = document.getElementById(fieldId);
@@ -318,7 +322,6 @@
                     });
                     localStorage.setItem(DRAFT_KEY, JSON.stringify(localData));
 
-                    // サーバーへサイレント下書き保存 (画像は含めない)
                     const answers = getAnswersObject();
                     const formData = new FormData();
                     formData.append('status', 'draft');

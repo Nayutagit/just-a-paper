@@ -12,10 +12,15 @@
         <header class="form-header-card">
             <div class="logo-text">SURVEY FOR GROOM</div>
             <div class="sub-title">魁さん（新郎）用 事前アンケートフォーム</div>
-            <p class="form-intro">魁さん、ご結婚おめでとうございます！
-二次会で使用する事前アンケートです。回答された内容は当日のクイズ作成にのみ使用されます。
+            <p class="form-intro">なゆたです！
+改めてご結婚おめでとうございます！
+お二人の幸せな日の盛り上げに携わることができて嬉しいです☺️
+みんなに楽しんでもらえるように頑張りましょう〜！
 
-※回答内容はブラウザに自動保存され、管理者（那由他さん）の確認画面へも自動で共有されます。</p>
+以下のアンケートをもとにクイズをいくつか作ります！
+恥ずかしがらずに書いてね！笑
+
+※回答内容はブラウザに自動保存されます。</p>
             <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.3rem;">
                 <span id="save-status-icon">✓</span>
                 <span id="save-status-text">下書きは自動保存されています</span>
@@ -87,7 +92,7 @@
 
             <!-- Q9. プロポーズの思い出 -->
             <div class="question-card">
-                <label for="q9" class="question-label">Q9. プロポーズのシチュエーションや、その時の魁さん視点での率早な感想・裏話などを教えてください。</label>
+                <label for="q9" class="question-label">Q9. プロポーズのシチュエーションや、その時の魁さん視点での率直な感想・裏話などを教えてください。</label>
                 <textarea id="q9" class="input-text" required></textarea>
             </div>
 
@@ -310,7 +315,6 @@
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(async () => {
                 try {
-                    // 入力内容をローカルストレージへ即時反映
                     const localData = {};
                     fields.forEach(fieldId => {
                         const el = document.getElementById(fieldId);
@@ -318,7 +322,6 @@
                     });
                     localStorage.setItem(DRAFT_KEY, JSON.stringify(localData));
 
-                    // サーバーへサイレント下書き保存 (画像はファイル選択時以外は送らないようにデータのみ送信)
                     const answers = getAnswersObject();
                     const formData = new FormData();
                     formData.append('status', 'draft');
@@ -338,7 +341,7 @@
                     statusIcon.textContent = "⚠️";
                     statusIcon.style.color = "orange";
                 }
-            }, 2000); // 2秒のデバウンス
+            }, 2000);
         });
 
         // 「一時保存する」ボタンクリック時の処理 (手動一時保存)

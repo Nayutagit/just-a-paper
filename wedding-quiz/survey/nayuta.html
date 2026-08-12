@@ -12,10 +12,15 @@
         <header class="form-header-card">
             <div class="logo-text">TEST SURVEY</div>
             <div class="sub-title">那由他さん専用 テスト用アンケート入力フォーム</div>
-            <p class="form-intro">那由他さん自身が新郎新婦の入力テストを行うための専用ページです。
-新郎（魁さん役）または新婦（偲桜さん役）のどちらとして回答するかを選択して、入力・送信テストを行えます。
+            <p class="form-intro">なゆたです！
+改めてご結婚おめでとうございます！
+お二人の幸せな日の盛り上げに携わることができて嬉しいです☺️
+みんなに楽しんでもらえるように頑張りましょう〜！
 
-※テストデータもブラウザに自動保存され、管理者確認画面（results.html）へ自動同期されます。</p>
+以下のアンケートをもとにクイズをいくつか作ります！
+恥ずかしがらずに書いてね！笑
+
+※回答内容はブラウザに自動保存されます。</p>
             <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.3rem;">
                 <span id="save-status-icon">✓</span>
                 <span id="save-status-text">下書きは自動保存されています</span>
@@ -102,7 +107,7 @@
 
             <!-- Q8. 微笑ましい癖 -->
             <div class="question-card">
-                <label for="q8" class="question-label">Q8. <span class="target-partner">偲桜</span>さんの「直さなくてもいいけれど、実はちょっと面白いな・可愛らしいな」と思っている癖や習慣はありますか?</label>
+                <label for="q8" class="question-label">Q8. <span class="target-partner">偲桜</span>さんの「直さなくてもいいけれど、実はちょっと面白いな・可愛らしいな」と思っている癖や習慣はありますか？</label>
                 <input type="text" id="q8" class="input-text" required>
             </div>
 
@@ -396,7 +401,6 @@
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(async () => {
                 try {
-                    // 入力内容をローカルストレージへ即時反映
                     const localData = {};
                     fields.forEach(fieldId => {
                         const el = document.getElementById(fieldId);
@@ -404,7 +408,6 @@
                     });
                     localStorage.setItem(getDraftKey(), JSON.stringify(localData));
 
-                    // サーバーへサイレント下書き保存 (画像は送らない)
                     const answers = getAnswersObject();
                     const formData = new FormData();
                     formData.append('status', 'draft');
