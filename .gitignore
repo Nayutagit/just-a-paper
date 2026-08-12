@@ -3,3 +3,6 @@ gyakubari_note/gyakubari_data/state.json
 gyakubari_note/gyakubari_data/archive/
 gyakubari_note/gyakubari_data/automation_log.txt
 .DS_Store
+wedding-quiz/data/survey_*.json
+wedding-quiz/uploads/
+
