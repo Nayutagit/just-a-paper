@@ -502,7 +502,7 @@
             try {
                 const res = await sendToServer('draft');
                 if (res.status === 'success') {
-                    alert('下書きを一時保存しました。管理者の確認画面に同期されました。');
+                    alert('下書きを一時保存しました。');
                     statusText.textContent = "下書きは自動保存されています";
                     statusIcon.textContent = "✓";
                     statusIcon.style.color = "green";

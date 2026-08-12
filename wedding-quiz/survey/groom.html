@@ -212,7 +212,6 @@
 
         // ページロード時の下書き復元
         window.addEventListener('DOMContentLoaded', async () => {
-            // テキストのローカル復元
             const savedDraft = localStorage.getItem(DRAFT_KEY);
             if (savedDraft) {
                 try {
@@ -235,7 +234,6 @@
                 if (result.status === 'success' && result.results[ROLE]) {
                     const savedData = result.results[ROLE];
                     
-                    // 写真がサーバー上に存在していればプレビューと削除ボタンを表示
                     if (savedData.photos) {
                         for (let i = 1; i <= 3; i++) {
                             const key = 'photo' + i;
@@ -282,13 +280,11 @@
                     // 削除ボタンのクリック処理
                     deleteBtn.addEventListener('click', async () => {
                         if (confirm('この写真を削除しますか？')) {
-                            // 1. ファイル選択をクリア
                             photoInput.value = '';
                             previewImg.src = '';
                             previewImg.style.display = 'none';
                             deleteBtn.style.display = 'none';
 
-                            // 2. すでにサーバー上に保存されていたらAPIを呼んで物理削除
                             try {
                                 const res = await fetch(`api.php?action=delete_photo&role=${ROLE}&photo_num=${i}`, {
                                     method: 'POST'
@@ -342,7 +338,6 @@
         async function sendToServer(status = 'draft') {
             const answers = getAnswersObject();
             
-            // ローカルストレージに下書き保存
             const localData = {};
             fields.forEach(fieldId => {
                 const el = document.getElementById(fieldId);
@@ -354,7 +349,6 @@
             formData.append('status', status);
             formData.append('answers', JSON.stringify(answers));
 
-            // 新しく選択された画像の添付
             for (let i = 1; i <= 3; i++) {
                 const photoInput = document.getElementById('photo' + i);
                 if (photoInput && photoInput.files[0]) {
@@ -422,12 +416,11 @@
             try {
                 const res = await sendToServer('draft');
                 if (res.status === 'success') {
-                    alert('下書きを一時保存しました。管理者の確認画面に同期されました。');
+                    alert('下書きを一時保存しました。');
                     statusText.textContent = "下書きは自動保存されています";
                     statusIcon.textContent = "✓";
                     statusIcon.style.color = "green";
                     
-                    // サーバーから返ってきた最新の画像情報をプレビューに設定
                     if (res.data && res.data.photos) {
                         for (let i = 1; i <= 3; i++) {
                             const key = 'photo' + i;
@@ -438,8 +431,6 @@
                                     previewImg.src = '../' + res.data.photos[key] + '?t=' + Date.now();
                                     previewImg.style.display = 'block';
                                     deleteBtn.style.display = 'inline-block';
-                                    
-                                    // file input をリセット（アップロード済みの状態）
                                     document.getElementById('photo' + i).value = '';
                                 }
                             }
